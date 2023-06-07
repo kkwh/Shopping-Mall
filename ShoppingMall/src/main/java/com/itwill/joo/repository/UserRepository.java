@@ -6,4 +6,6 @@ public interface UserRepository {
 	
 	User selectUser(String email);
 
+	int createUser(User user);
+
 }
