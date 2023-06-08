@@ -11,17 +11,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+/**
+ * Order 클래스 작성
+ * @author 김우현
+ *
+ */
 public class Order {
 	
 	private long id;
-	private long userId; // 주문한 사용자 아이디
+	private long u_id; // 주문한 사용자 아이디
 	
-	private int initialPrice; // 초기 상품 가격
-	private int discountPrice; // 할인된 가격
-	private int finalPrice; // 최종 지불 가격
-	private int point; // 주문으로 얻은 포인트
+	private int oinitial_price; // 초기 상품 가격
+	private int odiscount_price; // 할인된 가격
+	private int ofinal_price; // 최종 지불 가격
+	private int opoint; // 주문으로 얻은 포인트
 	
-	private String status; // 주문 상태
+	private String ostatus; // 주문 상태
 	
-	private LocalDateTime createdTime; // 주문일자
+	private LocalDateTime ocreated_time; // 주문일자
 }
