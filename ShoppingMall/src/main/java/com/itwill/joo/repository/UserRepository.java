@@ -4,7 +4,9 @@ import com.itwill.joo.domain.User;
 
 public interface UserRepository {
 	
-	User selectUser(String email);
+	User selectUserByEmail(String email);
+	
+	User selectUserByLoginId(String login_id);
 
 	int createUser(User user);
 
