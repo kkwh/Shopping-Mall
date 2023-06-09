@@ -13,5 +13,8 @@ public interface OrderRepository {
 	OrdererInfoDto selectOrdererInfo(long id);
 	
 	List<OrderHistoryDto> selectOrderHistory(long id);
-
+	
+	int deleteOrder(long id);
+	int deleteOrderProduct(long id);
+	int deleteDelivery(long id);
 }

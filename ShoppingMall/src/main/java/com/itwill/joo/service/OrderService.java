@@ -28,5 +28,14 @@ public class OrderService {
 	public List<OrderHistoryDto> selectOrderHistory(long id) {
         return orderRepository.selectOrderHistory(id); 
     }
+	
+	public int deleteByOrderId(long id) {
+	    int resultSum = 0;
+	    
+	    resultSum += orderRepository.deleteOrder(id);
+	    resultSum += orderRepository.deleteOrderProduct(id);
+	    resultSum += orderRepository.deleteDelivery(id);
+	    return resultSum;
+	}
 
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.itwill.joo.dto.OrderHistoryDto;
 import com.itwill.joo.dto.OrderedProductDto;
@@ -20,31 +21,21 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Controller
 @RequiredArgsConstructor
-@RequestMapping("/order")
-public class OrderController {
+@RestController
+@RequestMapping("/api/order")
+public class OrderRestController {
 	
 	private final OrderService orderService;
 	
-	@GetMapping("/orderPage")
-	public String orderPage(Model model) {
-		OrderedProductDto product = orderService.selectOrderedProduct(21);
-		OrdererInfoDto user = orderService.selectOrdererInfo(2);
-		model.addAttribute("product", product);
-		model.addAttribute("user", user);
-		
-		return "order/orderPage";
-	}
-	
-	@GetMapping("/orderHistory")
-	public String orderHistory(Model model) {
-	    List<OrderHistoryDto> dto = orderService.selectOrderHistory(1);
-	    model.addAttribute("orders", dto);
-	    
-	    return "order/orderHistory";
-	}
-	
+	@DeleteMapping("/{id}")
+    public ResponseEntity<Integer> deleteOrder(@PathVariable long id) {
+        log.info("deleteOrder(id={})", id);
+        
+        int result = orderService.deleteByOrderId(id);
+        
+        return ResponseEntity.ok(result);
+    }
 	
 	
 	
