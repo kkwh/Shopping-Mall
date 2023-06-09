@@ -16,8 +16,24 @@ public class UserService {
 	private final BCryptPasswordEncoder passwordEncoder;
 	private final UserRepository userRepository;
 	
-	public User select(String email) {
-		return userRepository.selectUser(email);
+	public User select(String loginId) {
+		return userRepository.selectUserByLoginId(loginId);
+	}
+	
+	public int checkEmail(String email) {
+		User user = userRepository.selectUserByEmail(email);
+		if(user == null) {
+			return 1;
+		}
+		return 0;
+	}
+	
+	public int validateLoginId(String loginId) {
+		User user = userRepository.selectUserByLoginId(loginId);
+		if(user == null) {
+			return 1;
+		}
+		return 0;
 	}
 	
 	public int create(UserCreateDto dto) {
