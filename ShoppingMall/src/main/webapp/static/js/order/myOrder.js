@@ -12,7 +12,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 주문 내역 조회 버튼 클릭 시
     btnOrder.addEventListener('click', () => {
+<<<<<<< Updated upstream
 
+=======
+        
+        console.log('주문 내역 조회 버튼 클릭')
+>>>>>>> Stashed changes
         resetFilters();
         showAllRows();
         document.getElementById("order-table").style.display = "table";
@@ -21,7 +26,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 취소 내역 조회 버튼 클릭 시
     btnCancel.addEventListener('click', () => {
+<<<<<<< Updated upstream
 
+=======
+        
+        console.log('취소 내역 조회 버튼 클릭')
+>>>>>>> Stashed changes
         resetFilters();
         showAllRows();
         document.getElementById("order-table").style.display = "none";
@@ -133,6 +143,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 필터 초기화 함수
     function resetFilters() {
+        
+        console.log('필터 초기화')
         const fromDateInput = document.querySelector('input[name="dt_fr_input"]');
         const toDateInput = document.querySelector('input[name="dt_to_input"]');
         fromDateInput.value = '';
@@ -141,6 +153,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 모든 행 보이기 함수
     function showAllRows() {
+        
+        console.log('모든 행 보이기')
         const orderTable = document.getElementById('order-table');
         const cancelTable = document.getElementById('cancel-table');
 
