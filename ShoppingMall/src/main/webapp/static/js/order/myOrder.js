@@ -12,12 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 주문 내역 조회 버튼 클릭 시
     btnOrder.addEventListener('click', () => {
-<<<<<<< Updated upstream
 
-=======
-        
         console.log('주문 내역 조회 버튼 클릭')
->>>>>>> Stashed changes
+
         resetFilters();
         showAllRows();
         document.getElementById("order-table").style.display = "table";
@@ -26,12 +23,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 취소 내역 조회 버튼 클릭 시
     btnCancel.addEventListener('click', () => {
-<<<<<<< Updated upstream
 
-=======
+
+
         
         console.log('취소 내역 조회 버튼 클릭')
->>>>>>> Stashed changes
+
         resetFilters();
         showAllRows();
         document.getElementById("order-table").style.display = "none";

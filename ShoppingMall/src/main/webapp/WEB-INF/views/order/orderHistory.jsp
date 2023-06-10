@@ -1,9 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
-<<<<<<< Updated upstream
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-=======
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
->>>>>>> Stashed changes
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
@@ -121,7 +117,7 @@
             </thead>
             
             <tbody>
-<<<<<<< Updated upstream
+
                 <c:forEach items="${ orders }" var="order">
                     <c:set var="cancelComple" value="취소완료" />
                     <c:set var="payComple" value="결제완료" />
@@ -157,37 +153,6 @@
                                                 <button type="button" class="btn btn-primary btn-sm float-right ml-2" onclick="openWindowWithPosition('https://tracker.delivery/#/kr.epost/6113101024721')">배송조회</button>
                                              </a>
                                              <button id="cancelOrderButton" type="button" class="btn btn-danger btn-sm float-right">주문취소</button>
-=======
-                 <c:forEach items="${ orders }" var="order" >
-                 <c:set var="cancelComple" value="취소완료" />
-                 <c:if test="${ order.dstatus ne cancelComple }">
-                <tr>
-                    <td>
-                        <div class="n-prd-row">
-                            <a href="/joo01/product/productDetail" class="img-block"> <img src="${ order.ptitle_image }" alt="전통주" width="100">
-                            </a>${ order.pname }
-                        </div>
-                    </td>
-                    <td>
-                        ${ order.pstock }개
-                    </td>
-                    <td>
-                        KRW ${ order.pprice }</a>
-                    </td>
-                    <td>
-                        <fmt:formatDate value="${ order.ocreated_time }" pattern="yyyy.MM.dd" var="created" />
-                        ${ created }
-                    </td>                   
-                    <td class="txt-lighter">
-                        <div class="btn-set btn-parents">
-                                ${ order.dstatus }
-                                <a href="https://tracker.delivery/#/kr.epost/6113101024721" target="_blank">
-                                    <button type="button" class="btn btn-primary btn-sm float-right ml-2" 
-                                            onclick="openWindowWithPosition('https://tracker.delivery/#/kr.epost/6113101024721')">배송조회
-                                    </button>
-                                </a>
-                                <button type="button" class="btn btn-danger btn-sm float-right">주문취소</button>
->>>>>>> Stashed changes
 
                                                 <!-- 주문 취소 모달 -->
                                                 <div id="cancelOrderModal" class="modal">
@@ -290,7 +255,6 @@
             </thead>
                 
             <tbody>
-<<<<<<< Updated upstream
                 <c:forEach items="${ orders }" var="order">
                     <c:if test="${order.dstatus eq cancelComple }">
                         <tr>
@@ -313,35 +277,7 @@
                             </td>
                         </tr>
                     </c:if>
-=======
-                 <c:forEach items="${ orders }" var="order" >
-                 <c:if test="${ order.dstatus eq cancelComple }">
-                <tr>
-                    <td>
-                        <div class="n-prd-row">
-                            <a href="/joo01/product/productDetail" class="img-block"> <img src="${ order.ptitle_image }" alt="전통주" width="100">
-                            </a>${ order.pname }
-                        </div>
-                    </td>
-                    <td>
-                        ${ order.pstock }개
-                    </td>
-                    <td>
-                        KRW ${ order.pprice }</a>
-                    </td>
-                    <td>
-                        <fmt:formatDate value="${ order.ocreated_time }" pattern="yyyy-MM-dd" var="created" />
-                        ${ created }
-                    </td>                   
-                    <td class="txt-lighter">
-                        <div class="btn-set btn-parents">
-                                ${ order.dstatus }
-                           
-                        </div>
-                    </td>
-                </tr>
-                </c:if>
->>>>>>> Stashed changes
+
                 </c:forEach>
             </tbody>
         </table>
