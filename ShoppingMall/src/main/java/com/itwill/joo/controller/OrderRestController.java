@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,6 +34,15 @@ public class OrderRestController {
         log.info("deleteOrder(id={})", id);
         
         int result = orderService.deleteByOrderId(id);
+        
+        return ResponseEntity.ok(result);
+    }
+	
+	@PutMapping("/{id}")
+    public ResponseEntity<Integer> updateOrderStatus(@PathVariable long id) {
+        log.info("updateOrderStatus(id={})", id);
+        
+        int result = orderService.updateToBuyComple(id);
         
         return ResponseEntity.ok(result);
     }

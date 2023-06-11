@@ -191,7 +191,7 @@
                                              </a>
                                               <button id="confirmOrderButton" type="button" class="btn btn-danger btn-sm float-right">구매확정</button>
                                               
-                                              <!-- 주문 취소 모달 -->
+                                              <!-- 구매 확정 모달 -->
                                               <div id="confirmOrderModal" class="modal">
                                                 <div class="modal-content">
                                                     <span class="closeOrder">&times;</span>

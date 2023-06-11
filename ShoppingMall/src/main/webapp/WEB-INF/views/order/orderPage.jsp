@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> <!-- 소수점 제거 함수를 사용하기 위해 선언한 네임스페이스 -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,23 +9,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 부트스트랩 -->
 <title>JOO</title>
-<style>
-table {
-    border-collapse: collapse;
-    border: none;
-}
-
-body {
-    background-color: black;
-    color: white;
-}
-</style>
-
 <link
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
     rel="stylesheet"
     integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
     crossorigin="anonymous">
+<link rel="stylesheet" href="../static/css/orderPage.css">
 </head>
 <body style="background-color: black; color: white;">
     <div>
@@ -146,7 +136,7 @@ body {
                                         <div class="discount">
                                             <strong
                                                 class="body2 color-white"
-                                                style="font-family: Pretendard, serif;">${ product.pprice }</strong>
+                                                style="font-family: Pretendard, serif;">KRW ${ product.pprice }</strong>
                                         </div>
                                     </div>
                                     <p class="quantity body2">수량 :
@@ -263,7 +253,8 @@ body {
                                 <div class="my-2">
                                     <input class="form-control"
                                         id="currentPoint"
-                                        value="${ user.ucurrent_point }" />
+                                        value="${ user.ucurrent_point }" 
+                                        oninput="displayInput(); updateTotalPayment(); validateInput(this);" />
                                 </div>
                             </c:when>
                             <c:otherwise>
@@ -298,7 +289,7 @@ body {
                         <div class="box">
                             <span>+</span><span
                                 style="font-family: Pretendard, serif;">KRW
-                                3,000</span>
+                                3000</span>
                         </div>
                     </div>
                     <div class="option "
@@ -311,7 +302,7 @@ body {
                                 <c:choose>
                                     <c:when
                                         test="${user.ucurrent_point >= 10000}">
-                                            ${ user.ucurrent_point }
+                                            <span id="output"></span>
                                     </c:when>
                                     <c:otherwise>
                                             0
@@ -323,13 +314,18 @@ body {
                             </span>
                         </div>
                     </div>
+                    
+                    <c:set var="productPrice" value="${product.pprice * product.pstock}" />
+                    <c:set var="shippingFee" value="3000" />
+                    <c:set var="totalDiscount" value="${user.ucurrent_point >= 10000 ? user.ucurrent_point : 0}" />
+                    
                     <div class="total-price"
                         style="margin-top: 15px !important; margin-bottom: 5px !important;">
                         <div class="price-name">최종 결제 금액</div>
                         <div class="box"
                             style="font-family: Pretendard, serif;">
-                            <strong>= </strong>KRW <strong
-                                id="total_order_sale_price_view">18,900</strong>
+                            <strong>= </strong>KRW 
+                            <strong id="total_order_sale_price_view">${productPrice + shippingFee - totalDiscount}</strong>
                             <span class="tail displaynone"><span
                                 id="total_order_sale_price_ref_view"
                                 class="tail"></span></span>
@@ -338,13 +334,27 @@ body {
 
                     <div>
                         <p>
-                            ( <strong> 총 적립예정금액</strong><span
-                                id="mAllMileageSum">149원 </span>)
+                            ( <strong> 총 적립예정금액 </strong><span
+                                id="mAllMileageSum">${fn:substringBefore(productPrice * 0.05, '.')}원</span>)
                         </p>
                     </div>
 
                 </div>
         </div>
+        
+        <!-- 사용자가 포인트 잘못 입력한 상태로 결제하기 버튼을 클릭했을때 보여질 모달 -->
+        <div id="myModal" class="modal">
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>포인트를 잘못 입력하셨습니다.</h2>
+          </div>
+        </div>
+        
+                <div class="container">
+                    <div class="payment-button">
+                        <button id="paymentButton" class="btn">결제하기</button>
+                    </div>
+                </div>
         </main>
 
         <footer class="my-1 p-3 text-bg-dark">
@@ -361,6 +371,8 @@ body {
         </script>
         <script src="../static/js/order/productOrder.js"></script>
         <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+        <script> const currentPoint = parseInt("${user.ucurrent_point}");</script>
+        <script> const productPrice = ${product.pprice * product.pstock};</script>
         <script src="../static/js/order/searchPostCode.js"></script>
 
     </div>

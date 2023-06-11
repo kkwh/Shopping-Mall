@@ -30,7 +30,7 @@ public class OrderController {
 	@GetMapping("/orderPage")
 	public String orderPage(Model model) {
 		OrderedProductDto product = orderService.selectOrderedProduct(21);
-		OrdererInfoDto user = orderService.selectOrdererInfo(2);
+		OrdererInfoDto user = orderService.selectOrdererInfo(4);
 		model.addAttribute("product", product);
 		model.addAttribute("user", user);
 		

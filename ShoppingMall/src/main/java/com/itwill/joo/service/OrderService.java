@@ -37,5 +37,9 @@ public class OrderService {
 	    resultSum += orderRepository.deleteDelivery(id);
 	    return resultSum;
 	}
+	
+	public int updateToBuyComple(long id) {
+	    return orderRepository.updateBuyComple(id);
+	}
 
 }

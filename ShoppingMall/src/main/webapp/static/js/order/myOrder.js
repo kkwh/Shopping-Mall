@@ -24,9 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // 취소 내역 조회 버튼 클릭 시
     btnCancel.addEventListener('click', () => {
 
-
-
-        
         console.log('취소 내역 조회 버튼 클릭')
 
         resetFilters();
@@ -204,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('주문 취소가 완료되었습니다.');
             })
             .catch((error) => {
-                console.log('에러');
+                console.log('주문취소 에러');
                 console.log(error);
             });
 
@@ -231,8 +228,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 구매 확정 버튼 클릭 시 실제 구매 확정 동작 수행
     confirmOrder.addEventListener('click', function() {
-   
-
+        // 구매확정 로직 작성
+        // AJAX 요청.
+        console.log('구매 확정');
+        /*        
+                if(!confirm('정말 삭제하시겠습니까?')) {
+                    return;
+                }*/
+        // 삭제할 아이디:
+        // const id = e.target.getAttribute('data-id');
+        const id = 3;
+        // 삭제 요청 URL
+        const reqUrl = `/joo/api/order/${id}`;
+        // 삭제 요청을 Ajax 방식으로 보냄.
+        axios.put(reqUrl)
+            .then((response) => {
+                console.log(response);
+                alert('구매확정이 완료되었습니다.');
+            })
+            .catch((error) => {
+                console.log('구매확정 에러');
+                console.log(error);
+            });
+    
     // 구매 확정 후 모달 닫기
     confirmOrderModal.style.display = 'none';
     });
