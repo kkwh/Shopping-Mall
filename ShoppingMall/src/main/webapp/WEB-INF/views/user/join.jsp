@@ -5,8 +5,6 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="_csrf_header" content="${_csrf.headerName}" />
-	<meta name="_csrf" content="${_csrf.token}" />
 	<title>회원가입 페이지</title>
 	<link
 		href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
@@ -24,7 +22,6 @@
 		<h1>회원가입</h1>
 		<hr/>
 		<form id="join-form">
-			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/>
 		  <div class="row mb-3">
 		    <label for="loginId" class="col-sm-2 col-form-label">아이디</label>
 		    <div class="col-sm-8">
@@ -107,7 +104,7 @@
 		</form>	
 	</div>
 	
-	<script src="../static/js/user-create.js"></script>
+	<script src="../static/js/userPage/user-create.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<script>
 		$(document).ready(function() {
@@ -144,9 +141,6 @@
 		});
 	</script>
 	<script>
-		const header = $("meta[name='_csrf_header']").attr('content');
-    	const token = $("meta[name='_csrf']").attr('content');
-    	
     	const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 	
 		$(function() {
@@ -181,8 +175,6 @@
 							url: '/joo/validate/sendCode',
 							data: {
 								'email': email
-							}, beforeSend: function (xhr) {
-			                    xhr.setRequestHeader(header, token);
 							}, success: function(res) {
 								code.val(res);
 								emailConfirm.attr("disabled", false);
