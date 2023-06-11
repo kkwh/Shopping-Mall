@@ -1,16 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Index Page</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-</head>
-<head>
+	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1"> <!-- 부트스트랩 -->
 		<title>JOO</title>
@@ -45,18 +37,9 @@
                                     aria-current="page" href="/joo/">Home</a>
                                 </li>
 
-                               <sec:authorize access="isAnonymous()">
+                                <!-- TODO : 로그인 회원가입 링크로 이동(로그인상태일때 비가시화) -->
                                 <li class="nav-item"><a
-                                    class="nav-link" href="/joo/user/login">로그인</a></li>
-                                    
-                                <li class="nav-item"><a
-                                    class="nav-link" href="/joo/user/join">회원가입</a></li>
-                                </sec:authorize>
-                                
-                                <sec:authorize access="isAuthenticated()">
-                                	<li class="nav-item"><a
-                                    	class="nav-link" href="/joo/user/logout">로그아웃</a></li>
-                                </sec:authorize>
+                                    class="nav-link" href="/joo/user/sign">로그인/회원가입</a></li>
 
                                 <li class="nav-item dropdown"><a
                                     class="nav-link dropdown-toggle"
@@ -99,7 +82,7 @@
                     </div>
                 </nav>  
             </div>
-			<h3 class="text-center">해더</h3>
+            <h3 class="text-center">해더</h3>
             </header>
             <!-- 카테고리 네비 -->
             <ul class="nav nav-tabs">
@@ -122,66 +105,35 @@
             </ul>
 
             <main  class="my-1 p-5 text-bg-dark">
-                <!-- 공지글 상세보기 -->
-                <h1 class="text-center">
-                    바디(메인베너)
-                </h1>
 
-                <!-- 반복문으로 이벤트 자동으로 만들기 -->
-                <div id="carouselExampleIndicators" class="carousel slide"
-                    data-b  s-ride="true">
-                    <div class="carousel-indicators">
-                        <button type="button"
-                            data-bs-target="#carouselExampleIndicators"
-                            data-bs-slide-to="0" class="active"
-                            aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button"
-                            data-bs-target="#carouselExampleIndicators"
-                            data-bs-slide-to="1" aria-label="Slide 2"></button>
-                        <button type="button"
-                            data-bs-target="#carouselExampleIndicators"
-                            data-bs-slide-to="2" aria-label="Slide 3"></button>
-                    </div>
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                        <a href="/joo/post/postDetail">
-                            <img src="./static/assets/bannerImages/001.jpg" class="d-block w-100" alt="bannerImege01">
-                        </a>
-                        </div>
-                        <div class="carousel-item">
-                        <a href="/joo/post/postDetail">
-                            <img src="./static/assets/bannerImages/002.jpg" class="d-block w-100" alt="bannerImege02">
-                        </a>
-                        </div>
-                        <div class="carousel-item">
-                        <a href="/joo/post/postDetail">
-                            <img src="./static/assets/bannerImages/003.jpg" class="d-block w-100" alt="bannerImege03">
-                        </a>
+            <!-- 검색 기능 -->
+
+
+            <hr/>
+                <div class="row row-cols-1 row-cols-md-5 g-4">
+                    <div class="col">
+                        <div class="card my-3 p-3" style="width: 18rem; cursor:pointer;" OnClick="location.href ='/joo/product/productDetail'">
+                            <img src="../static/assets/productImages/001.png" class="card-img-top" alt="oneProduct">
+                            <div class="card-body">
+                                <h5 class="card-title">1번 상품제목</h5>
+                                <p class="card-text"><del>10000원</del></p>
+                                <p class="card-text">8800원</p>
+                                <p class="card-text">재고수 : 1200개</p>
+                                <a href="/joo/product/productDetail" class="btn btn-outline-primary col-12 mx-auto">order now</a>
+                            </div>
                         </div>
                     </div>
-                <button class="carousel-control-prev" type="button"
-                    data-bs-target="#carouselExampleIndicators"
-                    data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon"
-                        aria-hidden="true"></span> <span
-                        class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button"
-                    data-bs-target="#carouselExampleIndicators"
-                    data-bs-slide="next">
-                    <span class="carousel-control-next-icon"
-                        aria-hidden="true"></span> <span
-                        class="visually-hidden">Next</span>
-                </button>
-            </div>
+                </div>
+                
+                <h1>메인</h1>
+            </main>
 
-        </main>
-        <footer class="my-1 p-3 text-bg-dark">
+            <footer class="my-1 p-3 text-bg-dark">
             <!-- 기업정보, 홈 인스타, 페이스북, 등등 필한거 -->
-            <h1 class="text-center">풋터</h1>
+                <h1 class="text-center">풋터</h1>
 
-            <a href="">home</a>
-        </footer>
+                <a href="">home</a>
+            </footer>
 
 			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
 			integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
