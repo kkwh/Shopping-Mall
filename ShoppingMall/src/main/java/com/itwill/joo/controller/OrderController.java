@@ -45,6 +45,10 @@ public class OrderController {
 	    return "order/orderHistory";
 	}
 	
+	@GetMapping("/deliveryCheck")
+	public String deliveryCheck() {
+	    return "order/deliveryCheck";
+	}
 	
 	
 	

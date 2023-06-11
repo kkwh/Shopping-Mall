@@ -205,8 +205,8 @@
                                              <div style="color: black; font-weight: bold;">
                                                 ${ order.dstatus }
                                              </div> 
-                                             <a href="https://tracker.delivery/#/kr.epost/6113101024721" target="_blank">
-                                                <button type="button" class="btn btn-primary btn-sm float-right ml-2" onclick="openWindowWithPosition('https://tracker.delivery/#/kr.epost/6113101024721')">배송조회</button>
+                                             <a href="/joo/order/deliveryCheck" target="_blank">
+                                                <button type="button" class="btn btn-primary btn-sm float-right ml-2" onclick="openWindowWithPosition('/joo/order/deliveryCheck')">배송조회</button>
                                              </a>
                                                 <button type="button" class="btn btn-danger btn-sm float-right">후기작성</button>
                                         </c:otherwise>
