@@ -10,5 +10,10 @@ public class HomeController {
 	public String main() {
 		return "index";
 	}
+	
+	@GetMapping("/accessError")
+	public String accessError() {
+		return "accessError";
+	}
 
 }
