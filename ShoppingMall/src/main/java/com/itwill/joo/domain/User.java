@@ -44,5 +44,10 @@ public class User {
 	
 	private LocalDateTime created_time; // 회원 가입일자
 	private LocalDateTime modified_Time; // 회원정보 수정일자
+	
+	// 비밀번호 재설정 시 사용할 메서드
+	public void setPassword(String upassword) {
+		this.upassword = upassword;
+	}
 
 }
