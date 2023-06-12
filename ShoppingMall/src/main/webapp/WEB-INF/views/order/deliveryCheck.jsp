@@ -5,56 +5,7 @@
 <html>
 <head>
     <title>배송 조회</title>
-    <style>
-    .container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f2f2f2;
-    text-align: center;
-    }
-    
-    h1 {
-        color: #333;
-    }
-    
-    form {
-        margin-top: 20px;
-    }
-    
-    label {
-        display: inline-block;
-        margin-bottom: 5px;
-    }
-    
-    input[type="text"] {
-        padding: 5px;
-        width: 200px;
-    }
-    
-    button[type="submit"] {
-        padding: 5px 10px;
-    }
-    
-    .tracking_result {
-        margin-top: 30px;
-        border: 1px solid #ccc;
-        padding: 10px;
-        text-align: left;
-    }
-    
-    h2 {
-        color: #333;
-        margin-top: 0;
-        margin-bottom: 10px;
-    }
-    
-    p {
-        margin-top: 0;
-        margin-bottom: 5px;
-    }
-    </style>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="../static/css/delivery.css">
 </head>
 <body>
     <div class="container">
@@ -64,13 +15,18 @@
             <input type="text" id="tracking_number" name="tracking_number">
             <button type="submit">조회</button>
         </form>-->
+        
+        <c:set var="addr1" value="${ info.dstreet }" />
+        <c:set var="addr2" value="${ info.ddetail_address }" />
+        
         <div class="tracking_result">
             <h2>조회 결과</h2>
-            <p>현재 상태: 배송준비중</p>
-            <p>송장 번호: 525695310978</p>
-            <p>예상 배송일: 2023년 6월 15일</p>
-            <p>받는 사람: 홍길동</p>
-            <p>배송 주소: 서울시 강남구</p>
+            <p>현재 상태: ${ info.dstatus }</p>
+            <p>송장 번호: ${ info.dcode }</p>
+            <p>주문 일자: <fmt:formatDate value="${ info.ocreated_time }" pattern="yyyy-MM-dd HH:mm"/></p>
+            <p>예상 배송일: <fmt:formatDate value="${ info.dcreated_time }" pattern="yyyy-MM-dd HH:mm"/></p>
+            <p>받는 사람: ${ info.rname }</p>
+            <p>배송 주소: ${ addr1 }&nbsp;${ addr2 }</p>
         </div>
     </div>
 </body>

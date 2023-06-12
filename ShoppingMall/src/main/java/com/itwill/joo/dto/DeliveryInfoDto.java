@@ -13,20 +13,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class OrderHistoryDto {
+public class DeliveryInfoDto {
 	
-	private long id; // Delivery_id
+	private long id;	
 	
-	private String ptitle_image; // 주문 상품 이미지
-	private String pname; // 상품 이름
-	private int pstock; // 수량(임시로 재고 사용)
-	private int pprice; // 상품 가격
-	private Timestamp ocreated_time; // 주문 일자
-	private Timestamp dmodified_time; // 취소 일자(배송 업데이트 시간)	
 	private String dstatus; // 배송 상태
-	
-	
-	
+	private String dcode; // 송장번호
+	private Timestamp ocreated_time; // 주문일자
+	private Timestamp dcreated_time; // 배송일자
+	private String rname; // 수취인 이름
+	private String dstreet; // 수취인 주소
+	private String ddetail_address; // 수취인 상세주소
+
 	
 	
 //	public Product toEntity() {

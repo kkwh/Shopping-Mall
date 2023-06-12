@@ -38,9 +38,20 @@ public class OrderRestController {
         return ResponseEntity.ok(result);
     }
 	
-	@PutMapping("/{id}")
-    public ResponseEntity<Integer> updateOrderStatus(@PathVariable long id) {
-        log.info("updateOrderStatus(id={})", id);
+	// -> 취소완료
+    @PutMapping("/cancel/{id}")
+    public ResponseEntity<Integer> updateToCancelComple(@PathVariable long id) {
+        log.info("updateToCancelComple(id={})", id);
+        
+        int result = orderService.updateToCancelComple(id);
+        
+        return ResponseEntity.ok(result);
+    }
+	
+	// -> 구매확정
+	@PutMapping("/buy/{id}")
+    public ResponseEntity<Integer> updateToBuyComple(@PathVariable long id) {
+        log.info("updateToBuyComple(id={})", id);
         
         int result = orderService.updateToBuyComple(id);
         

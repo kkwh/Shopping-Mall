@@ -191,11 +191,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 }*/
         // 삭제할 아이디:
         // const id = e.target.getAttribute('data-id');
-        const id = 3;
+        const id = 24;
         // 삭제 요청 URL
-        const reqUrl = `/joo/api/order/${id}`;
+        const reqUrl = `/joo/api/order/cancel/${id}`;
         // 삭제 요청을 Ajax 방식으로 보냄.
-        axios.delete(reqUrl)
+        axios.put(reqUrl)
             .then((response) => {
                 console.log(response);
                 alert('주문 취소가 완료되었습니다.');
@@ -239,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // const id = e.target.getAttribute('data-id');
         const id = 3;
         // 삭제 요청 URL
-        const reqUrl = `/joo/api/order/${id}`;
+        const reqUrl = `/joo/api/order/buy/${id}`;
         // 삭제 요청을 Ajax 방식으로 보냄.
         axios.put(reqUrl)
             .then((response) => {
@@ -258,9 +258,14 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 // 배송조회 새 창 설정하는 함수
-function openWindowWithPosition(url) {
-    var left = (window.innerWidth - 500) / 2; // 가운데로 위치 조정
-    var top = (window.innerHeight - 300) / 2; // 가운데로 위치 조정
-    var options = 'width=500,height=500,top=' + top + ',left=' + left;
-    window.open(url, '_blank', options);
+function openWindowWithPosition(event) {
+  event.preventDefault(); // 기본 동작인 링크 이동을 방지
+
+  var width = 550; // 창의 너비
+  var height = 400; // 창의 높이
+  var left = (window.innerWidth - width) / 2; // 화면 가로 중앙에 위치
+  var top = (window.innerHeight - height) / 2; // 화면 세로 중앙에 위치
+  var options = 'width=' + width + ',height=' + height + ',left=' + left + ',top=' + top;
+
+  window.open(event.currentTarget.href, '_blank', options);
 }

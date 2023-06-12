@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.itwill.joo.dto.DeliveryInfoDto;
 import com.itwill.joo.dto.OrderHistoryDto;
 import com.itwill.joo.dto.OrderedProductDto;
 import com.itwill.joo.dto.OrdererInfoDto;
@@ -38,8 +39,16 @@ public class OrderService {
 	    return resultSum;
 	}
 	
+	public int updateToCancelComple(long id) {
+	    return orderRepository.updateCancelComple(id);
+	}
+	
 	public int updateToBuyComple(long id) {
 	    return orderRepository.updateBuyComple(id);
+	}
+	
+	public DeliveryInfoDto selectDeliveryInfo(long id) {
+	    return orderRepository.selectDeliveryInfo(id);
 	}
 
 }
