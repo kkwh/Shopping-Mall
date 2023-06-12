@@ -16,6 +16,11 @@
 		<a href="/joo/user/login">로그인</a>
 		<a href="/joo/user/join">회원가입</a>
 	</sec:authorize>
+	
+	<br />
+	
+	<a href="/joo/review/create">후기 작성</a>
+	<a href="/joo/review/reply">후기 조회</a>
 	<sec:authorize access="isAuthenticated()">
 		<p>username: <sec:authentication property="principal.username"/></p>
 		<form action="/joo/user/logout" method="post">
@@ -25,4 +30,4 @@
 	</sec:authorize>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
-</html>
+</html>	

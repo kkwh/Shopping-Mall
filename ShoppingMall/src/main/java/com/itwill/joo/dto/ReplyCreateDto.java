@@ -1,6 +1,10 @@
-package com.itwill.joo.domain;
+package com.itwill.joo.dto;
 
+import java.security.Timestamp;
 import java.time.LocalDateTime;
+
+import com.itwill.joo.domain.Reply;
+import com.itwill.joo.domain.Review;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,15 +12,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-/**
- * 
- * @author User
- *
- */
-public class Review {
+public class ReplyCreateDto {
 	
 	private long id;
 	
@@ -27,9 +26,39 @@ public class Review {
 	private String rcontent; // 후기 내용
 	private String review_image; // 후기에 올린 이미지 주소
 	
-	private int rratings; // 별점
-	
 	private LocalDateTime rcreated_time; // 후기 작성일자
 	private LocalDateTime rmodified_time; // 후기 수정일자
 
+	public Reply toEntity() {
+		return Reply.builder()
+				.id(id)
+				.p_id(pid)
+				.o_id(oid)
+				.u_id(uid)
+				.rcontent(rcontent)
+				.review_image(review_image)
+				.rcreated_time(rcreated_time)
+				.rmodified_time(rmodified_time)
+				.build();
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
