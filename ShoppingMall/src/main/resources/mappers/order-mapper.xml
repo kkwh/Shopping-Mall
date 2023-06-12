@@ -6,7 +6,7 @@
 <mapper namespace="com.itwill.joo.repository.OrderRepository">
     <!-- 주문 상세페이지 상품정보 -->
     <select id="selectOrderedProduct"
-        resultType="com.itwill.joo.dto.OrderedProductDto">
+        resultType="com.itwill.joo.dto.order.OrderedProductDto">
         select ID, PDETAIL_IMAGE, PNAME, PPRICE, PSTOCK
         from
         PRODUCTS
@@ -15,7 +15,7 @@
 
     <!-- 주문 상세페이지 주문자정보 -->
     <select id="selectOrdererInfo"
-        resultType="com.itwill.joo.dto.OrdererInfoDto">
+        resultType="com.itwill.joo.dto.order.OrdererInfoDto">
         select ID, UNAME, UPOSTCODE, USTREET,
         UDETAIL_ADDRESS,
         UPHONE, UEMAIL, UCURRENT_POINT
@@ -26,7 +26,7 @@
 
     <!-- 주문 내역 조회 페이지 상품, 배송 정보 -->
     <select id="selectOrderHistory"
-        resultType="com.itwill.joo.dto.OrderHistoryDto">
+        resultType="com.itwill.joo.dto.order.OrderHistoryDto">
         SELECT D.ID, P.PTITLE_IMAGE, P.pname, P.pstock, OP.pprice, O.ocreated_time, D.dstatus, D.dmodified_time
         FROM PRODUCTS P, ORDERS O, ORDER_PRODUCTS OP, DELIVERIES D, USERS U
         WHERE O.ID = OP.O_ID
@@ -66,7 +66,7 @@
 
     <!-- 배송 조회 페이지 배송 정보 -->
     <select id="selectDeliveryInfo"
-        resultType="com.itwill.joo.dto.DeliveryInfoDto">
+        resultType="com.itwill.joo.dto.order.DeliveryInfoDto">
         SELECT D.dstatus, D.dcode, O.ocreated_time,
         D.dcreated_time, D.rname, D.dstreet, D.ddetail_address
         FROM USERS U, ORDERS O, DELIVERIES D

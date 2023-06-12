@@ -1,4 +1,4 @@
-package com.itwill.joo.dto;
+package com.itwill.joo.dto.order;
 
 import com.itwill.joo.domain.Product;
 

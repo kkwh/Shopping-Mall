@@ -1,21 +1,12 @@
 package com.itwill.joo.controller;
 
-import java.util.List;
-
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.itwill.joo.dto.OrderHistoryDto;
-import com.itwill.joo.dto.OrderedProductDto;
-import com.itwill.joo.dto.OrdererInfoDto;
 import com.itwill.joo.service.OrderService;
 
 import lombok.RequiredArgsConstructor;
@@ -26,10 +17,10 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/api/order")
 public class OrderRestController {
-	
-	private final OrderService orderService;
-	
-	@DeleteMapping("/{id}")
+    
+    private final OrderService orderService;
+    
+    @DeleteMapping("/{id}")
     public ResponseEntity<Integer> deleteOrder(@PathVariable long id) {
         log.info("deleteOrder(id={})", id);
         
@@ -37,8 +28,8 @@ public class OrderRestController {
         
         return ResponseEntity.ok(result);
     }
-	
-	// -> 취소완료
+    
+    // -> 취소완료
     @PutMapping("/cancel/{id}")
     public ResponseEntity<Integer> updateToCancelComple(@PathVariable long id) {
         log.info("updateToCancelComple(id={})", id);
@@ -47,9 +38,9 @@ public class OrderRestController {
         
         return ResponseEntity.ok(result);
     }
-	
-	// -> 구매확정
-	@PutMapping("/buy/{id}")
+    
+    // -> 구매확정
+    @PutMapping("/buy/{id}")
     public ResponseEntity<Integer> updateToBuyComple(@PathVariable long id) {
         log.info("updateToBuyComple(id={})", id);
         
@@ -57,8 +48,8 @@ public class OrderRestController {
         
         return ResponseEntity.ok(result);
     }
-	
-	
-	
+    
+    
+    
 
 }
