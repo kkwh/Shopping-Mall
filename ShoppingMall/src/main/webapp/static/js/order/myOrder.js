@@ -166,15 +166,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // -------------- 주문 취소 모달 구현
 
     // 주문 취소 버튼 클릭 시 모달 창 열기
-    const cancelOrderButton = document.getElementById('cancelOrderButton');
+    const cancelOrderButtons = document.querySelectorAll('[data-orderid]');
     const cancelOrderModal = document.getElementById('cancelOrderModal');
     const confirmCancel = document.getElementById('confirmCancel');
     const closeModal = document.getElementsByClassName('close')[0];
 
-    cancelOrderButton.addEventListener('click', function() {
+    // 모든 주문 취소 버튼에 대해 이벤트 리스너를 등록.
+    for (let i = 0; i < cancelOrderButtons.length; i++) {
+    cancelOrderButtons[i].addEventListener('click', function() {
         cancelOrderModal.style.display = 'block';
     });
-
+}
     // 모달 창 닫기
     closeModal.addEventListener('click', function() {
         cancelOrderModal.style.display = 'none';
@@ -191,7 +193,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }*/
         // 삭제할 아이디:
         // const id = e.target.getAttribute('data-id');
-        const id = 24;
+        const id = this.getAttribute('data-orderid');
+        console.log(id);
         // 삭제 요청 URL
         const reqUrl = `/joo/api/order/cancel/${id}`;
         // 삭제 요청을 Ajax 방식으로 보냄.
@@ -199,6 +202,8 @@ document.addEventListener('DOMContentLoaded', () => {
             .then((response) => {
                 console.log(response);
                 alert('주문 취소가 완료되었습니다.');
+                console.log(id + "주문취소 완료");
+                location.reload(); // 현재 페이지를 새로고침하여 화면을 갱신
             })
             .catch((error) => {
                 console.log('주문취소 에러');
@@ -211,15 +216,17 @@ document.addEventListener('DOMContentLoaded', () => {
     
      // -------------- 구매 확정 모달 구현
 
-    // 주문 취소 버튼 클릭 시 모달 창 열기
-    const confirmOrderButton = document.getElementById('confirmOrderButton'); // 구매확정 버튼
+    // 구매 확정 버튼 클릭 시 모달 창 열기
+    const confirmOrderButtons = document.querySelectorAll('[data-confirmid]'); // 구매확정 버튼
     const confirmOrderModal = document.getElementById('confirmOrderModal');
     const confirmOrder = document.getElementById('confirmOrder'); // 구매확정 뒤 '예' 버튼
     const closeOrderModal = document.getElementsByClassName('closeOrder')[0];
 
-    confirmOrderButton.addEventListener('click', function() {
+    for (let i = 0; i < confirmOrderButtons.length; i++) {
+    confirmOrderButtons[i].addEventListener('click', function() {
         confirmOrderModal.style.display = 'block';
-    });
+        });
+    }
     
     // 모달 창 닫기
     closeOrderModal.addEventListener('click', function() {
@@ -237,7 +244,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }*/
         // 삭제할 아이디:
         // const id = e.target.getAttribute('data-id');
-        const id = 3;
+        const id = confirmOrder.getAttribute('data-confirmid');
+        console.log(id);
         // 삭제 요청 URL
         const reqUrl = `/joo/api/order/buy/${id}`;
         // 삭제 요청을 Ajax 방식으로 보냄.
@@ -245,6 +253,8 @@ document.addEventListener('DOMContentLoaded', () => {
             .then((response) => {
                 console.log(response);
                 alert('구매확정이 완료되었습니다.');
+                console.log(id + "구매확정 완료");
+                location.reload(); // 현재 페이지를 새로고침하여 화면을 갱신
             })
             .catch((error) => {
                 console.log('구매확정 에러');

@@ -130,7 +130,7 @@
                             <td>
                                 <div class="n-prd-row">
                                     <a href="/joo01/product/productDetail" class="img-block"> <img src="${ order.ptitle_image }" alt="전통주" width="100">
-                                    </a>${ order.pname }
+                                    </a>${ order.pname } ${ order.id }
                                 </div>
                             </td>
                             <td>${ order.pstock }개</td>
@@ -155,7 +155,7 @@
                                                 <a href="${ deliveryCheck }" target="_blank" onclick="openWindowWithPosition(event)">
                                                     <button type="button" class="btn btn-primary btn-sm float-right ml-2" >배송조회</button>
                                                 </a>
-                                             <button id="cancelOrderButton" type="button" class="btn btn-danger btn-sm float-right">주문취소</button>
+                                             <button id="cancelOrderButton" type="button" class="btn btn-danger btn-sm float-right" data-orderid="${order.id}">주문취소</button>
 
                                                 <!-- 주문 취소 모달 -->
                                                 <div id="cancelOrderModal" class="modal">
@@ -201,7 +201,7 @@
                                                 <a href="${ deliveryCheck }" target="_blank" onclick="openWindowWithPosition(event)">
                                                     <button type="button" class="btn btn-primary btn-sm float-right ml-2" >배송조회</button>
                                                 </a>
-                                              <button id="confirmOrderButton" type="button" class="btn btn-danger btn-sm float-right">구매확정</button>
+                                              <button id="confirmOrderButton" type="button" class="btn btn-danger btn-sm float-right" data-confirmid="${order.id}">구매확정</button>
                                               
                                               <!-- 구매 확정 모달 -->
                                               <div id="confirmOrderModal" class="modal">
