@@ -49,6 +49,6 @@ public class OrderService {
     
     public DeliveryInfoDto selectDeliveryInfo(long id) {
         return orderRepository.selectDeliveryInfo(id);
-    }
+    } 
 
 }
