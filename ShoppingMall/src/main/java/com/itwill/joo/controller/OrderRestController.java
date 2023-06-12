@@ -46,7 +46,7 @@ public class OrderRestController {
         
         int result = orderService.updateToBuyComple(id);
         
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(result); 
     }
     
     

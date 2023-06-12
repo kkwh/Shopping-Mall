@@ -54,7 +54,7 @@ public class OrderController {
         DeliveryInfoDto info = orderService.selectDeliveryInfo(id);
         model.addAttribute("info", info);
         
-        return "order/deliveryCheck";
+        return "order/deliveryCheck"; 
     }
     
     
