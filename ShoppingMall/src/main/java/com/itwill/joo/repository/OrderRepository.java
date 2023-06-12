@@ -23,6 +23,6 @@ OrderedProductDto selectOrderedProduct(long id);
     
     int updateBuyComple(long id);
     
-    DeliveryInfoDto selectDeliveryInfo(long id);
+    DeliveryInfoDto selectDeliveryInfo(long id); 
 }
 

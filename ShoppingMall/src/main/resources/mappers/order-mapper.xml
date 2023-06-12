@@ -72,7 +72,7 @@
         FROM USERS U, ORDERS O, DELIVERIES D
         WHERE U.ID = O.U_ID
         AND O.ID = D.O_ID
-        AND D.ID = #{id}
+        AND D.ID = #{id} 
     </select>
 
 
