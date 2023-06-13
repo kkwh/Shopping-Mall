@@ -172,11 +172,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeModal = document.getElementsByClassName('close')[0];
 
     // 모든 주문 취소 버튼에 대해 이벤트 리스너를 등록.
-    for (let i = 0; i < cancelOrderButtons.length; i++) {
-    cancelOrderButtons[i].addEventListener('click', function() {
-        cancelOrderModal.style.display = 'block';
-    });
-}
+   cancelOrderButtons.forEach(function(button) {
+    button.addEventListener('click', function() {
+    cancelOrderModal.style.display = 'block';
+    const id = button.getAttribute('data-orderid');
+    confirmCancel.setAttribute('data-orderid', id); // 확인 버튼에도 ID 속성 추가
+  });
+});
+
     // 모달 창 닫기
     closeModal.addEventListener('click', function() {
         cancelOrderModal.style.display = 'none';
@@ -214,6 +217,8 @@ document.addEventListener('DOMContentLoaded', () => {
         cancelOrderModal.style.display = 'none';
     });
     
+    
+    
      // -------------- 구매 확정 모달 구현
 
     // 구매 확정 버튼 클릭 시 모달 창 열기
@@ -221,12 +226,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const confirmOrderModal = document.getElementById('confirmOrderModal');
     const confirmOrder = document.getElementById('confirmOrder'); // 구매확정 뒤 '예' 버튼
     const closeOrderModal = document.getElementsByClassName('closeOrder')[0];
-
-    for (let i = 0; i < confirmOrderButtons.length; i++) {
-    confirmOrderButtons[i].addEventListener('click', function() {
-        confirmOrderModal.style.display = 'block';
-        });
-    }
+    
+    // 모든 구매 확정 버튼에 대해 이벤트 리스너를 등록.
+    confirmOrderButtons.forEach(function(button) {
+    button.addEventListener('click', function() {
+    confirmOrderModal.style.display = 'block';
+    const id = button.getAttribute('data-confirmid');
+    confirmOrder.setAttribute('data-confirmid', id); // 확인 버튼에도 ID 속성 추가
+  });
+});
     
     // 모달 창 닫기
     closeOrderModal.addEventListener('click', function() {
@@ -246,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // const id = e.target.getAttribute('data-id');
         const id = confirmOrder.getAttribute('data-confirmid');
         console.log(id);
-        // 삭제 요청 URL
+        // 삭제 요청 URL    
         const reqUrl = `/joo/api/order/buy/${id}`;
         // 삭제 요청을 Ajax 방식으로 보냄.
         axios.put(reqUrl)

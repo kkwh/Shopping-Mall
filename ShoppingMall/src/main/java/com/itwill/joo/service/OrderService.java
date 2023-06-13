@@ -4,10 +4,13 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.itwill.joo.dto.order.DeliveryCreateDto;
 import com.itwill.joo.dto.order.DeliveryInfoDto;
+import com.itwill.joo.dto.order.OrderCreateDto;
 import com.itwill.joo.dto.order.OrderHistoryDto;
 import com.itwill.joo.dto.order.OrderedProductDto;
 import com.itwill.joo.dto.order.OrdererInfoDto;
+import com.itwill.joo.dto.order.RandomNumberGenerator;
 import com.itwill.joo.repository.OrderRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -49,6 +52,17 @@ public class OrderService {
     
     public DeliveryInfoDto selectDeliveryInfo(long id) {
         return orderRepository.selectDeliveryInfo(id);
-    } 
+    }
+    
+    public int createDelivery(DeliveryCreateDto dto) {
+        dto.setDcode(RandomNumberGenerator.generateRandomNumber());
+        return orderRepository.insertDelivery(dto);
+    }
+    
+    public int createOrder(OrderCreateDto dto) {
+        return orderRepository.insertOrder(dto);
+    }
+    
+    
 
 }

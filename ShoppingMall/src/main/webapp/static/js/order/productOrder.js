@@ -6,7 +6,7 @@
 
 
 document.addEventListener('DOMContentLoaded', function () {
-    
+        
     const inputName = document.querySelector('input#name2').value;
     const inputPostCode = document.querySelector('input#postCode2').value;
     const inputAddr = document.querySelector('input#addr2').value;
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
       // 모달 창 닫기 버튼 클릭 이벤트 핸들러
       closeBtn.addEventListener("click", function() {
-      // 모달 창을 닫습니다.
+      // 모달 창을 닫음.
       console.log('모달 닫기');
       myModal.style.display = "none";
       });

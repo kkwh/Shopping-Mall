@@ -264,7 +264,7 @@
                                         readonly />
                                 </div>
                             </c:otherwise>
-                        </c:choose>
+                        </c:choose>                        
 
                         <div data-text-content="true"
                             style="font-size: 16px;" class="">
@@ -282,7 +282,8 @@
                         <div class="price-name">상품금액</div>
                         <div class="box"
                             style="font-family: Pretendard, serif;">KRW
-                            ${ product.pprice * product.pstock }</div>
+                            <span>${ product.pprice * product.pstock }</span>
+                        </div>
                     </div>
                     <div>
                         <div class="price-name">배송비</div>
@@ -369,11 +370,15 @@
             integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
             crossorigin="anonymous">
         </script>
-        <script src="../static/js/order/productOrder.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+        <script> const uId = ${ user.id };</script>
         <script> const currentPoint = parseInt("${user.ucurrent_point}");</script>
         <script> const productPrice = ${product.pprice * product.pstock};</script>
+        <script> const productShipPrice = ${product.pprice * product.pstock + 3000};</script>
+        <script src="../static/js/order/productOrder.js"></script>
         <script src="../static/js/order/searchPostCode.js"></script>
+        <script src="../static/js/order/payment.js"></script>
 
     </div>
 </body>
