@@ -32,26 +32,24 @@
             });
         });
     });*/
+    
     $(document).ready(function() {
     // 결제완료 버튼 클릭 시 이벤트 핸들러 등록
     $("#paymentButton").click(function() {
-
-        console.log(oDiscountPrice);
-        console.log(oFinalPrice);
-        console.log(oPoint);
-        console.log(oStatus);
+        
         submitOrder();
+        submitOrderProduct();
         submitDelivery(); 
   });
 });
     
     function submitOrder() {
-      /*var uId = uId;*/  
-      /*var oInitialPrice = productPrice;  */
+      // var uId = uId;
+      // var oInitialPrice = productPrice;  
       var oDiscountPrice = $("#currentPoint").val();
       var oFinalPrice = productShipPrice - $("#currentPoint").val();
-      var oPoint = $("#mAllMileageSum").val();
-      var oStatus = "결제완료";
+      // var oPoint = $("#mAllMileageSum").val();
+      var oStatus = "결제완료"
       
       $.ajax({
         url: "/joo/api/order/order", // 컨트롤러의 URL을 적절히 수정해야 합니다.
@@ -62,8 +60,8 @@
           oinitial_price: productPrice,
           odiscount_price: oDiscountPrice,
           ofinal_price: oFinalPrice,
-          opoint: oPoint,
-          oStatus: oStatus
+          opoint: point,
+          ostatus: oStatus
           
         }),
         success: function() {
@@ -78,20 +76,49 @@
       });
     }
     
+    function submitOrderProduct() {
+      // var pId 
+      var oId = 7 // order의 o_id 리턴 받은 값으로 초기화
+      var pCount = 10 // 수량 입력받아서 초기화
+      // var pPrice
+      
+      $.ajax({
+        url: "/joo/api/order/orderProduct", // 컨트롤러의 URL을 적절히 수정해야 합니다.
+        method: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({
+          p_id: pId,
+          o_id: oId,
+          pcount: pCount,
+          pprice: price
+          
+        }),
+        success: function() {
+          // 성공적으로 데이터를 전송한 경우에 실행할 동작을 여기에 작성
+          console.log("OrderProduct data inserted successfully.");
+          
+        },
+        error: function(error) {
+          // 데이터 전송 중에 에러가 발생한 경우에 실행할 동작을 여기에 작성
+          console.error("Error inserting OrderProduct data:", error);
+        }
+      });
+    }
+    
     function submitDelivery() {
-      var oId = 1; // 이 부분은 JSP 코드에서 얻어올 값으로 대체
-      var dCode = "1234567890"; // 이 부분은 JSP 코드에서 얻어올 값으로 대체
+      var oId = 1; 
+      var dCode = "1234567890"; // 10자리 송장으로 변경
       var dStreet = $("#addr2").val();
       var dDetailAddress = $("#detailAddr2").val();
       var dPostcode = $("#postCode2").val();
       var rName = $("#name2").val();
       var rPhone = $("#phone2").val();
       var dMessage = $("#message").val();
-      var dStatus = "결제완료"; // 이 부분은 JSP 코드에서 얻어올 값으로 대체
-      var dType = 1; // 이 부분은 JSP 코드에서 얻어올 값으로 대체
+      var dStatus = "결제완료"; 
+      var dType = 1; 
       
       $.ajax({
-        url: "/joo/api/order/delivery", // 컨트롤러의 URL을 적절히 수정해야 합니다.
+        url: "/joo/api/order/delivery", // 컨트롤러의 URL을 적절히 수정
         method: "POST",
         contentType: "application/json",
         data: JSON.stringify({

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.itwill.joo.dto.order.DeliveryCreateDto;
 import com.itwill.joo.dto.order.OrderCreateDto;
+import com.itwill.joo.dto.order.OrderProductCreateDto;
 import com.itwill.joo.service.OrderService;
 
 import lombok.RequiredArgsConstructor;
@@ -53,6 +54,21 @@ public class OrderRestController {
         return ResponseEntity.ok(result); 
     }
     
+    @PostMapping("/order")
+    public ResponseEntity<?> createOrderInfo(@RequestBody OrderCreateDto dto) {
+        log.info("createOrderInfo(dto={})", dto);
+        orderService.createOrder(dto);
+        
+        return ResponseEntity.ok("order 저장 성공"); 
+    }
+    
+    @PostMapping("/orderProduct")
+    public ResponseEntity<?> createOrderProductInfo(@RequestBody OrderProductCreateDto dto) {
+        log.info("createOrderProductInfo(dto={})", dto);
+        orderService.createOrderProduct(dto);
+        
+        return ResponseEntity.ok("orderProduct 저장 성공"); 
+    }
     
     @PostMapping("/delivery")
     public ResponseEntity<?> createDeliveryInfo(@RequestBody DeliveryCreateDto dto) {
@@ -60,14 +76,6 @@ public class OrderRestController {
         orderService.createDelivery(dto);
         
         return ResponseEntity.ok("delivery 저장 성공"); 
-    }
-    
-    @PostMapping("/order")
-    public ResponseEntity<?> createOrderInfo(@RequestBody OrderCreateDto dto) {
-        log.info("createOrderInfo(dto={})", dto);
-        orderService.createOrder(dto);
-        
-        return ResponseEntity.ok("order 저장 성공"); 
     }
     
     

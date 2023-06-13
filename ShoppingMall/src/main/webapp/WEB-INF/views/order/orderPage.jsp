@@ -95,7 +95,8 @@
             </div>
             <h3 class="text-center">주문서 작성</h3>
         </header>
-
+        
+        <c:set var="count" value="10" />
         <div class="orderListArea ">
             <div class="title">
                 <h3 class="body1" style="letter-spacing: 0px;">상품
@@ -140,7 +141,7 @@
                                         </div>
                                     </div>
                                     <p class="quantity body2">수량 :
-                                        ${ product.pstock }</p>
+                                        ${ count }</p>
                                 </div>
                             </td>
 
@@ -282,7 +283,7 @@
                         <div class="price-name">상품금액</div>
                         <div class="box"
                             style="font-family: Pretendard, serif;">KRW
-                            <span>${ product.pprice * product.pstock }</span>
+                            <span>${ product.pprice * count }</span>
                         </div>
                     </div>
                     <div>
@@ -316,7 +317,7 @@
                         </div>
                     </div>
                     
-                    <c:set var="productPrice" value="${product.pprice * product.pstock}" />
+                    <c:set var="productPrice" value="${product.pprice * count}" />
                     <c:set var="shippingFee" value="3000" />
                     <c:set var="totalDiscount" value="${user.ucurrent_point >= 10000 ? user.ucurrent_point : 0}" />
                     
@@ -372,10 +373,15 @@
         </script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-        <script> const uId = ${ user.id };</script>
-        <script> const currentPoint = parseInt("${user.ucurrent_point}");</script>
-        <script> const productPrice = ${product.pprice * product.pstock};</script>
-        <script> const productShipPrice = ${product.pprice * product.pstock + 3000};</script>
+        <script> 
+            const uId = ${ user.id };
+            const currentPoint = parseInt("${user.ucurrent_point}");
+            const productPrice = ${product.pprice * 10};
+            const productShipPrice = ${product.pprice * 10 + 3000};
+            const point = parseInt("${product.pprice * 10 * 0.05}");
+            const pId = ${ product.id };
+            const price = ${ product.pprice };
+        </script>
         <script src="../static/js/order/productOrder.js"></script>
         <script src="../static/js/order/searchPostCode.js"></script>
         <script src="../static/js/order/payment.js"></script>

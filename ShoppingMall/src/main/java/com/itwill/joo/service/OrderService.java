@@ -8,6 +8,7 @@ import com.itwill.joo.dto.order.DeliveryCreateDto;
 import com.itwill.joo.dto.order.DeliveryInfoDto;
 import com.itwill.joo.dto.order.OrderCreateDto;
 import com.itwill.joo.dto.order.OrderHistoryDto;
+import com.itwill.joo.dto.order.OrderProductCreateDto;
 import com.itwill.joo.dto.order.OrderedProductDto;
 import com.itwill.joo.dto.order.OrdererInfoDto;
 import com.itwill.joo.dto.order.RandomNumberGenerator;
@@ -54,13 +55,17 @@ public class OrderService {
         return orderRepository.selectDeliveryInfo(id);
     }
     
+    public int createOrder(OrderCreateDto dto) {
+        return orderRepository.insertOrder(dto);
+    }
+    
+    public int createOrderProduct(OrderProductCreateDto dto) {
+        return orderRepository.insertOrderProduct(dto);
+    }
+    
     public int createDelivery(DeliveryCreateDto dto) {
         dto.setDcode(RandomNumberGenerator.generateRandomNumber());
         return orderRepository.insertDelivery(dto);
-    }
-    
-    public int createOrder(OrderCreateDto dto) {
-        return orderRepository.insertOrder(dto);
     }
     
     
