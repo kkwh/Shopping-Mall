@@ -67,6 +67,11 @@ public class UserController {
 		return loginId;
 	}
 	
+	@GetMapping("/findPassword")
+	public String finaPassword() {
+		return "";
+	}
+	
 	@GetMapping("/myQueries")
 	public String myQueries() {
 		log.info("myQueries()");
