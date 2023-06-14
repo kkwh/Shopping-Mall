@@ -1,5 +1,7 @@
 package com.itwill.joo.dto.order;
 
+import com.itwill.joo.domain.Order;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,18 +23,15 @@ public class OrderCreateDto {
 	private String ostatus; // 주문 상태
 	
 	
-//	public Product toEntity() {
-//		return Product.builder()
-//				.login_id(loginId)
-//				.upassword(password)
-//				.uname(name)
-//				.uemail(email)
-//				.uphone(phone)
-//				.ustreet(street)
-//				.udetail_address(detailAddress)
-//				.upostcode(postcode)
-//				.role("ROLE_USER")
-//				.build();
-//	}
+	public Order toEntity() {
+	    return Order.builder()
+	            .u_id(u_id)
+	            .oinitial_price(oinitial_price)
+	            .odiscount_price(odiscount_price)
+	            .ofinal_price(ofinal_price)
+	            .opoint(opoint)
+	            .ostatus(ostatus)
+	            .build();
+	}
 	
 }

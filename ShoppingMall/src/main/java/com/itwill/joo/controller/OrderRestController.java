@@ -54,14 +54,18 @@ public class OrderRestController {
         return ResponseEntity.ok(result); 
     }
     
+    // 결제시 주문 정보 저장
     @PostMapping("/order")
-    public ResponseEntity<?> createOrderInfo(@RequestBody OrderCreateDto dto) {
+    public ResponseEntity<Long> createOrderInfo(@RequestBody OrderCreateDto dto) {
         log.info("createOrderInfo(dto={})", dto);
         orderService.createOrder(dto);
         
-        return ResponseEntity.ok("order 저장 성공"); 
+        long id = orderService.readOrderMaxId();
+        
+        return ResponseEntity.ok(id); 
     }
     
+    // 결제시 주문상품 정보 저장
     @PostMapping("/orderProduct")
     public ResponseEntity<?> createOrderProductInfo(@RequestBody OrderProductCreateDto dto) {
         log.info("createOrderProductInfo(dto={})", dto);
@@ -70,6 +74,7 @@ public class OrderRestController {
         return ResponseEntity.ok("orderProduct 저장 성공"); 
     }
     
+    // 결제시 배송 정보 저장
     @PostMapping("/delivery")
     public ResponseEntity<?> createDeliveryInfo(@RequestBody DeliveryCreateDto dto) {
         log.info("createDeliveryInfo(dto={})", dto);

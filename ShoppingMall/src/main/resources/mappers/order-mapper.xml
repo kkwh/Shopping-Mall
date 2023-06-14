@@ -79,6 +79,13 @@
         VALUES (#{u_id}, #{oinitial_price}, #{odiscount_price}, #{ofinal_price}, #{opoint}, #{ostatus})
     </insert>
     
+    <!-- Orders 테이블의 id값 중 최신값(최댓값) 반환 -->
+    <select id="selectOrderMaxId"
+        resultType="java.lang.Long">
+        SELECT MAX(id) 
+        FROM ORDERS
+    </select>
+    
     <!-- 상품 주문시 주문 상품 정보 저장 -->
     <insert id="insertOrderProduct">
         INSERT INTO ORDER_PRODUCTS (P_ID, O_ID, PCOUNT, PPRICE)

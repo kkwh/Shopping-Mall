@@ -29,6 +29,7 @@ OrderedProductDto selectOrderedProduct(long id);
     DeliveryInfoDto selectDeliveryInfo(long id);
        
     int insertOrder(OrderCreateDto dto);
+    long selectOrderMaxId();
     
     int insertOrderProduct(OrderProductCreateDto dto);
     

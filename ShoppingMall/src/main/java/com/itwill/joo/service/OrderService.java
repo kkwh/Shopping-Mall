@@ -58,6 +58,9 @@ public class OrderService {
     public int createOrder(OrderCreateDto dto) {
         return orderRepository.insertOrder(dto);
     }
+    public long readOrderMaxId() {
+        return orderRepository.selectOrderMaxId();
+    }
     
     public int createOrderProduct(OrderProductCreateDto dto) {
         return orderRepository.insertOrderProduct(dto);

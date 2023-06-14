@@ -32,14 +32,13 @@
             });
         });
     });*/
-    
+    var orderId = 0;
     $(document).ready(function() {
     // 결제완료 버튼 클릭 시 이벤트 핸들러 등록
     $("#paymentButton").click(function() {
         
-        submitOrder();
-        submitOrderProduct();
-        submitDelivery(); 
+        submitOrder(); // 주문 정보 저장
+        
   });
 });
     
@@ -64,9 +63,15 @@
           ostatus: oStatus
           
         }),
-        success: function() {
+        success: function(response) {
           // 성공적으로 데이터를 전송한 경우에 실행할 동작을 여기에 작성
+          orderId = response;
+          
+          console.log(response);
           console.log("Order data inserted successfully.");
+          
+          submitOrderProduct(); // 주문 상품 정보 저장
+          submitDelivery(); // 배송 정보 저장
           
         },
         error: function(error) {
@@ -78,7 +83,8 @@
     
     function submitOrderProduct() {
       // var pId 
-      var oId = 7 // order의 o_id 리턴 받은 값으로 초기화
+      var oId = orderId // order의 o_id 리턴 받은 값으로 초기화
+      console.log('주문상품 oid 테스트' + oId);
       var pCount = 10 // 수량 입력받아서 초기화
       // var pPrice
       
@@ -106,7 +112,8 @@
     }
     
     function submitDelivery() {
-      var oId = 1; 
+      var oId = orderId; 
+      console.log('배송 oid 테스트' + oId);
       var dCode = "1234567890"; // 10자리 송장으로 변경
       var dStreet = $("#addr2").val();
       var dDetailAddress = $("#detailAddr2").val();
