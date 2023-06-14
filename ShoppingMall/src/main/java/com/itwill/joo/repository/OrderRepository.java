@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.itwill.joo.dto.order.DeliveryCreateDto;
 import com.itwill.joo.dto.order.DeliveryInfoDto;
+import com.itwill.joo.dto.order.OrderByBasketDto;
 import com.itwill.joo.dto.order.OrderCreateDto;
 import com.itwill.joo.dto.order.OrderHistoryDto;
 import com.itwill.joo.dto.order.OrderProductCreateDto;
@@ -34,6 +35,8 @@ OrderedProductDto selectOrderedProduct(long id);
     int insertOrderProduct(OrderProductCreateDto dto);
     
     int insertDelivery(DeliveryCreateDto dto);
+    
+    List<OrderByBasketDto> selectOrderByBasket(long id);
 
 }
 

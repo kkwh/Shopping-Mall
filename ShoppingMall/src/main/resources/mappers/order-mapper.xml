@@ -79,7 +79,7 @@
         VALUES (#{u_id}, #{oinitial_price}, #{odiscount_price}, #{ofinal_price}, #{opoint}, #{ostatus})
     </insert>
     
-    <!-- Orders 테이블의 id값 중 최신값(최댓값) 반환 -->
+    <!-- Orders 테이블의 id값 중 최신값(최댓값) 반환 (o_id반환)-->
     <select id="selectOrderMaxId"
         resultType="java.lang.Long">
         SELECT MAX(id) 
@@ -99,6 +99,19 @@
         VALUES (#{o_id}, #{dcode}, #{dstreet}, #{ddetail_address}, #{dpostcode}, #{rname},
                 #{rphone}, #{dmessage}, #{dstatus}, #{dtype})
     </insert>
+    
+    <!-- 장바구니에 의한 주문 페이지 -->
+    <select id="selectOrderByBasket"
+        resultType="com.itwill.joo.dto.order.OrderByBasketDto">
+        SELECT P.PTITLE_IMAGE, P.PNAME, P.PPRICE, U.UNAME, U.UPOSTCODE, U.USTREET, 
+        U.UDETAIL_ADDRESS, U.UPHONE, U.UEMAIL, U.UCURRENT_POINT, BP.PCOUNT, U.ID as "uid", P.ID as "pid" 
+        FROM PRODUCTS P, USERS U, BASKET_PRODUCTS BP, BASKET B
+        WHERE P.ID = BP.P_ID
+        AND U.ID = B.U_ID
+        AND B.ID = BP.B_ID
+        AND U.ID = #{id}
+    </select>
+    
     
     
 

@@ -81,13 +81,16 @@
       });
     }
     
-    function submitOrderProduct() { 
-      // var pId 
-      var oId = orderId // order의 o_id 리턴 받은 값으로 초기화
+    function submitOrderProduct() {
+    var oId = orderId // order의 o_id 리턴 받은 값으로 초기화
+
+    infos.forEach(function(info) {
+      var pCount = info.pcount;
+      var pPrice = info.pprice;
+      var pId = info.p_id;
+
       console.log('주문상품 oid 테스트' + oId);
-      var pCount = 10 // 수량 입력받아서 초기화
-      // var pPrice
-      
+
       $.ajax({
         url: "/joo/api/order/orderProduct", // 컨트롤러의 URL을 적절히 수정해야 합니다.
         method: "POST",
@@ -96,20 +99,21 @@
           p_id: pId,
           o_id: oId,
           pcount: pCount,
-          pprice: price
-          
+          pprice: pPrice
         }),
         success: function() {
           // 성공적으로 데이터를 전송한 경우에 실행할 동작을 여기에 작성
           console.log("OrderProduct data inserted successfully.");
-          
         },
         error: function(error) {
           // 데이터 전송 중에 에러가 발생한 경우에 실행할 동작을 여기에 작성
           console.error("Error inserting OrderProduct data:", error);
         }
       });
-    }
+    });
+  }
+
+
     
     function submitDelivery() {
       var oId = orderId; 

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.itwill.joo.dto.order.DeliveryCreateDto;
 import com.itwill.joo.dto.order.DeliveryInfoDto;
+import com.itwill.joo.dto.order.OrderByBasketDto;
 import com.itwill.joo.dto.order.OrderCreateDto;
 import com.itwill.joo.dto.order.OrderHistoryDto;
 import com.itwill.joo.dto.order.OrderProductCreateDto;
@@ -69,6 +70,10 @@ public class OrderService {
     public int createDelivery(DeliveryCreateDto dto) {
         dto.setDcode(RandomNumberGenerator.generateRandomNumber());
         return orderRepository.insertDelivery(dto);
+    }
+    
+    public List<OrderByBasketDto> readOrderByBasket(long id) {
+        return orderRepository.selectOrderByBasket(id);
     }
     
     
