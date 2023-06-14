@@ -394,7 +394,7 @@
         <script>
             var infos = [
               <c:forEach var="info" items="${infos}" varStatus="status">
-                { pcount: ${info.pcount}, pprice: ${info.pprice}, p_id: ${info.p_id} }<c:if test="${!status.last}">,</c:if>
+                { pcount: ${info.pcount}, pprice: ${info.pprice}, p_id: ${info.pid} }<c:if test="${!status.last}">,</c:if>
               </c:forEach>
               ];
         </script>

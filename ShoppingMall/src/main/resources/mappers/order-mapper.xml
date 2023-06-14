@@ -112,6 +112,44 @@
         AND U.ID = #{id}
     </select>
     
+    <!-- 재고수 - 수량 / 판매량 + 수량 -> 결제완료 시 -->
+    <update id="updateStockAndSoldWhenPay">
+        UPDATE PRODUCTS
+        SET PSTOCK = PSTOCK - #{pcount},
+            PSOLD = PSOLD + #{pcount}
+        WHERE PRODUCTS.ID = #{p_id}
+    </update>
+    
+    <!-- 재고수 + 수량 / 판매량 - 수량 -> 주문취소 시 -->
+    <update id="updateStockAndSoldWhenCancel">
+        UPDATE PRODUCTS
+        SET PSTOCK = PSTOCK + #{pcount},
+            PSOLD = PSOLD - #{pcount}
+        WHERE PRODUCTS.ID = #{p_id}
+    </update>
+    
+    <!-- 유저 현재 포인트 - 사용 포인트 -> 결제완료 시 -->
+    <update id="updateCurrentPointWhenPay">
+        UPDATE USERS
+        SET UCURRENT_POINT = UCURRENT_POINT - #{odiscount_price}
+        WHERE USERS.ID = #{u_id}
+    </update>
+    
+    <!-- 유저 현재 포인트 + 사용 포인트 -> 주문 취소 시 -->
+    <update id="updateCurrentPointWhenCancel">
+        UPDATE USERS
+        SET UCURRENT_POINT = UCURRENT_POINT + #{odiscount_price}
+        WHERE USERS.ID = #{u_id}
+    </update>
+    
+    <!-- 유저 누적 포인트 + 적립 포인트 -> 구매 확정 시 -->
+    <!-- 유저 현재 포인트 + 적립 포인트 -> 구매 확정 시 -->
+    <update id="updateCurrentPointWhenComple">
+        UPDATE USERS
+        SET UTOTAL_POINT = UTOTAL_POINT + #{opoint},
+            UCURRENT_POINT = UCURRENT_POINT + #{opoint}
+        WHERE USERS.ID = #{u_id}
+    </update>
     
     
 

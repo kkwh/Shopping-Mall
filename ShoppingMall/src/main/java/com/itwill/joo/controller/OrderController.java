@@ -1,5 +1,6 @@
 package com.itwill.joo.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -27,8 +28,9 @@ public class OrderController {
     private final OrderService orderService;
     
     @GetMapping("/orderPage")
-    public String orderPage(Model model) {
+    public String orderPage(Model model, Principal principal) {
         log.info("orderPage()");
+        log.info("프린시플" + principal.getName());
         
         OrderedProductDto product = orderService.selectOrderedProduct(21);
         OrdererInfoDto user = orderService.selectOrdererInfo(4);
