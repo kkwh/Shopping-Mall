@@ -1,7 +1,7 @@
 /**
  * myOrder.js
  * 주문 내역 조회 / 취소 내역 조회
- * myOrder.jsp에 포함.
+ * orderHistory.jsp에 포함.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -176,7 +176,11 @@ document.addEventListener('DOMContentLoaded', () => {
     button.addEventListener('click', function() {
     cancelOrderModal.style.display = 'block';
     const id = button.getAttribute('data-orderid');
+    const uid = button.getAttribute('data-userid');
+    const odiscount_price = button.getAttribute('data-discount');
     confirmCancel.setAttribute('data-orderid', id); // 확인 버튼에도 ID 속성 추가
+    confirmCancel.setAttribute('data-userid', uid); // 확인 버튼에도 UID 속성 추가
+    confirmCancel.setAttribute('data-discount', odiscount_price); // 확인 버튼에도 할인액 속성 추가
   });
 });
 
@@ -206,13 +210,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log(response);
                 alert('주문 취소가 완료되었습니다.');
                 console.log(id + "주문취소 완료");
-                location.reload(); // 현재 페이지를 새로고침하여 화면을 갱신
+                
             })
             .catch((error) => {
                 console.log('주문취소 에러');
                 console.log(error);
             });
-
+            
+        
+        // 주문 취소시 유저 현재 포인트 + 사용 포인트 (차감 포인트 반납)
+        console.log('차감 포인트 반납 시작');    
+        const uid = this.getAttribute('data-userid');
+        console.log(uid);
+        const odiscount_price = this.getAttribute('data-discount');
+        console.log(odiscount_price);
+        const reqUrl2 = `/joo/api/order/point`;
+        const data = { uid ,odiscount_price };
+        axios.put(reqUrl2, data)
+            .then((response) => {
+                console.log(response);
+                console.log(uid + "차감 포인트 반납");
+                location.reload(); // 현재 페이지를 새로고침하여 화면을 갱신
+            })
+            .catch((error) => {
+                console.log('포인트반납 에러');
+                console.log(error);
+            });
+        
+        
         // 주문 취소 후 모달 닫기
         cancelOrderModal.style.display = 'none';
     });
@@ -275,15 +300,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
 })
 
-// 배송조회 새 창 설정하는 함수
-function openWindowWithPosition(event) {
-  event.preventDefault(); // 기본 동작인 링크 이동을 방지
-
-  var width = 550; // 창의 너비
-  var height = 400; // 창의 높이
-  var left = (window.innerWidth - width) / 2; // 화면 가로 중앙에 위치
-  var top = (window.innerHeight - height) / 2; // 화면 세로 중앙에 위치
-  var options = 'width=' + width + ',height=' + height + ',left=' + left + ',top=' + top;
-
-  window.open(event.currentTarget.href, '_blank', options);
-}
+    // 배송조회 새 창 설정하는 함수
+    function openWindowWithPosition(event) {
+      event.preventDefault(); // 기본 동작인 링크 이동을 방지
+    
+      var width = 550; // 창의 너비
+      var height = 400; // 창의 높이
+      var left = (window.innerWidth - width) / 2; // 화면 가로 중앙에 위치
+      var top = (window.innerHeight - height) / 2; // 화면 세로 중앙에 위치
+      var options = 'width=' + width + ',height=' + height + ',left=' + left + ',top=' + top;
+    
+      window.open(event.currentTarget.href, '_blank', options);
+    }

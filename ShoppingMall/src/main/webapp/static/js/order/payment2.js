@@ -32,6 +32,14 @@
             });
         });
     });*/
+    const myModal = document.getElementById("myModal"); // 포인트 모달창 요소를 가져옴.
+    const closeBtn = document.getElementsByClassName("close")[0]; // 포인트 모달 창을 닫는 요소를 가져옴.
+      
+    const myModalStock = document.getElementById("myModalStock"); // 포인트 모달창 요소를 가져옴.
+    const closeBtnStock = document.getElementsByClassName("closeStock")[0]; // 포인트 모달 창을 닫는 요소를 가져옴.
+      
+    const paymentButton = document.getElementById("paymentButton"); // 결제하기 버튼 요소를 가져옴.
+     
     var orderId = 0;
     $(document).ready(function() {
     // 결제완료 버튼 클릭 시 이벤트 핸들러 등록

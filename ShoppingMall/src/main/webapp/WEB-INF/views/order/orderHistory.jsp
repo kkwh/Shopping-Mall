@@ -155,7 +155,10 @@
                                                 <a href="${ deliveryCheck }" target="_blank" onclick="openWindowWithPosition(event)">
                                                     <button type="button" class="btn btn-primary btn-sm float-right ml-2" >배송조회</button>
                                                 </a>
-                                             <button id="cancelOrderButton" type="button" class="btn btn-danger btn-sm float-right" data-orderid="${order.id}">주문취소</button>
+                                             <button id="cancelOrderButton" type="button" class="btn btn-danger btn-sm float-right" 
+                                                     data-orderid="${order.id}" data-userid="${order.uid}" data-discount="${order.odiscount_price}">
+                                                     주문취소
+                                            </button>
 
                                                 <!-- 주문 취소 모달 -->
                                                 <div id="cancelOrderModal" class="modal">
@@ -307,7 +310,9 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="../static/js/order/myOrder.js"></script>
+<!--         <script src="../static/js/order/pointAndStock.js"></script> -->
     </div>
 </body>
 </html>

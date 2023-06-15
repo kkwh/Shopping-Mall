@@ -13,6 +13,7 @@ import com.itwill.joo.dto.order.OrderHistoryDto;
 import com.itwill.joo.dto.order.OrderProductCreateDto;
 import com.itwill.joo.dto.order.OrderedProductDto;
 import com.itwill.joo.dto.order.OrdererInfoDto;
+import com.itwill.joo.dto.order.PointWhenCancelDto;
 import com.itwill.joo.dto.order.RandomNumberGenerator;
 import com.itwill.joo.dto.order.StockAndSoldWhenBuyDto;
 import com.itwill.joo.repository.OrderRepository;
@@ -84,6 +85,10 @@ public class OrderService {
     
     public int updateStockAndSoldWhenPay(StockAndSoldWhenBuyDto dto) {
         return orderRepository.updateStockAndSoldWhenPay(dto);
+    }
+    
+    public int updatePointWhenCancel(PointWhenCancelDto dto) {
+        return orderRepository.updateCurrentPointWhenCancel(dto);
     }
     
     

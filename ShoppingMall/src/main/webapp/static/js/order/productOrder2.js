@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById("phone2").readOnly = false;
     });
     
-      const myModal = document.getElementById("myModal"); // 포인트 모달창 요소를 가져옴.
+      /*const myModal = document.getElementById("myModal"); // 포인트 모달창 요소를 가져옴.
       const closeBtn = document.getElementsByClassName("close")[0]; // 포인트 모달 창을 닫는 요소를 가져옴.
       const paymentButton = document.getElementById("paymentButton"); // 결제하기 버튼 요소를 가져옴.
       // 결제하기 버튼 클릭 이벤트 핸들러
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
               // 예: form submit 등
             }
         }
-      });
+      });*/
     
       // 모달 창 닫기 버튼 클릭 이벤트 핸들러
       closeBtn.addEventListener("click", function() {

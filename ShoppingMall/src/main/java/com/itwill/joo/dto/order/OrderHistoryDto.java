@@ -25,6 +25,8 @@ public class OrderHistoryDto {
 	private Timestamp ocreated_time; // 주문 일자
 	private Timestamp dmodified_time; // 취소 일자(배송 업데이트 시간)	
 	private String dstatus; // 배송 상태
+	private int odiscount_price; // 총 할인액
+	private long uid; // 유저 아이디
 	
 	
 	

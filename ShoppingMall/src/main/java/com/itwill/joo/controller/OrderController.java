@@ -48,7 +48,7 @@ public class OrderController {
     public String orderHistory(Model model) {
         log.info("orderHistory()");
         
-        List<OrderHistoryDto> dto = orderService.selectOrderHistory(1);
+        List<OrderHistoryDto> dto = orderService.selectOrderHistory(4);
         model.addAttribute("orders", dto);
         
         return "order/orderHistory";

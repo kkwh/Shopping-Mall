@@ -13,6 +13,7 @@ import com.itwill.joo.dto.order.CurrentPointWhenBuyDto;
 import com.itwill.joo.dto.order.DeliveryCreateDto;
 import com.itwill.joo.dto.order.OrderCreateDto;
 import com.itwill.joo.dto.order.OrderProductCreateDto;
+import com.itwill.joo.dto.order.PointWhenCancelDto;
 import com.itwill.joo.dto.order.StockAndSoldWhenBuyDto;
 import com.itwill.joo.service.OrderService;
 
@@ -103,6 +104,14 @@ public class OrderRestController {
         return ResponseEntity.ok(result); 
     }
     
-    
+    // 주문 취소 시 -> 유저 현재 포인트 + 사용 포인트 
+    @PutMapping("/point")
+    public ResponseEntity<Integer> updatePointWhenCancel(@RequestBody PointWhenCancelDto dto) {
+        log.info("updatePointWhenCancel(dto={})", dto);
+        
+        int result = orderService.updatePointWhenCancel(dto);
+        
+        return ResponseEntity.ok(result);
+    }
 
 }
