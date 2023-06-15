@@ -8,19 +8,19 @@
 <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Index Page</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
+    rel="stylesheet" 
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" 
+    crossorigin="anonymous">
 </head>
 <body>
-	<h1>Index page</h1>
-	<sec:authorize access="isAnonymous()">
-		<a href="/joo/user/login">로그인</a>
-		<a href="/joo/user/join">회원가입</a>
-	</sec:authorize>
-	
-	<br />
-	
+<div class="container-fluid">
+	<header class="bg-warning p-2 text-dark bg-opacity-50">
+		<h1>메인 페이지</h1>
+	</header>	
+	<hr>
 	<a href="/joo/review/create">후기 작성</a>
-	<a href="/joo/review/reply">후기 조회</a>
+	<a href="/joo/review/list">후기 목록</a>
 	<sec:authorize access="isAuthenticated()">
 		<p>username: <sec:authentication property="principal.username"/></p>
 		<form action="/joo/user/logout" method="post">

@@ -4,14 +4,15 @@ import java.util.List;
 
 import com.itwill.joo.domain.Review;
 import com.itwill.joo.dto.ReplyCreateDto;
+import com.itwill.joo.dto.ReviewListDto;
 
 public interface ReviewRepository {
 	
-	int insert(Review review);
-	List<Review> selectOrderByIdDesc();
-	Review selectById(long id);
-	int updateTitleAndContent(Review review);
-	int deleteBuId(long id);
-	List<ReplyCreateDto> selectWithReply();
+	int createReview(Review review);
+	List<ReviewListDto> selectReviewByUserIdDesc(long userId);
+	Review selectById(long userId);
+	int updateRcontentAndRratings(Review reivew);
+    int deleteById(long id);
+    List<ReviewListDto> selectWithReplyCount();
 
 }

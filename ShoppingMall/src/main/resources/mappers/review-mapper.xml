@@ -5,15 +5,19 @@
 
 <mapper namespace="com.itwill.joo.repository.ReviewRepository">
     
-    <select id="selectReview" 
+    <select id="selectReviewByUserIdDesc" 
     	resultType="com.itwill.joo.domain.Review">
     	select * from REVIEWS
-    	where U_ID = #{u_id}
+    	where U_ID = #{userId}
+    	order by ID desc
     </select>
     
+    <!-- 리뷰 게시글 등록 -->
     <insert id="createReview">
     	insert into REVIEWS (ID, P_ID, O_ID, U_ID, RCONTENT, RRATINGS, REVIEW_IMAGE, RCREATED_TIME, RMODIFIED_TIME)
     	values(#{id}, #{p_id}, #{o_id}, #{u_id}, #{rcontent}, #{rrating}, #{review_image}, systimestamp, systimestamp)
     </insert>
+    
+    
     
 </mapper>
