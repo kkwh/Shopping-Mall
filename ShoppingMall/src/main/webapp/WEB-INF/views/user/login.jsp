@@ -31,7 +31,7 @@
 		        </div>
 	        </div>
 	        
-	        <c:if test=" ${ errorMessage != '' }">
+	        <c:if test=" ${ errorMessage.equals('') }">
 	        	<p>Error: <c:out value="${ errorMessage }" /></p>
 	        </c:if>
 	        
@@ -41,7 +41,7 @@
 	        	<a href="/joo/user/join">회원가입</a>
 	        </div>
 		    <button type="submit" class="btn btn-primary">로그인</button>
-		    <a class="p-2" href="https://kauth.kakao.com/oauth/authorize?client_id=106ceddf8917e2e7f047b10bfe41f185&redirect_uri=http://localhost:8081/joo/kakao&response_type=code">
+		    <a class="p-2" href="/oauth2/authorization/kakao">
 				<img src="../static/assets/kakao/kakao_login.png" style="height:60px">
 			</a>   
 	    </form>	</div>
