@@ -38,6 +38,8 @@
     $("#paymentButton").click(function() {
         
         submitOrder(); // 주문 정보 저장
+        updateCurrentPointWhenBuy(); // 결제완료 시 현재 포인트 차감
+        updateStockAndSold(); // 결제완료 시 재고 감소, 판매량 증가
         
   });
 });
@@ -151,4 +153,54 @@
         }
       });
     }
+    
+    function updateCurrentPointWhenBuy() {
+      var oDiscountPrice = $("#currentPoint").val();
+      console.log("차감될 포인트 금액 : " + oDiscountPrice);
+      console.log("유저 아이디 : " + uId);  
+        
+      $.ajax({
+        url: "/joo/api/order/currentPointWhenBuy", 
+        method: "POST", // PUT 대신 POST 사용
+        contentType: "application/json",
+        data: JSON.stringify({
+          odiscount_price: oDiscountPrice,
+          u_id: uId
+     
+        }),
+        success: function(response) {
+          // 업데이트가 성공적으로 처리된 후에 실행할 동작을 여기에 작성
+          console.log("결제완료 -> 현재 포인트가 차감되었습니다.", response);
+        },
+        error: function(error) {
+          // 업데이트 중에 에러가 발생한 경우에 실행할 동작을 여기에 작성
+          console.error("Error updating currentPointWhenBuy:", error);
+        }
+      });
+    }
+    
+    function updateStockAndSold() {
+      var pCount = 10 // 수량 입력받아서 초기화  
+        
+      $.ajax({
+        url: "/joo/api/order/stockAndSoldWhenBuy", // 
+        method: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({
+          p_id: pId,
+          pcount: pCount
+        }),
+        success: function(response) {
+          // 업데이트가 성공적으로 처리된 후에 실행할 동작을 여기에 작성
+          console.log("Stock and sold updated successfully:", response);
+        },
+        error: function(error) {
+          // 업데이트 중에 에러가 발생한 경우에 실행할 동작을 여기에 작성
+          console.error("Error updating stock and sold:", error);
+        }
+      });
+    }
+
+
+
 

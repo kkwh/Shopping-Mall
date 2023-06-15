@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.itwill.joo.dto.order.CurrentPointWhenBuyDto;
 import com.itwill.joo.dto.order.DeliveryCreateDto;
 import com.itwill.joo.dto.order.DeliveryInfoDto;
 import com.itwill.joo.dto.order.OrderByBasketDto;
@@ -13,6 +14,7 @@ import com.itwill.joo.dto.order.OrderProductCreateDto;
 import com.itwill.joo.dto.order.OrderedProductDto;
 import com.itwill.joo.dto.order.OrdererInfoDto;
 import com.itwill.joo.dto.order.RandomNumberGenerator;
+import com.itwill.joo.dto.order.StockAndSoldWhenBuyDto;
 import com.itwill.joo.repository.OrderRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -74,6 +76,14 @@ public class OrderService {
     
     public List<OrderByBasketDto> readOrderByBasket(long id) {
         return orderRepository.selectOrderByBasket(id);
+    }
+    
+    public int updateCurrentPointWhenPay(CurrentPointWhenBuyDto dto) {
+        return orderRepository.updateCurrentPointWhenPay(dto);
+    }
+    
+    public int updateStockAndSoldWhenPay(StockAndSoldWhenBuyDto dto) {
+        return orderRepository.updateStockAndSoldWhenPay(dto);
     }
     
     

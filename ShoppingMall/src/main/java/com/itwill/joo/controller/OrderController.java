@@ -28,9 +28,9 @@ public class OrderController {
     private final OrderService orderService;
     
     @GetMapping("/orderPage")
-    public String orderPage(Model model, Principal principal) {
+    public String orderPage(Model model) {
         log.info("orderPage()");
-        log.info("프린시플" + principal.getName());
+        log.info("프린시플");
         
         OrderedProductDto product = orderService.selectOrderedProduct(21);
         OrdererInfoDto user = orderService.selectOrdererInfo(4);

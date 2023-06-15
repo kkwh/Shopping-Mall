@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.itwill.joo.dto.order.CurrentPointWhenBuyDto;
 import com.itwill.joo.dto.order.DeliveryCreateDto;
 import com.itwill.joo.dto.order.OrderCreateDto;
 import com.itwill.joo.dto.order.OrderProductCreateDto;
+import com.itwill.joo.dto.order.StockAndSoldWhenBuyDto;
 import com.itwill.joo.service.OrderService;
 
 import lombok.RequiredArgsConstructor;
@@ -83,6 +85,23 @@ public class OrderRestController {
         return ResponseEntity.ok("delivery 저장 성공"); 
     }
     
+    // 결제 시 -> 유저 현재 포인트 - 사용 포인트
+    @PostMapping("/currentPointWhenBuy")
+    public ResponseEntity<Integer> updateCurrentPointWhenBuy(@RequestBody CurrentPointWhenBuyDto dto) {
+        log.info("updateCurrentPointWhenBuy(dto={})", dto);
+        int result = orderService.updateCurrentPointWhenPay(dto);
+        
+        return ResponseEntity.ok(result); 
+    }
+    
+    // 결제 시 -> 재고감소, 판매량증가
+    @PostMapping("/stockAndSoldWhenBuy")
+    public ResponseEntity<Integer> updateStockAndSold(@RequestBody StockAndSoldWhenBuyDto dto) {
+        log.info("updateStockAndSold(dto={})", dto);
+        int result = orderService.updateStockAndSoldWhenPay(dto);
+        
+        return ResponseEntity.ok(result); 
+    }
     
     
 

@@ -392,11 +392,17 @@
             const price = ${ infos[0].pprice };
         </script>
         <script>
-            var infos = [
+            var infos = [ // 주문 정보 리스트
               <c:forEach var="info" items="${infos}" varStatus="status">
                 { pcount: ${info.pcount}, pprice: ${info.pprice}, p_id: ${info.pid} }<c:if test="${!status.last}">,</c:if>
               </c:forEach>
               ];
+            
+            var stocks = [ // 재고, 판매량 리스트
+                <c:forEach var="stock" items="${infos}" varStatus="status">
+                  { pcount: ${stock.pcount}, p_id: ${stock.pid} }<c:if test="${!status.last}">,</c:if>
+                </c:forEach>
+                ];
         </script>
         <script src="../static/js/order/productOrder2.js"></script>
         <script src="../static/js/order/searchPostCode.js"></script>
