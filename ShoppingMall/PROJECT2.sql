@@ -89,9 +89,9 @@ CREATE TABLE "QUESTION_REPLIES" (
 
 CREATE TABLE "REVIEWS" (
 	id	number(10)		primary key,
-	p_id"	number(10)		NOT NULL,
-	o_id"	number(10)		NOT NULL,
-	u_id"	number(10)		NOT NULL,
+	p_id	number(10)		NOT NULL,
+	o_id	number(10)		NOT NULL,
+	u_id	number(10)		NOT NULL,
 	rcontent	varchar2(1000)		NOT NULL,
 	rratings	number(1)		NOT NULL,
 	review_image	varchar2(100)		NULL,
