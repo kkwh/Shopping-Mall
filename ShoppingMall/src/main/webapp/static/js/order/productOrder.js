@@ -48,8 +48,12 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById("phone2").readOnly = false;
     });
     
-      const myModal = document.getElementById("myModal"); // 포인트 모달창 요소를 가져옴.
+      /*const myModal = document.getElementById("myModal"); // 포인트 모달창 요소를 가져옴.
       const closeBtn = document.getElementsByClassName("close")[0]; // 포인트 모달 창을 닫는 요소를 가져옴.
+      
+      const myModalStock = document.getElementById("myModalStock"); // 포인트 모달창 요소를 가져옴.
+      const closeBtnStock = document.getElementsByClassName("closeStock")[0]; // 포인트 모달 창을 닫는 요소를 가져옴.
+      
       const paymentButton = document.getElementById("paymentButton"); // 결제하기 버튼 요소를 가져옴.
       // 결제하기 버튼 클릭 이벤트 핸들러
       paymentButton.addEventListener("click", function() {
@@ -66,18 +70,25 @@ document.addEventListener('DOMContentLoaded', function () {
               myModal.style.display = "block";
             } else {
               console.log('포인트 정상 입력');
-              // 포인트가 유효한 경우 결제 로직을 수행.
               // 여기에 결제 처리 코드를 작성.
+              // 포인트가 유효한 경우 결제 로직을 수행.
               // 예: form submit 등
-            }
-        }
-      });
+            } 
+        } 
+      });*/
     
       // 모달 창 닫기 버튼 클릭 이벤트 핸들러
       closeBtn.addEventListener("click", function() {
       // 모달 창을 닫음.
-      console.log('모달 닫기');
+      console.log('포인트 모달 닫기');
       myModal.style.display = "none";
+      });
+      
+      // 모달 창 닫기 버튼 클릭 이벤트 핸들러
+      closeBtnStock.addEventListener("click", function() {
+      // 모달 창을 닫음.
+      console.log('모달 닫기');
+      myModalStock.style.display = "none";
       });
     
 });

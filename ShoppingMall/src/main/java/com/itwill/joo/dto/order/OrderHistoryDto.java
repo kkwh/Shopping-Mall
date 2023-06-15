@@ -20,7 +20,8 @@ public class OrderHistoryDto {
 	private String ptitle_image; // 주문 상품 이미지
 	private String pname; // 상품 이름
 	private int pstock; // 수량(임시로 재고 사용)
-	private int pprice; // 상품 가격
+	private int pprice; // 상품 가격	
+	private int pcount; // 상품 수량	
 	private Timestamp ocreated_time; // 주문 일자
 	private Timestamp dmodified_time; // 취소 일자(배송 업데이트 시간)	
 	private String dstatus; // 배송 상태

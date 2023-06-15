@@ -32,14 +32,44 @@
             });
         });
     });*/
+     const myModal = document.getElementById("myModal"); // 포인트 모달창 요소를 가져옴.
+     const closeBtn = document.getElementsByClassName("close")[0]; // 포인트 모달 창을 닫는 요소를 가져옴.
+      
+     const myModalStock = document.getElementById("myModalStock"); // 포인트 모달창 요소를 가져옴.
+     const closeBtnStock = document.getElementsByClassName("closeStock")[0]; // 포인트 모달 창을 닫는 요소를 가져옴.
+      
+     const paymentButton = document.getElementById("paymentButton"); // 결제하기 버튼 요소를 가져옴.
+    
     var orderId = 0;
     $(document).ready(function() {
     // 결제완료 버튼 클릭 시 이벤트 핸들러 등록
     $("#paymentButton").click(function() {
         
-        submitOrder(); // 주문 정보 저장
+        console.log('결제하기 버튼 클릭');
+        const inputPoint = parseInt(document.getElementById("currentPoint").value);
+        // const currentPoint = parseInt("<%= user.ucurrent_point %>");
+        // 포인트 유효성 검사
+        if (inputPoint != 0) {
+            if (isNaN(inputPoint) || inputPoint < 10000 || inputPoint > currentPoint || inputPoint > productPrice) { // 숫자가 아니거나 10000포인트 미만이거나 현재 포인트보다 클 때
+              console.log(inputPoint);
+              console.log(currentPoint);
+              console.log('포인트 잘못 입력');
+              
+              myModal.style.display = "block";
+            } else {
+              // 결제 처리 코드를 작성.
+              // 포인트가 유효한 경우 결제 로직을 수행.
+              console.log('포인트 정상 입력');
+              submitOrder(); // 주문 정보 저장
+              updateCurrentPointWhenBuy(); // 결제완료 시 현재 포인트 차감
+              updateStockAndSold(); // 결제완료 시 재고 감소, 판매량 증가
+              
+            } 
+        } 
+        
+        /*submitOrder(); // 주문 정보 저장
         updateCurrentPointWhenBuy(); // 결제완료 시 현재 포인트 차감
-        updateStockAndSold(); // 결제완료 시 재고 감소, 판매량 증가
+        updateStockAndSold(); // 결제완료 시 재고 감소, 판매량 증가*/
         
   });
 });

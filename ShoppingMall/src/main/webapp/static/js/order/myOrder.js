@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeModal = document.getElementsByClassName('close')[0];
 
     // 모든 주문 취소 버튼에 대해 이벤트 리스너를 등록.
-   cancelOrderButtons.forEach(function(button) {
+    cancelOrderButtons.forEach(function(button) {
     button.addEventListener('click', function() {
     cancelOrderModal.style.display = 'block';
     const id = button.getAttribute('data-orderid');
@@ -228,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeOrderModal = document.getElementsByClassName('closeOrder')[0];
     
     // 모든 구매 확정 버튼에 대해 이벤트 리스너를 등록.
-    confirmOrderButtons.forEach(function(button) {
+  confirmOrderButtons.forEach(function(button) {
     button.addEventListener('click', function() {
     confirmOrderModal.style.display = 'block';
     const id = button.getAttribute('data-confirmid');

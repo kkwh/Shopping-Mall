@@ -352,6 +352,14 @@
           </div>
         </div>
         
+        <!-- 사용자가 결제하기 버튼을 클릭했을때 재고가 구매수량보다 적을 때 보여질 모달 -->
+        <div id="myModalStock" class="modal">
+          <div class="modal-content">
+            <span class="closeStock">&times;</span>
+            <h2>재고가 부족합니다.</h2>
+          </div>
+        </div>
+        
                 <div class="container">
                     <div class="payment-button">
                         <button id="paymentButton" class="btn">결제하기</button>
@@ -381,6 +389,8 @@
             const point = parseInt("${product.pprice * 10 * 0.05}");
             const pId = ${ product.id };
             const price = ${ product.pprice };
+            const stock = ${ product.pstock };
+            const count = ${ count };
         </script>
         <script src="../static/js/order/productOrder.js"></script>
         <script src="../static/js/order/searchPostCode.js"></script>

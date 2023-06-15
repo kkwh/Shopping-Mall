@@ -15,6 +15,7 @@ import com.itwill.joo.dto.order.OrderHistoryDto;
 import com.itwill.joo.dto.order.OrderedProductDto;
 import com.itwill.joo.dto.order.OrdererInfoDto;
 import com.itwill.joo.service.OrderService;
+import com.itwill.joo.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,12 +26,15 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/order")
 public class OrderController {
     
+    private final UserService userService;
     private final OrderService orderService;
     
     @GetMapping("/orderPage")
     public String orderPage(Model model) {
         log.info("orderPage()");
-        log.info("프린시플");
+        
+        // long id = userService.getUserInfo(principal.getName()).getId();
+        log.info("프린시플 : ");
         
         OrderedProductDto product = orderService.selectOrderedProduct(21);
         OrdererInfoDto user = orderService.selectOrdererInfo(4);

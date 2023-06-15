@@ -133,7 +133,7 @@
                                     </a>${ order.pname } ${ order.id }
                                 </div>
                             </td>
-                            <td>${ order.pstock }개</td>
+                            <td>${ order.pcount }개</td>
                             <td>
                                 KRW ${ order.pprice }</a>
                             </td>
@@ -280,7 +280,7 @@
                                     </a>${ order.pname }
                                 </div>
                             </td>
-                            <td>${ order.pstock }개</td>
+                            <td>${ order.pcount }개</td>
                             <td>
                                 KRW ${ order.pprice }</a>
                             </td>
