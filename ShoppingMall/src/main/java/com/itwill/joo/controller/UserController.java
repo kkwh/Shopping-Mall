@@ -13,13 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.itwill.joo.dto.user.TestDto;
 import com.itwill.joo.dto.user.UserCreateDto;
 import com.itwill.joo.dto.user.UserDetailDto;
 import com.itwill.joo.dto.user.UserUpdateDto;
 import com.itwill.joo.service.MailService;
 import com.itwill.joo.service.UserService;
-
+	
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
