@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.itwill.joo.dto.ReviewCreateDto;
-import com.itwill.joo.dto.ReviewListDto;
+import com.itwill.joo.dto.review.ReviewCreateDto;
+import com.itwill.joo.dto.review.ReviewListDto;
 import com.itwill.joo.service.ReviewService;
 import com.itwill.joo.service.UserService;
 
@@ -41,8 +41,6 @@ public class ReviewController {
 	public String create(ReviewCreateDto dto) {
 	    log.info("REVIEW: create({})", dto);
 	    
-	    int result = reviewService.create(dto);
-	    log.info("후기 등록 결과 = {}", result);
 	    
 	    return "redirect:/joo";
 	}
@@ -50,8 +48,7 @@ public class ReviewController {
 	
 	@GetMapping("/list")
 	public String getReviewList(Principal principal, Model model) {
-		List<ReviewListDto> list = reviewService.getReviewList(1);
-		model.addAttribute("list", list);
+
 		
 		return "review/list";
 	}
