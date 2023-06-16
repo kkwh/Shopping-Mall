@@ -404,9 +404,9 @@
                 </c:forEach>
                 ];
         </script>
-        <script src="../static/js/order/productOrder2.js"></script>
-        <script src="../static/js/order/searchPostCode.js"></script>
-        <script src="../static/js/order/payment2.js"></script>
+        <script src="../static/js/orderPage/productOrder2.js"></script>
+        <script src="../static/js/orderPage/searchPostCode.js"></script>
+        <script src="../static/js/orderPage/payment2.js"></script>
 
     </div>
 </body>

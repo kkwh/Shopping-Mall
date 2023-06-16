@@ -392,9 +392,9 @@
             const stock = ${ product.pstock };
             const count = ${ count };
         </script>
-        <script src="../static/js/order/productOrder.js"></script>
-        <script src="../static/js/order/searchPostCode.js"></script>
-        <script src="../static/js/order/payment.js"></script>
+        <script src="../static/js/orderPage/productOrder.js"></script>
+        <script src="../static/js/orderPage/searchPostCode.js"></script>
+        <script src="../static/js/orderPage/payment.js"></script>
 
     </div>
 </body>
