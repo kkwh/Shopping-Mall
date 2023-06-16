@@ -1,7 +1,5 @@
 package com.itwill.joo.dto.order;
 
-import com.itwill.joo.domain.Product;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,14 +9,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class OrderedProductDto {
+public class StockAndSoldWhenBuyDto {
 	
-	private long id;	
-	
-	private String pdetail_image; // 상품 이미지
-	private String pname; // 상품 이름
-	private int pprice; // 상품 가격
-	private int pstock; // 상품 수량
+    private long id;
+    
+	private int pcount; // 구매한 제품 수량
+	private long p_id; // 상품 id(PK)
 	
 	
 	

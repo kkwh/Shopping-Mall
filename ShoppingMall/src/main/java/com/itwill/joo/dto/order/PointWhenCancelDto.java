@@ -1,7 +1,5 @@
 package com.itwill.joo.dto.order;
 
-import com.itwill.joo.domain.Product;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,14 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class OrderedProductDto {
-	
-	private long id;	
-	
-	private String pdetail_image; // 상품 이미지
-	private String pname; // 상품 이름
-	private int pprice; // 상품 가격
-	private int pstock; // 상품 수량
+public class PointWhenCancelDto {
+    private long uid; // uid
+    
+	private int odiscount_price; // 적용된 할인 금액
+
 	
 	
 	
