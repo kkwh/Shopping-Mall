@@ -26,7 +26,8 @@
     <select id="selectOrderHistory"
         resultType="com.itwill.joo.dto.order.OrderHistoryDto">
         SELECT D.ID, P.PTITLE_IMAGE, P.pname, P.pstock, OP.pprice, OP.pcount, O.ocreated_time, O.opoint,
-               D.dstatus, D.dmodified_time, O.odiscount_price, U.ID as "uid", P.ID as "pid"
+               D.dstatus, D.dmodified_time, O.odiscount_price, U.ID as "uid", P.ID as "pid",
+               O.ID as "oid", OP.ID as "opid"
         FROM PRODUCTS P, ORDERS O, ORDER_PRODUCTS OP, DELIVERIES D, USERS U
         WHERE O.ID = OP.O_ID
         AND OP.P_ID = P.ID
