@@ -14,7 +14,9 @@ import com.itwill.joo.dto.order.DeliveryCreateDto;
 import com.itwill.joo.dto.order.OrderCreateDto;
 import com.itwill.joo.dto.order.OrderProductCreateDto;
 import com.itwill.joo.dto.order.PointWhenCancelDto;
+import com.itwill.joo.dto.order.PointWhenCompleDto;
 import com.itwill.joo.dto.order.StockAndSoldWhenBuyDto;
+import com.itwill.joo.dto.order.StockWhenCancelDto;
 import com.itwill.joo.service.OrderService;
 
 import lombok.RequiredArgsConstructor;
@@ -110,6 +112,26 @@ public class OrderRestController {
         log.info("updatePointWhenCancel(dto={})", dto);
         
         int result = orderService.updatePointWhenCancel(dto);
+        
+        return ResponseEntity.ok(result);
+    }
+    
+    // 주문 취소 시 -> 재고수 + 수량 / 판매량 - 수량 
+    @PutMapping("/stock")
+    public ResponseEntity<Integer> updateStockAndSoldWhenCancel(@RequestBody StockWhenCancelDto dto) {
+        log.info("updateStockAndSoldWhenCancel(dto={})", dto);
+        
+        int result = orderService.updateStockAndSoldWhenCancel(dto);
+        
+        return ResponseEntity.ok(result);
+    }
+    
+    // 주문 취소 시 -> 재고수 + 수량 / 판매량 - 수량 
+    @PutMapping("/finalPoint")
+    public ResponseEntity<Integer> updatePointWhenComple(@RequestBody PointWhenCompleDto dto) {
+        log.info("updatePointWhenComple(dto={})", dto);
+        
+        int result = orderService.updatePointWhenComple(dto);
         
         return ResponseEntity.ok(result);
     }

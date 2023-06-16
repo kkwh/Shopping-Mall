@@ -27,6 +27,8 @@ public class OrderHistoryDto {
 	private String dstatus; // 배송 상태
 	private int odiscount_price; // 총 할인액
 	private long uid; // 유저 아이디
+	private long pid; // 상품 아이디
+	private int opoint; // 적립될 포인트
 	
 	
 	

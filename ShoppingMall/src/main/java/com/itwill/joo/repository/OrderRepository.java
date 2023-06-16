@@ -12,7 +12,9 @@ import com.itwill.joo.dto.order.OrderProductCreateDto;
 import com.itwill.joo.dto.order.OrderedProductDto;
 import com.itwill.joo.dto.order.OrdererInfoDto;
 import com.itwill.joo.dto.order.PointWhenCancelDto;
+import com.itwill.joo.dto.order.PointWhenCompleDto;
 import com.itwill.joo.dto.order.StockAndSoldWhenBuyDto;
+import com.itwill.joo.dto.order.StockWhenCancelDto;
 
 public interface OrderRepository {
 	
@@ -46,6 +48,10 @@ OrderedProductDto selectOrderedProduct(long id);
     int updateStockAndSoldWhenPay(StockAndSoldWhenBuyDto dto);
     
     int updateCurrentPointWhenCancel(PointWhenCancelDto dto);
+    
+    int updateStockAndSoldWhenCancel(StockWhenCancelDto dto);
+    
+    int updateCurrentPointWhenComple(PointWhenCompleDto dto);
 
 }
 

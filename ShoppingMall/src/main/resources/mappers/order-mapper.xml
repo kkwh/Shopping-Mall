@@ -25,8 +25,8 @@
     <!-- 주문 내역 조회 페이지 상품, 배송 정보 -->
     <select id="selectOrderHistory"
         resultType="com.itwill.joo.dto.order.OrderHistoryDto">
-        SELECT D.ID, P.PTITLE_IMAGE, P.pname, P.pstock, OP.pprice, OP.pcount, O.ocreated_time,
-               D.dstatus, D.dmodified_time, O.odiscount_price, U.ID as "uid"
+        SELECT D.ID, P.PTITLE_IMAGE, P.pname, P.pstock, OP.pprice, OP.pcount, O.ocreated_time, O.opoint,
+               D.dstatus, D.dmodified_time, O.odiscount_price, U.ID as "uid", P.ID as "pid"
         FROM PRODUCTS P, ORDERS O, ORDER_PRODUCTS OP, DELIVERIES D, USERS U
         WHERE O.ID = OP.O_ID
         AND OP.P_ID = P.ID
@@ -140,7 +140,7 @@
         UPDATE PRODUCTS
         SET PSTOCK = PSTOCK + #{pcount},
             PSOLD = PSOLD - #{pcount}
-        WHERE PRODUCTS.ID = #{p_id}
+        WHERE PRODUCTS.ID = #{pid}
     </update>
     
     <!-- 유저 누적 포인트 + 적립 포인트 -> 구매 확정 시 -->
@@ -149,7 +149,7 @@
         UPDATE USERS
         SET UTOTAL_POINT = UTOTAL_POINT + #{opoint},
             UCURRENT_POINT = UCURRENT_POINT + #{opoint}
-        WHERE USERS.ID = #{u_id}
+        WHERE USERS.ID = #{uid}
     </update>
     
     

@@ -14,8 +14,10 @@ import com.itwill.joo.dto.order.OrderProductCreateDto;
 import com.itwill.joo.dto.order.OrderedProductDto;
 import com.itwill.joo.dto.order.OrdererInfoDto;
 import com.itwill.joo.dto.order.PointWhenCancelDto;
+import com.itwill.joo.dto.order.PointWhenCompleDto;
 import com.itwill.joo.dto.order.RandomNumberGenerator;
 import com.itwill.joo.dto.order.StockAndSoldWhenBuyDto;
+import com.itwill.joo.dto.order.StockWhenCancelDto;
 import com.itwill.joo.repository.OrderRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -89,6 +91,14 @@ public class OrderService {
     
     public int updatePointWhenCancel(PointWhenCancelDto dto) {
         return orderRepository.updateCurrentPointWhenCancel(dto);
+    }
+    
+    public int updateStockAndSoldWhenCancel(StockWhenCancelDto dto) {
+        return orderRepository.updateStockAndSoldWhenCancel(dto);
+    }
+    
+    public int updatePointWhenComple(PointWhenCompleDto dto) {
+        return orderRepository.updateCurrentPointWhenComple(dto);
     }
     
     

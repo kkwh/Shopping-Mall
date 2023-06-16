@@ -176,11 +176,15 @@ document.addEventListener('DOMContentLoaded', () => {
     button.addEventListener('click', function() {
     cancelOrderModal.style.display = 'block';
     const id = button.getAttribute('data-orderid');
-    const uid = button.getAttribute('data-userid');
-    const odiscount_price = button.getAttribute('data-discount');
+    const uid = button.getAttribute('data-userid'); // 포인트 반환
+    const odiscount_price = button.getAttribute('data-discount'); // 포인트 반환
+    const pid = button.getAttribute('data-productid'); // 재고, 판매량 반환
+    const pcount = button.getAttribute('data-count'); // 재고, 판매량 반환
     confirmCancel.setAttribute('data-orderid', id); // 확인 버튼에도 ID 속성 추가
     confirmCancel.setAttribute('data-userid', uid); // 확인 버튼에도 UID 속성 추가
     confirmCancel.setAttribute('data-discount', odiscount_price); // 확인 버튼에도 할인액 속성 추가
+    confirmCancel.setAttribute('data-productid', pid); // 확인 버튼에도 PID 속성 추가
+    confirmCancel.setAttribute('data-count', pcount); // 확인 버튼에도 수량 속성 추가
   });
 });
 
@@ -230,10 +234,30 @@ document.addEventListener('DOMContentLoaded', () => {
             .then((response) => {
                 console.log(response);
                 console.log(uid + "차감 포인트 반납");
-                location.reload(); // 현재 페이지를 새로고침하여 화면을 갱신
+                
             })
             .catch((error) => {
                 console.log('포인트반납 에러');
+                console.log(error);
+            });
+            
+            
+        // 주문 취소시 재고수 + 수량 / 판매량 - 수량
+        console.log('재고, 판매량 반납 시작');    
+        const pid = this.getAttribute('data-productid');
+        console.log(pid);
+        const pcount = this.getAttribute('data-count');
+        console.log(pcount);
+        const reqUrl3 = `/joo/api/order/stock`;
+        const data2 = { pid ,pcount };
+        axios.put(reqUrl3, data2)
+            .then((response) => {
+                console.log(response);
+                console.log(uid + "재고, 판매량 반납 성공!");
+                location.reload(); // 현재 페이지를 새로고침하여 화면을 갱신
+            })
+            .catch((error) => {
+                console.log('재고, 판매량 반납 실패');
                 console.log(error);
             });
         
@@ -257,7 +281,11 @@ document.addEventListener('DOMContentLoaded', () => {
     button.addEventListener('click', function() {
     confirmOrderModal.style.display = 'block';
     const id = button.getAttribute('data-confirmid');
+    const opoint = button.getAttribute('data-point'); // 누적, 현재 포인트에 적립 포인트 추가
+    const uid = button.getAttribute('data-userid2'); // 유저 아이디
     confirmOrder.setAttribute('data-confirmid', id); // 확인 버튼에도 ID 속성 추가
+    confirmOrder.setAttribute('data-point', opoint); // 확인 버튼에도 누적 포인트, 현재 포인트 속성 추가
+    confirmOrder.setAttribute('data-userid2', uid); // 유저 아이디 속성 추가
   });
 });
     
@@ -287,10 +315,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log(response);
                 alert('구매확정이 완료되었습니다.');
                 console.log(id + "구매확정 완료");
-                location.reload(); // 현재 페이지를 새로고침하여 화면을 갱신
+
             })
             .catch((error) => {
                 console.log('구매확정 에러');
+                console.log(error);
+            });
+       
+       
+        // 구매 확정시 유저 누적 포인트 + 적립 포인트 / 유저 현재 포인트 + 적립 포인트
+        console.log('구매 확정시 누적, 현재 포인트 적립 시작');    
+        const opoint = this.getAttribute('data-point');
+        console.log('opoint = '+ opoint);
+        const uid = this.getAttribute('data-userid2');
+        console.log('uid = '+ uid);
+        const reqUrl2 = `/joo/api/order/finalPoint`;
+        const data = { uid , opoint };
+        axios.put(reqUrl2, data)
+            .then((response) => {
+                console.log(response);
+                console.log(uid + "최종 누적, 현재 포인트 적립 성공!");
+                location.reload(); // 현재 페이지를 새로고침하여 화면을 갱신
+            })
+            .catch((error) => {
+                console.log("최종 누적, 현재 포인트 적립 실패");
                 console.log(error);
             });
     

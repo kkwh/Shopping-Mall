@@ -156,7 +156,8 @@
                                                     <button type="button" class="btn btn-primary btn-sm float-right ml-2" >배송조회</button>
                                                 </a>
                                              <button id="cancelOrderButton" type="button" class="btn btn-danger btn-sm float-right" 
-                                                     data-orderid="${order.id}" data-userid="${order.uid}" data-discount="${order.odiscount_price}">
+                                                     data-orderid="${order.id}" data-userid="${order.uid}" data-discount="${order.odiscount_price}"
+                                                     data-productid="${order.pid}" data-count="${order.pcount}">
                                                      주문취소
                                             </button>
 
@@ -204,7 +205,9 @@
                                                 <a href="${ deliveryCheck }" target="_blank" onclick="openWindowWithPosition(event)">
                                                     <button type="button" class="btn btn-primary btn-sm float-right ml-2" >배송조회</button>
                                                 </a>
-                                              <button id="confirmOrderButton" type="button" class="btn btn-danger btn-sm float-right" data-confirmid="${order.id}">구매확정</button>
+                                              <button id="confirmOrderButton" type="button" class="btn btn-danger btn-sm float-right" 
+                                                      data-confirmid="${order.id}" data-point="${order.opoint}" data-userid2="${order.uid}">구매확정
+                                              </button>
                                               
                                               <!-- 구매 확정 모달 -->
                                               <div id="confirmOrderModal" class="modal">
