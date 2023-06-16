@@ -4,3 +4,4 @@
 .project
 .gitignore
 .settings/
+application-context.xml
