@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwill.joo.domain.BasketProduct;
-import com.itwill.joo.dto.BasketProductCreateDto;
-import com.itwill.joo.dto.BasketProductListDto;
+import com.itwill.joo.dto.basket.BasketProductCreateDto;
+import com.itwill.joo.dto.basket.BasketProductListDto;
 import com.itwill.joo.service.BasketProductService;
 import com.itwill.joo.service.BasketService;
 import com.itwill.joo.service.UserService;
@@ -37,7 +37,7 @@ public class BasketProductController {
 	
 	//장바구니 리스트
 	@GetMapping("/myBasket")
-	public void basketlist(Model model, Principal principal) {
+	public String basketlist(Model model, Principal principal) {
 		log.info("myBasketList()");
 		
 		
@@ -50,10 +50,11 @@ public class BasketProductController {
 		model.addAttribute("basketproducts",list);
 		model.addAttribute("userId", userId);
 		
+		return "basket/myBasket";
 	}
 	
 	//장바구니 개별 삭제
-	@PostMapping("/delete")
+	@PostMapping("/deleteProduct")
 	public String delete(long id) {
 		log.info("delete(id={})", id);
 		
