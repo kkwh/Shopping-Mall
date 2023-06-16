@@ -114,7 +114,7 @@ public class UserController {
 		UserDetailDto dto = userService.getUserInfo(principal.getName());
 		model.addAttribute("user", dto);
 		
-		return "user/point";
+		return "user/myGrade";
 	}
 	
 	@PostMapping("/modify")
