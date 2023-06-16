@@ -37,18 +37,20 @@ public class UserController {
 	}
 	
 	@GetMapping("/join")
-	public String joinPage() {
+	public String joinPage(UserCreateDto dto, Model model) {
 		log.info("join()");
+		
+		model.addAttribute("dto", dto);
 		
 		return "user/join";
 	}
 	
 	@PostMapping("/join")
-	public String join(UserCreateDto dto, BindingResult bindingResult) {
+	public String join(UserCreateDto dto, BindingResult bindingResult, Model model) {
 		log.info("join({})", dto);
 		
 		if(bindingResult.hasErrors()) {
-			System.out.println("error");
+			model.addAttribute("dto", dto);
 			return "user/join";
 		}
 		
@@ -105,6 +107,14 @@ public class UserController {
 		model.addAttribute("user", dto);
 		
 		return "user/details";
+	}
+	
+	@GetMapping("/myGrade")
+	public String userGrade(Principal principal, Model model) {
+		UserDetailDto dto = userService.getUserInfo(principal.getName());
+		model.addAttribute("user", dto);
+		
+		return "user/point";
 	}
 	
 	@PostMapping("/modify")
