@@ -6,13 +6,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
 
-@Controller
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@RestController
 @RequestMapping("/payment")
 public class PaymentController {
 	
@@ -27,6 +31,8 @@ public class PaymentController {
 	@ResponseBody
 	public IamportResponse<Payment> paymentByImpUid(@PathVariable("imp_uid") String imp_uid) 
 			throws IamportResponseException, IOException {
+		log.info("paymentByImpUid({})", imp_uid);
+		
 		return iamportClient.paymentByImpUid(imp_uid);
 	}
 
