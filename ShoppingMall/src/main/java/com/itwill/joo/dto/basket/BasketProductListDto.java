@@ -1,7 +1,5 @@
 package com.itwill.joo.dto.basket;
 
-import com.itwill.joo.domain.BasketProduct;
-import com.itwill.joo.domain.Product;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -92,7 +92,7 @@ public class BasketProductController {
 	}
 	
 	//상품상세보기 페이지
-	@GetMapping("/postDetail")
+	@GetMapping("/productDetail")
 	public void postDetail(Principal principal, Model model) {
 		long userId = userService.select(principal.getName()).getId();
 		long basketId = basketService.selectByUserId(userId).getId();
