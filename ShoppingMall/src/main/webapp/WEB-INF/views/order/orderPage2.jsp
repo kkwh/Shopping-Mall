@@ -381,6 +381,8 @@
             crossorigin="anonymous">
         </script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
         <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
         <script> 
             const uId = ${ infos[0].uid };
@@ -406,7 +408,7 @@
         </script>
         <script src="../static/js/orderPage/productOrder2.js"></script>
         <script src="../static/js/orderPage/searchPostCode.js"></script>
-        <script src="../static/js/orderPage/payment2.js"></script>
+        <script src="../static/js/orderPage/payment3.js"></script>
 
     </div>
 </body>

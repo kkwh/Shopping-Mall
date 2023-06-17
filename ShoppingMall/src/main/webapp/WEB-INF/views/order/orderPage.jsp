@@ -328,6 +328,7 @@
                             style="font-family: Pretendard, serif;">
                             <strong>= </strong>KRW 
                             <strong id="total_order_sale_price_view">${productPrice + shippingFee - totalDiscount}</strong>
+                            <input type="hidden" id="paymentPrice" value="${productPrice + shippingFee - totalDiscount}" />
                             <span class="tail displaynone"><span
                                 id="total_order_sale_price_ref_view"
                                 class="tail"></span></span>
@@ -380,6 +381,8 @@
             crossorigin="anonymous">
         </script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
         <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
         <script> 
             const uId = ${ user.id };
