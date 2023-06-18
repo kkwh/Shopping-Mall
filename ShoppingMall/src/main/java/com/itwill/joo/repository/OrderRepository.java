@@ -6,6 +6,7 @@ import com.itwill.joo.dto.order.CurrentPointWhenBuyDto;
 import com.itwill.joo.dto.order.DeliveryCreateDto;
 import com.itwill.joo.dto.order.DeliveryInfoDto;
 import com.itwill.joo.dto.order.OrderByBasketDto;
+import com.itwill.joo.dto.order.OrderCancelHistoryDto;
 import com.itwill.joo.dto.order.OrderCreateDto;
 import com.itwill.joo.dto.order.OrderHistoryDto;
 import com.itwill.joo.dto.order.OrderProductCreateDto;
@@ -23,6 +24,7 @@ OrderedProductDto selectOrderedProduct(long id);
     OrdererInfoDto selectOrdererInfo(long id);
     
     List<OrderHistoryDto> selectOrderHistory(long id);
+    List<OrderCancelHistoryDto> selectOrderCancelHistory(long id);
     
     int deleteOrder(long id);
     int deleteOrderProduct(long id);

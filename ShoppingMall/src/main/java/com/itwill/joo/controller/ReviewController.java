@@ -38,7 +38,7 @@ public class ReviewController {
 	
 	@GetMapping("/create")
 	public void create() {
-		log.info("Get: create({})");
+		log.info("Get: create()");
 		
 	}
 	

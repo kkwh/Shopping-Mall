@@ -56,6 +56,9 @@
               console.log('포인트 잘못 입력');
               
               myModal.style.display = "block";
+            } else if (count > stock) {
+                console.log('재고 부족');
+                myModalStock.style.display = "block";
             } else {
               // 결제 처리 코드를 작성.
               // 포인트가 유효한 경우 결제 로직을 수행.

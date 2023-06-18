@@ -96,7 +96,7 @@
             <h3 class="text-center">주문서 작성</h3>
         </header>
         
-        <c:set var="count" value="10" />
+        <c:set var="count" value="200" />
         <div class="orderListArea ">
             <div class="title">
                 <h3 class="body1" style="letter-spacing: 0px;">상품
@@ -384,9 +384,9 @@
         <script> 
             const uId = ${ user.id };
             const currentPoint = parseInt("${user.ucurrent_point}");
-            const productPrice = ${product.pprice * 10};
-            const productShipPrice = ${product.pprice * 10 + 3000};
-            const point = parseInt("${product.pprice * 10 * 0.05}");
+            const productPrice = ${product.pprice * count};
+            const productShipPrice = ${product.pprice * count + 3000};
+            const point = parseInt("${product.pprice * count * 0.05}");
             const pId = ${ product.id };
             const price = ${ product.pprice };
             const stock = ${ product.pstock };

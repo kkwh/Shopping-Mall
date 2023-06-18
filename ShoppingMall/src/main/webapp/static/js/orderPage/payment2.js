@@ -47,6 +47,8 @@
         
         console.log('결제하기 버튼 클릭');
         const inputPoint = parseInt(document.getElementById("currentPoint").value);
+        
+        let allStockValid = true;
         // const currentPoint = parseInt("<%= user.ucurrent_point %>");
         // 포인트 유효성 검사
         if (inputPoint != 0) {
@@ -57,7 +59,8 @@
               console.log('포인트 잘못 입력');
               
               myModal.style.display = "block";
-            } else {
+              return;
+            } /*else {
               // 결제 처리 코드를 작성.
               // 포인트가 유효한 경우 결제 로직을 수행.
               console.log('포인트 정상 입력');
@@ -65,12 +68,41 @@
               updateCurrentPointWhenBuy(); // 결제완료 시 현재 포인트 차감
               updateStockAndSold(); // 결제완료 시 재고 감소, 판매량 증가
               
-            } 
+            } */
         } 
         
         /*submitOrder(); // 주문 정보 저장
         updateCurrentPointWhenBuy(); // 결제완료 시 현재 포인트 차감
         updateStockAndSold(); // 결제완료 시 재고 감소, 판매량 증가*/
+        
+         // 각 제품에 대한 재고량 유효성 검사
+    for (let i = 0; i < products.length; i++) {
+      const product = products[i];
+      const currentStock = product.pstock;
+
+      const productQuantity = product.pcount // 장바구니에서 제품 수량 가져오기
+
+      if (productQuantity > currentStock) {
+        console.log(product.pname + '의 선택된 수량이 재고량보다 많습니다.');
+        allStockValid = false;
+        /*const modalId = "myModalStock" + product.pname;
+        const modal = document.getElementById(modalId);
+        const productNameElement = modal.querySelector(".product-name");
+        productNameElement.textContent = product.pname;*/
+        myModalStock.style.display = "block";
+      }
+    }
+    
+    if (!allStockValid) {
+      console.log('재고 부족');
+      return;
+    }
+    
+     // 포인트와 재고량이 모두 유효한 경우 결제 로직을 수행
+    console.log('포인트 정상 입력');
+    submitOrder();
+    updateCurrentPointWhenBuy();
+    updateStockAndSold();
         
   });
 });
@@ -237,6 +269,19 @@
           console.error("Error updating stock and sold:", error);
         }
          });
+      });
+    }
+    
+    // 각 모달 창을 닫는 이벤트 핸들러
+    for (let i = 0; i < products.length; i++) {
+      /*const product = products[i];
+      const modalId = "myModalStock" + product.id;
+      const closeBtnStock = document.getElementsByClassName("closeStock")[i];
+      const modal = document.getElementById(modalId);*/
+    
+      closeBtnStock.addEventListener("click", function() {
+        console.log('모달 닫기');
+        myModalStock.style.display = "none";
       });
     }
 

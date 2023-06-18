@@ -135,10 +135,10 @@
                             </td>
                             <td>${ order.pcount }개</td>
                             <td>
-                                KRW ${ order.pprice }</a>
+                                KRW ${ order.pprice * order.pcount }</a>
                             </td>
                             <td>
-                                <fmt:formatDate value="${ order.ocreated_time }" pattern="yyyy.MM.dd" var="created" />
+                                <fmt:formatDate value="${ order.dcreated_time }" pattern="yyyy.MM.dd" var="created" />
                                 ${ created }
                             </td>
                             
@@ -272,7 +272,7 @@
                     <th scope="col">상품정보</th>
                     <th scope="col">수량</th>
                     <th scope="col">금액</th>
-                    <th scope="col">취소일자</th>
+                    <th scope="col">주문일자&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;취소일자</th>
                     <th scope="col" colspan="2">주문 상태</th>
                 </tr>
             </thead>
@@ -289,11 +289,14 @@
                             </td>
                             <td>${ order.pcount }개</td>
                             <td>
-                                KRW ${ order.pprice }</a>
+                                KRW ${ order.pprice * order.pcount }</a>
                             </td>
                             <td>
-                                <fmt:formatDate value="${ order.dmodified_time }" pattern="yyyy.MM.dd" var="created" />
+                                <fmt:formatDate value="${ order.dcreated_time }" pattern="yyyy.MM.dd" var="created" />
                                 ${ created }
+                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <fmt:formatDate value="${order.dmodified_time}" pattern="yyyy.MM.dd" var="cancelDate" />
+                                ${cancelDate}
                             </td>
                             <td class="txt-lighter">
                                 <div class="btn-set btn-parents">${ order.dstatus }</div>
@@ -322,39 +325,31 @@
            
         // 모든 후기 작성  버튼에 대해 이벤트 리스너를 등록.
         writeReviewButtons.forEach(function(button) {
-        button.addEventListener('click', function() {
-        const pid = button.getAttribute('data-pid'); // 상품 아이디
-        const uid = button.getAttribute('data-uid'); // 유저 아이디
-        const oid = button.getAttribute('data-oid'); // 주문 아이디
-      });
-    });
-        // 후기작성 버튼 클릭 시 실제 구매 확정 동작 수행
-        btnReview.addEventListener('click', function() {
-            // 후기작성 로직 작성
-            // AJAX 요청.
+          button.addEventListener('click', function() {
+            const pid = button.getAttribute('data-pid'); // 상품 아이디
+            const uid = button.getAttribute('data-uid'); // 유저 아이디
+            const oid = button.getAttribute('data-oid'); // 주문 아이디
+            
+            // 후기 작성 로직 작성
+            // AJAX 요청 또는 페이지 이동 등 후기 작성 동작 수행
+            
             console.log('후기작성');
-
-            // 구매 확정시 유저 누적 포인트 + 적립 포인트 / 유저 현재 포인트 + 적립 포인트
-            console.log('구매 확정시 누적, 현재 포인트 적립 시작');    
-            const pid = this.getAttribute('data-pid');
-            console.log('pid = '+ pid);
-            const uid = this.getAttribute('data-uid');
-            console.log('uid = '+ uid);
-            const oid = this.getAttribute('data-oid');
-            console.log('oid = '+ oid);
+            console.log('구매 확정시 누적, 현재 포인트 적립 시작');
             const reqUrl = `/joo/review/api/create`;
             const data = { pid, uid, oid };
             axios.post(reqUrl, data)
-                .then((response) => {
-                    console.log(response);
-                    console.log(uid + "후기 작성버튼 작동!");
-                    window.location.href = `/joo/review/create`;
-                })
-                .catch((error) => {
-                    console.log(uid + "후기 작성버튼 안눌림");
-                    console.log(error);
-                });               
+              .then((response) => {
+                console.log(response);
+                console.log(uid + "후기 작성버튼 작동!");
+                window.location.href = `/joo/review/create`;
+              })
+              .catch((error) => {
+                console.log(uid + "후기 작성버튼 안눌림");
+                console.log(error);
+              });
+          });
         });
+
         </script>
 <!--         <script src="../static/js/order/pointAndStock.js"></script> -->
     </div>
