@@ -14,6 +14,8 @@ public interface UserRepository {
 
 	int createUser(User user);
 	
+	int createUserBasket(long u_id);
+	
 	int createKakaoUser(User user);
 	
 	int updateUser(User user);
