@@ -272,6 +272,23 @@
                         <div data-text-content="true"
                             style="font-size: 16px;" class="">
                             (보유중인 포인트: ${ infos[0].ucurrent_point } 원)</div>
+                            
+                         <fieldset>
+						    <div data-text-content="true"
+			                         	style="font-size: 16px;" class="">결제수단</div>
+						    <div>
+						      <input
+						        type="radio"
+						        id="payByCard"
+						        name="paymentMethod"
+						        value="card"
+						        checked />
+						      <label for="payByCard">카드결제</label>
+						
+						      <input type="radio" id="payByKakao" name="paymentMethod" value="kakao" />
+						      <label for="payByKakao">카카오페이</label>
+						    </div>
+					  </fieldset>
                     </form>
                 </section>
                 
@@ -408,7 +425,7 @@
         </script>
         <script src="../static/js/orderPage/productOrder2.js"></script>
         <script src="../static/js/orderPage/searchPostCode.js"></script>
-        <script src="../static/js/orderPage/payment3.js"></script>
+        <script src="../static/js/orderPage/payment2.js"></script>
 
     </div>
 </body>
