@@ -347,6 +347,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     
+    // 버튼 클릭 시 active 클래스 토글
+    const buttons = document.querySelectorAll('.order-filter-period__tab__button');
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        buttons.forEach((btn) => btn.classList.remove('active'));
+        button.classList.add('active');
+      });
+    });
+    
+    
     
     
     

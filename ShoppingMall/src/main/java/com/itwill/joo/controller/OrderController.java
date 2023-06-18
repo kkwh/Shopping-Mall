@@ -48,14 +48,14 @@ public class OrderController {
     }
     
     @GetMapping("/orderHistory")
-    public String orderHistory(Model model) {
+    public String orderHistory(Model model, Principal principal) {
         log.info("orderHistory()");
         
-        //long id = userService.getUserInfo(principal.getName()).getId();
-        //log.info("principal : " + id);
+        long id = userService.getUserInfo(principal.getName()).getId();
+        log.info("principal : " + id);
         
-        List<OrderHistoryDto> dto = orderService.selectOrderHistory(4);
-        List<OrderCancelHistoryDto> dto2 = orderService.selectOrderCancelHistory(4);
+        List<OrderHistoryDto> dto = orderService.selectOrderHistory(id);
+        List<OrderCancelHistoryDto> dto2 = orderService.selectOrderCancelHistory(id);
         
         model.addAttribute("orders", dto);
         model.addAttribute("cancels", dto2);
@@ -82,13 +82,13 @@ public class OrderController {
     }
     
     @GetMapping("/orderPage2")
-    public String orderPageByBasket(Model model) {
+    public String orderPageByBasket(Model model, Principal principal) {
         log.info("orderPageByBasket()");
         
-        //long id = userService.getUserInfo(principal.getName()).getId();
-        //log.info("principal : " + id);
+        long id = userService.getUserInfo(principal.getName()).getId();
+        log.info("principal : " + id);
         
-        List<OrderByBasketDto> infos = orderService.readOrderByBasket(4);
+        List<OrderByBasketDto> infos = orderService.readOrderByBasket(id);
         model.addAttribute("infos", infos);
         
         return "order/orderPage2";
