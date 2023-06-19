@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.itwill.joo.dto.order.DeliveryCreateDto;
+import com.itwill.joo.dto.order.ReviewToOrderDto;
 import com.itwill.joo.dto.review.ReviewCreateDto;
 import com.itwill.joo.dto.review.ReviewListDto;
 import com.itwill.joo.service.ReviewService;
@@ -35,8 +39,9 @@ public class ReviewController {
 	@GetMapping("/create")
 	public void create() {
 		log.info("Get: create()");
+		
 	}
-			
+	
 	@PostMapping("/create")
 	public String create(ReviewCreateDto dto) {
 	    log.info("REVIEW: create({})", dto);
@@ -44,6 +49,15 @@ public class ReviewController {
 	    
 	    return "redirect:/joo";
 	}
+	
+	@ResponseBody
+	@PostMapping("/api/create")
+    public String create(@RequestBody ReviewToOrderDto dto, HttpSession session) {
+        log.info("Post: create({})", dto);
+        session.setAttribute("data", dto);
+        
+        return "review/create";
+    }
 	
 	
 	@GetMapping("/list")

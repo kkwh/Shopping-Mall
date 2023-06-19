@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class OrderHistoryDto {
+public class OrderCancelHistoryDto {
 	
 	private long id; // Delivery_id
 	
