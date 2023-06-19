@@ -76,20 +76,7 @@ public class BasketProductController {
 	    return ResponseEntity.ok("success");
 	}
 	
-	 //장바구니 상품 추가
-	/*
-	@PostMapping("/productAddBasket")
-	@ResponseBody
-	public String productAddBasket(@RequestBody BasketProductCreateDto dto) {
-		log.info("BasketProduct: add({})", dto);
-		
-		int result = basketProductService.productAddBasket(dto);
-		
-		log.info("상품 등록 결과 = {}" ,result );
-		
-		return "redirect:/user/postDetail";
-	}
-	*/
+	
 
 	
 	@PostMapping("/test")
