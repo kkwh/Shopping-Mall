@@ -272,6 +272,23 @@
                         <div data-text-content="true"
                             style="font-size: 16px;" class="">
                             (보유중인 포인트: ${ infos[0].ucurrent_point } 원)</div>
+                            
+                         <fieldset>
+						    <div data-text-content="true"
+			                         	style="font-size: 16px;" class="">결제수단</div>
+						    <div>
+						      <input
+						        type="radio"
+						        id="payByCard"
+						        name="paymentMethod"
+						        value="card"
+						        checked />
+						      <label for="payByCard">카드결제</label>
+						
+						      <input type="radio" id="payByKakao" name="paymentMethod" value="kakao" />
+						      <label for="payByKakao">카카오페이</label>
+						    </div>
+					  </fieldset>
                     </form>
                 </section>
                 
@@ -389,6 +406,8 @@
             crossorigin="anonymous">
         </script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
         <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
         <script> 
             const uId = ${ infos[0].uid };

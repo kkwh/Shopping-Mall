@@ -16,13 +16,19 @@ import lombok.NoArgsConstructor;
  * @author 서원준
  *
  */
-public class Payment {
+public class PaymentInfo {
 	
 	private long id;
-	private long o_id; // 주문 아이디
+	private long o_id;
 	
-	private String payment_status; // 결제 상태
+	private String pay_method;
 	
-	private LocalDateTime pcreated_time; // 결제 일자
+	private String imp_uid;
+	
+	private String merchant_uid;
+	
+	private int amount;
+	
+	private LocalDateTime pcreated_time;
 
 }

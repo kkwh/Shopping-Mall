@@ -79,12 +79,19 @@ public class UserService {
 	
 	public int updatePassword(String loginId, String password) {
 		password = passwordEncoder.encode(password);
+		
 		return userRepository.updatePassword(loginId, password);
 	}
 	
 	public int deleteUser(long id) {
 		log.info("deleteUser({})", id);
 		
+		/* TODO: 
+		 * 유저 장바구니 삭제
+		 * 주문 기록 삭제
+		 * 배송 기록 삭제
+		 * 리뷰, 문의 작성글 삭제
+		*/
 		return userRepository.deleteUserById(id);
 	}
 

@@ -14,6 +14,8 @@ public interface UserRepository {
 
 	int createUser(User user);
 	
+	int createUserBasket(long u_id);
+	
 	int createKakaoUser(User user);
 	
 	int updateUser(User user);
@@ -22,4 +24,7 @@ public interface UserRepository {
 	
 	int deleteUserById(long id);
 
+	// 채한별:
+	// 유저 아이디로 찾기
+    User selectUserById(long id);
 }
