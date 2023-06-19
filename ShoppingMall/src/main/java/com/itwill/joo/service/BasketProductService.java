@@ -6,9 +6,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-
+import com.itwill.joo.domain.BasketProduct;
 import com.itwill.joo.dto.basket.BasketProductCreateDto;
 import com.itwill.joo.dto.basket.BasketProductListDto;
+import com.itwill.joo.dto.basket.BasketProductReadDto;
+import com.itwill.joo.dto.basket.BasketUpdateDto;
 import com.itwill.joo.repository.BasketProductRepository;
 import com.itwill.joo.repository.BasketRepository;
 
@@ -78,6 +80,37 @@ public class BasketProductService {
 		
 	}
 
+
+    public int updatePcount(long id, BasketUpdateDto dto) {
+        log.info("updatePcount(id={}, dto={}", id, dto);
+        
+        BasketProduct entity = BasketProduct.builder()
+                .id(id)
+                .pcount(0)
+                .build();
+        log.info("entity={}", entity);
+        return basketProductRepository.updatePcount(entity);
+        
+    }
+
+
+    public boolean selectById(BasketProductListDto dto) {
+        
+        return basketProductRepository.selectById(dto.getId());
+    }
+
+
+    //장바구니에 있는 상품인지 확인.
+    public BasketProductReadDto readById(long id) {
+      
+        BasketProduct entity = basketProductRepository.selectById(id);
+        
+        return BasketProductReadDto.fromEntity(entity);
+    }
+
+
+
+  
 	
 	
 	

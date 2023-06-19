@@ -38,6 +38,27 @@ public interface BasketProductRepository {
 	int deleteById(long id);
 
 
+	/**
+	 * basketproject에서 id를 찾는다. 
+	 * @param id
+	 * @return
+	 */
+    //boolean selectById(long id);
+
+    
+    
+    int updatePcount(BasketProduct basketProduct);
+
+
+    //장바구니에 있는 상품인지 찾기
+    BasketProduct selectById(long id);
+
+
+
+
+
+
+
 	
 	
 	
@@ -47,3 +68,4 @@ public interface BasketProductRepository {
 
 
 }
+

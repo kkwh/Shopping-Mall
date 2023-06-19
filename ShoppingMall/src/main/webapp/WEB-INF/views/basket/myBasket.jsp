@@ -61,7 +61,7 @@
 									</td>
 									<td>${ basketproduct.pname }</td>
 									<td>${ basketproduct.pprice }</td>
-									<td><button>-</button> ${ basketproduct.pcount }  <button>+</button></td>
+									<td><button class="minusbtn">-</button><span class=""> ${ basketproduct.pcount } </span> <button class="plusbtn">+</button></td>
 									<td><button id="btnDelete"  data-id="${ basketproduct.id }">삭제하기</button></td>
 								</tr>		
 						</c:forEach>					
@@ -109,6 +109,27 @@
             }
         });
     });
+    
+    $(function() {
+        // 마이너스 버튼 클릭 이벤트 처리
+        $(document).on('click', '.minusbtn', function() {
+          const pcountElement = $(this).siblings('.pcount');
+          let pcountElement = parseInt(pcountElement.text());
+          
+          if (productCount > 1) {
+            productCount--;
+            productCountElement.text(productCount);
+          }
+        });
+        
+     $(document).on('click', '.plustbtn', function() {
+            const pcountElement = $(this).siblings('.pcount');
+            let pcountElement = parseInt(pcountElement.text());
+            
+            pcount++;
+            pcountElement.text(pcount);
+          });
+        });
 </script>
 
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" 

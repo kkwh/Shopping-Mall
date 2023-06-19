@@ -120,17 +120,17 @@
                                 옵션추가시 상품이 추가될 부분
                                 <select id="selectpcount">
                                   <option selected>[수량]</option>
-                                  <option>1</option>
-                                  <option>2</option>
-                                  <option>3</option>
-                                  <option>4</option>
-                                  <option>5</option>
+                                  <option value="1">1</option>
+                                  <option value="2">2</option>
+                                  <option value="3">3</option>
+                                  <option value="4">4</option>
+                                  <option value="5">5</option>
                                 </select>
                                 <hr/>
                             </div>
                             S
                             <input type="" id="basketId" name="basketId" value="${ basketId }" />
-                            
+                            <input id="basketselect" value="${ result }" />
                             <div class="d-grid gap-2 d-md-block">
                                 <button class="btn btn-primary"
                                     type="button">주문하기</button>
@@ -172,15 +172,16 @@
             </footer>
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 			<script>
+			 				/*	
 					           $(function() {
 					              $('#btnAddToBasket').click(function() {
 					                 const b_id = $('#basketId').val();
 					                 const p_id =  22;
-					                 const pcount = 3;
+					                 const pcount = $('#selectpcount').val();
 					                 
 					                 
 					                 const param = {"b_id": b_id, "p_id": p_id, "pcount": pcount};
-					                 
+					                
 					                 $.ajax({
 					                    url: '/joo/user/productAddBasket',
 					                    type: 'POST',
@@ -188,13 +189,89 @@
 					                    contentType: 'application/json',
 					                    success: function(res) {
 					                       alert('success');
-					                       window.location.href='/joo';
-					                    }, error: function(error) {
+					                       window.location.href='/joo/product/productDetail';
+					                    },
+					                    error: function(error) {
 					                    	alert(error);
 					                    }
 					                 });
+					               
 					              });
 					           });
+					        */    
+					            
+					            
+					            $(function() {
+					            	  $('#btnAddToBasket').click(function() {
+					            		const id = $('#userId').val();
+					            	    const b_id = $('#basketId').val();
+					            	    const p_id = 22;
+					            	    const pcount = $('#selectpcount').val();
+					            	    
+					            	    const param = {"b_id": b_id, "p_id": p_id, "pcount": pcount};
+					            	   
+					            	    // AJAX 요청 전에 장바구니에 동일한 제품이 있는지 확인
+					            	    $.ajax({
+					            	      url: '/joo/user/checkProductInBasket',
+					            	      type: 'POST',
+					            	      data: JSON.stringify(param),
+					            	      contentType: 'application/json',
+					            	      success: function(response) {
+					            	        if (response.inBasket) {
+					            	          // 동일한 제품이 이미 장바구니에 있을 경우
+					            	          const confirmMessage = "이 상품은 이미 장바구니에 있습니다. 수량을 변경하시겠습니까?";
+					            	          int result = confirm(confirmMessage);
+					            	          console.log(result);
+					            	          if (result) {
+					            	        	  
+					            	            updatePcount(param);
+					            	          } else {
+					            	        	  
+					            	          }
+					            	        } else {
+					            	          // 동일한 제품이 장바구니에 없을 경우
+					            	          addProductToBasket(param);
+					            	        }
+					            	      },
+					            	      error: function(error) {
+					            	        alert(error);
+					            	      }
+					            	    });
+					            	  });
+					            	});
+
+					            	function addProductToBasket(param) {
+					            	  $.ajax({
+					            	    url: '/joo/user/productAddBasket',
+					            	    type: 'POST',
+					            	    data: JSON.stringify(param),
+					            	    contentType: 'application/json',
+					            	    success: function(res) {
+					            	      alert('상품이 장바구니에 추가되었습니다.');
+					            	      window.location.href = '/joo/product/productDetail';
+					            	    },
+					            	    error: function(error) {
+					            	      alert(error);
+					            	    }
+					            	  });
+					            	}
+
+					            	function updatePcount(param) {
+					            	  $.ajax({
+					            	    url: '/joo/user/updatePcount',
+					            	    type: 'POST',
+					            	    data: JSON.stringify(param),
+					            	    contentType: 'application/json',
+					            	    success: function(res) {
+					            	      alert('상품 수량이 변경되었습니다.');
+					            	      window.location.href = '/joo/product/productDetail';
+					            	    },
+					            	    error: function(error) {
+					            	      alert(error);
+					            	    }
+					            	  });
+					            	}
+										
         					</script>
 			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
 			integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"

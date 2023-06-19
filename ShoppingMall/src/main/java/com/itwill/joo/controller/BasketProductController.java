@@ -9,7 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.itwill.joo.domain.BasketProduct;
 import com.itwill.joo.dto.basket.BasketProductCreateDto;
 import com.itwill.joo.dto.basket.BasketProductListDto;
+import com.itwill.joo.dto.basket.BasketProductReadDto;
+import com.itwill.joo.dto.basket.BasketUpdateDto;
 import com.itwill.joo.service.BasketProductService;
 import com.itwill.joo.service.BasketService;
 import com.itwill.joo.service.UserService;
@@ -86,23 +90,41 @@ public class BasketProductController {
 		log.info("BasketProduct: add({})", dto);
 		
 		int result = basketProductService.productAddBasket(dto);
+		
 		log.info("상품 등록 결과 = {}" ,result );
 		
 		return "redirect:/user/postDetail";
 	}
 	
-	//상품상세보기 페이지
-	@GetMapping("/productDetail")
-	public void postDetail(Principal principal, Model model) {
-		long userId = userService.select(principal.getName()).getId();
-		long basketId = basketService.selectByUserId(userId).getId();
-		
-		log.info("userId = {}, basketId = {}", userId, basketId);
-		
-		model.addAttribute("basketId", basketId);
+	/**
+	//장바구니에 있는 상품인지 체크 checkProductInBas
+	@PostMapping("/checkProductInBasket")
+	public void checkProductInBasket(@RequestBody BasketProductListDto dto) {
+	    
+	    boolean inBasket = basketProductService.selectById(dto);
 	}
-	
+	**/
+	//장바구니에 있는 상품인지 체크 
+	@GetMapping("/{id}")
+	@ResponseBody
+	public ResponseEntity<BasketProductReadDto> readById(@PathVariable long id) {
+	    log.info("readById(id={})", id);
+	    
+	    BasketProductReadDto dto = basketProductService.readById(id);
+	     log.info("dto={}", dto);
+        
+        return ResponseEntity.ok(dto);
+	}
+	//장바구니에 있을 경우 pcount 업데이트. 
+	@PutMapping
+	public ResponseEntity<Integer> updatePcount(
+	        @PathVariable long id,
+	        @RequestBody BasketUpdateDto dto){
+	    log.info("updatePcount(id={}, dto={}",id,dto);
+	    
+	    int result = basketProductService.updatePcount(id,dto);
+	    return ResponseEntity.ok(result);
+	    
+	}
 
-	
-	
 }
