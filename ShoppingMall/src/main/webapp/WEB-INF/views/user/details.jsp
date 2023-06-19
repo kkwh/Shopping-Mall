@@ -17,66 +17,87 @@
 	<div style="width: 60%; margin: 0 auto;">
 		<h1>회원정보</h1>
 		<hr/>
-		<form id="join-form">
-		  <div class="row mb-3">
-		    <label for="loginId" class="col-sm-2 col-form-label">아이디</label>
-		    <div class="col-sm-10">
-		      <input type="text" class="form-control" id="loginId" name="loginId" value="${ user.login_id }" readonly>
-		    </div>
-		  </div>
-		  <div class="row mb-3">
-		    <label for="name" class="col-sm-2 col-form-label">이름</label>
-		    <div class="col-sm-10">
-		      <input type="text" class="form-control" id="name" name="name" value="${ user.uname }">
-		    </div>
-		  </div>
-		  <div class="row mb-3">
-		    <label for="phone" class="col-sm-2 col-form-label">전화번호</label>
-		    <div class="col-sm-10">
-		      <input type="text" class="form-control" id="phone" name="phone" value="${ user.uphone }">
-		    </div>
-		  </div>
-		  <div class="row mb-3">
-		    <label for="email" class="col-sm-2 col-form-label">이메일</label>
-		    <div class="col-sm-10">
-		      <input type="email" class="form-control" id="email" name="email" value="${ user.uemail }" readonly>
-		    </div>
-		  </div>
-		  <div class="row mb-3">
-		    <label for="password" class="col-sm-2 col-form-label">비밀번호</label>
-		    <div class="col-sm-10">
-		      <input type="password" class="form-control" id="password" name="password">
-		    </div>
-		  </div>
-		  <div class="row mb-3">
-		    <label for="passwordConfirm" class="col-sm-2 col-form-label">비밀번호 확인</label>
-		    <div class="col-sm-10">
-		      <input type="password" class="form-control" id="passwordConfirm">
-		    </div>
-		  </div>
-		  <span id="guide" style="color:#999;display:none"></span>
-		  <div class="row mb-3">
-		    <label for="postcode" class="col-sm-2 col-form-label">주소</label>
-		    <div class="col-sm-8">
-		      <input type="text" class="form-control" id="postcode" name="postcode" value="${ user.upostcode }">
-		    </div>
-		    <div class="col-sm-2 text-center">
-		    	<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" class="btn btn-outline-primary">
-		    </div>
-		  </div>
-		   <div class="row mb-3">
-		    <label for="street" class="col-sm-2 col-form-label"></label>
-		    <div class="col-sm-10">
-		      <input type="text" class="form-control" id="street" name="street" value="${ user.ustreet }">
-		    </div>
-		  </div>
-		  <div class="row mb-3">
-		    <label for="detailAddress" class="col-sm-2 col-form-label"></label>
-		    <div class="col-sm-10">
-		      <input type="text" class="form-control" id="detailAddress" name="detailAddress" value="${ user.udetail_address}">
-		    </div>
-		  </div>
-		  
+		<form id="update-form" >
+			<table class="table">
+				<tr>
+					<th class="table-secondary w-25">
+						<label for="loginId" class="form-label">아이디</label>
+					</th>
+					<td class="w-75">
+						<input type="text" class="form-control" id="loginId" name="loginId" value="${ user.login_id }" readonly>
+					</td>
+					<td></td>
+				</tr>
+				<tr>
+					<th class="table-secondary w-25">
+						<label for="name" class="form-label">이름</label>
+					</th>
+					<td class="w-75">
+						<input type="text" class="form-control" id="name" name="name" value="${ user.uname }">
+					</td>
+					<td></td>
+				</tr>
+				<tr>
+					<th class="table-secondary w-25">
+						<label for="phone" class="form-label">전화번호</label>
+					</th>
+					<td class="w-75">
+						<input type="text" class="form-control" id="phone" name="phone" value="${ user.uphone }" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+					</td>
+					<td></td>
+				</tr>
+				<tr>
+					<th class="table-secondary w-25">
+						<label for="email" class="form-label">이메일</label>
+					</th>
+					<td class="w-75">
+						<input type="email" class="form-control" id="email" name="email" value="${ user.uemail }" readonly>
+					</td>
+					<td></td>
+				</tr>
+				<tr>
+					<th class="table-secondary w-25">
+						<label for="password" class="form-label">비밀번호</label>
+					</th>
+					<td class="w-75">
+						<input type="password" class="form-control" id="password" name="password">
+					</td>
+					<td></td>
+				</tr>
+				<tr>
+					<th class="table-secondary w-25">
+						<label for="passwordConfirm" class="form-label">비밀번호 확인</label>
+					</th>
+					<td class="w-75">
+						<input type="password" class="form-control" id="passwordConfirm">
+					</td>
+					<td></td>
+				</tr>
+				<tr>
+					<th class="table-secondary w-25" rowspan="3">
+						<span id="guide" style="color:#999;display:none"></span>
+						<label for="postcode" class="form-label">주소</label>
+					</th>
+					<td class="w-75">
+						<input type="text" class="form-control" id="postcode" name="postcode" value="${ user.upostcode }">
+					</td>
+					<td>
+						<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" class="btn btn-outline-primary w-100">
+					</td>
+				</tr>
+				<tr>
+					<td class="w-75">
+						<input type="text" class="form-control" id="street" name="street" value="${ user.ustreet }">
+					</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td class="w-75">
+						<input type="text" class="form-control" id="detailAddress" name="detailAddress" value="${ user.udetail_address}">
+					</td>
+					<td></td>
+				</tr>
+			</table>
 		  <button type="button" id="modifyBtn" class="btn btn-outline-success">수정</button>
 		  <a href="/joo" class="btn btn-outline-danger">취소</a>
 		  <a href="/joo/user/withdrawal" class="btn btn-outline-danger">회원탈퇴</a>
@@ -113,6 +134,8 @@
 				}
 				if(password !== passwordConfirm) {
 					alert('비밀번호가 일치하지 않습니다.');
+					$('#password').val('');
+					$('#passwordConfirm').val('');
 					return;
 				}
 				if(street.trim().length == 0) {

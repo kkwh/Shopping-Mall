@@ -27,7 +27,7 @@
 					<button type="button" id="findIdBtn" class="btn btn-dark w-100">아이디 찾기</button>
 				</div>
 				<div id="signup-btn-panel" class="p-2" style="width: 100%;">
-					<a href="/joo/user/login" class="btn btn-outline-danger w-100">취소</a>
+					<a href="/joo/user/login" class="btn btn-outline-dark w-100">취소</a>
 				</div>
 			</div>
 		</form>
@@ -58,7 +58,10 @@
 				$.ajax({
 					type: 'POST',
 					url: '/joo/user/findId',
-					data: {"name": name, "email": email},
+					data: JSON.stringify(
+							{"name": name, "email": email}
+					),
+					contentType: 'application/json',
 					success: function(res) {
 						if(res.trim().length > 0) {
 							alert('아이디: ' + res);
