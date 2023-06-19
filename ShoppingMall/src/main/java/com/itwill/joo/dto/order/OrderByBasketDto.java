@@ -17,6 +17,7 @@ public class OrderByBasketDto {
     private String ptitle_image; // 상품 이미지
     private String pname; // 상품 이름
     private int pprice; // 상품 가격
+    private int pstock; // 상품 재고
 	private String uname; // 주문자 정보
 	private int upostcode; // 주문자 우편번호
 	private String ustreet; // 주문자 주소
