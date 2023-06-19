@@ -5,6 +5,11 @@
 
 <mapper namespace="com.itwill.joo.repository.UserRepository">
     
+    <select id="selectUserById" resultType="com.itwill.joo.domain.User">
+        select * from USERS
+        where ID = #{id}
+    </select>
+    
     <select id="selectUserByEmail" resultType="com.itwill.joo.domain.User">
     	select * from USERS
     	where UEMAIL = #{email}

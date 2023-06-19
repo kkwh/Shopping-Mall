@@ -22,4 +22,7 @@ public interface UserRepository {
 	
 	int deleteUserById(long id);
 
+	// 채한별:
+	// 유저 아이디로 찾기
+    User selectUserById(long id);
 }

@@ -1,13 +1,23 @@
 package com.itwill.joo.service;
 
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.itwill.joo.dto.question.QuestionDetailDto;
+import com.itwill.joo.dto.question.QuestionUpdateDto;
+import com.itwill.joo.domain.Criteria;
+import com.itwill.joo.domain.Product;
 import com.itwill.joo.domain.Question;
+import com.itwill.joo.domain.User;
 import com.itwill.joo.dto.question.QuestionCreateDto;
 import com.itwill.joo.dto.question.QuestionsListDto;
+import com.itwill.joo.repository.ProductRepository;
 import com.itwill.joo.repository.QuestionRepository;
+import com.itwill.joo.repository.UserRepository;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,29 +27,187 @@ import lombok.extern.slf4j.Slf4j;
 public class QuestionService {
 
     // 생성자에 의한 의존성 주입
+    private final UserRepository userRepository;
     private final QuestionRepository questionRepository;
-
-    // 문의사항 목록 페이지
-    public List<QuestionsListDto> read() {
+    private final ProductRepository productRepository;
+    
+    // 상품 Service
+    
+    // 개인 문의 조회
+   public List<QuestionsListDto> readAllByUserId(long u_id) {
+       log.info("realAllByUserId()");
+       
+       List<Question> list = questionRepository.selectByUserId(u_id);
+       List<QuestionsListDto> questions = new ArrayList<>();
+       for(Question q : list) {
+           Product product = questionRepository.selectProductById(q.getP_id());
+           QuestionsListDto dto = QuestionsListDto.fromEntity(q);
+           dto.setProduct(product);
+           questions.add(dto);
+       }
+       
+       return questions;
+   }
+    
+    
+    // 상품 문의 목록
+    public List<QuestionsListDto> readProductId(long p_id) {
         log.info("read()");
+        
+        
+        // p_id를 아규먼트로 받아야한다!!!!!!!!
+        List<Question> list = questionRepository.selectWhereTypeProduct(p_id);
+        
+        List<QuestionsListDto> questions = new ArrayList<>();
+        
+        for(Question q : list) {
+            long userId = q.getU_id();
+            long productId = q.getP_id();
+            User user = userRepository.selectUserById(userId);
+            Product product = questionRepository.selectProductById(productId);
+            String login_id =   user. getLogin_id();
+        
+            QuestionsListDto dto = QuestionsListDto.fromEntity(q);
+            dto.setLogin_id(login_id);
+            dto.setProduct(product);
+            questions.add(dto);
+            
+        }
+//        return list.stream().map(QuestionsListDto::fromEntity).toList();
+        return questions;
+    }
+    
 
-        List<Question> list = questionRepository.selectOrderByDesc();       
-
+    // 상품 문의 상세보기
+    public QuestionDetailDto read(long id) {
+        log.info("read(id)");
+        
+        Question entity = questionRepository.selectById(id);
+        QuestionDetailDto dto = QuestionDetailDto.fromEntity(entity);
+        
+        User user = userRepository.selectUserById(dto.getU_id());
+        dto.setLogin_id(user.getLogin_id());
+        
+        Product product = questionRepository.selectProductById(entity.getP_id());
+        dto.setProduct(product);
+        
+        return dto;
+    }
+    
+    // 상품문의 총 개수
+    public int getTotalProductQuestion() {
+        return questionRepository.totalSelectQuestionTypeProduct();
+    }
+    
+    // 고객문의 총 개수
+    public int getTotalQnaQuestion() {
+        return questionRepository.totalSelectWhereTypeQnA();
+    }
+    
+    // 상품 문의 전체보기
+    public List<QuestionsListDto> readAll() {
+        log.info("readAll() ");
+        
+        List<Question> list = questionRepository.selectOrderByDesc();
+        
         return list.stream().map(QuestionsListDto::fromEntity).toList();
     }
-
-    // 문의사항 상세보기
-    public Question read(long id) {
-        log.info("read(id={}", id);
-
-        return questionRepository.selectById(id);
+    
+    // 상품 문의 작성
+    public int create(QuestionCreateDto dto) {
+        log.info("create(question)", dto);
+        
+        return questionRepository.insert(dto.toEntity());
     }
 
-    //새 문의사항 작성 페이지
-   public int questionCreate(QuestionCreateDto dto) {
-       log.info("questionCreate({})", dto);
-
-       return questionRepository.insert(dto.toEntity());
-   }
-
+    // 상품 문의 수정
+    public int update(QuestionUpdateDto dto) {
+        log.info("update(question)", dto);
+        
+        return questionRepository.updateTitleAndContent(dto.toEntity());
+    }
+    
+    // 상품 문의 삭제
+    public int delete(long id) {
+        log.info("delete(id)", id);
+        
+        return questionRepository.deleteById(id);
+        
+    }
+    
+    
+    
+    // QNA service
+    
+    // Qna 목록
+    public List<QuestionsListDto> readQna() {
+        log.info("read()");
+    
+        List<Question> list = questionRepository.selectWhereTypeQnA();
+        List<QuestionsListDto> questions = new ArrayList<>();
+        
+        for(Question q : list) {
+            long userId = q.getU_id();
+            User user = userRepository.selectUserById(userId);
+            String login_id =   user. getLogin_id();
+        
+            QuestionsListDto dto = QuestionsListDto.fromEntity(q);
+            dto.setLogin_id(login_id);
+            questions.add(dto);
+            
+        }
+        return questions;
+    }   
+    
+     //고객 문의 상세보기
+    public QuestionDetailDto readQna(long id) {
+         log.info("read(id)");
+        
+        Question entity = questionRepository.selectById(id);
+        QuestionDetailDto dto = QuestionDetailDto.fromEntity(entity);
+        
+        User user = userRepository.selectUserById(dto.getU_id());
+        dto.setLogin_id(user.getLogin_id());
+        
+        Product product = questionRepository.selectProductById(entity.getP_id());
+        dto.setProduct(product);
+        
+        
+        return dto;
+    }
+  
+    
+    // 고객 문의 작성
+    public int createQna(QuestionCreateDto dto) {
+        log.info("createQna(question)", dto);
+        
+        return questionRepository.insert(dto.toEntity());
+    }
+    
+    // 고객 문의 수정
+    public int updateQna(QuestionUpdateDto dto) {
+        log.info("updateQna(question)", dto);
+        
+        return questionRepository.updateTitleAndContent(dto.toEntity());
+    }
+    
+    // 고객 문의 삭제
+    public int deleteQna(long id) {
+        log.info("deleteQna(id)", id);
+        
+        return questionRepository.deleteById(id);
+        
+    }
+    
+    public List<Product> getProductList() {
+        log.info("getProductList()");
+        return questionRepository.selectAllProducts();
+    }
+    
+    public Product getProduct(long id) {
+        log.info("getProduct({})", id);
+        return questionRepository.selectProductById(id);
+    }
+    
+    
 }

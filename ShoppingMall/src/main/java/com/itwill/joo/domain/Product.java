@@ -22,10 +22,11 @@ public class Product {
 	private String pdetail_image; // 상품 상세 이미지 경로
 	
 	private int palc; // 상품 도수
-	private int pvolume;
 	private int psold; // 상품 판매량 (기본값: 0)
+	private String pvolume;
 	private int pprice;
 	private int pstock;
+	private int pdiscount;
 	
 	private LocalDateTime pcreated_time; // 상품 등록일자
 	private LocalDateTime pmodified_time; // 상품 수정일자

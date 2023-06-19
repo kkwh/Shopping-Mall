@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<
 
 <!DOCTYPE html>
 <html>
@@ -14,12 +15,16 @@
         rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
         crossorigin="anonymous">
+        <link rel="stylesheet"
+    href="../static/css/questionQnaList.css" />
     </head>
         <body>
             <div class="container-fluid">
             <header class="my-2 p-5 text-center text-bg-dark">
-                <h1> 상품문의 (총 ${questionsList.size()}건)</h1>
+                <h1> Q & A 문의 (총 ${questionQnaList.size()}건)</h1>
             </header>
+
+
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <ul class="navbar-nav bg-light">
@@ -28,10 +33,17 @@
                     <a class="nav-link" href="${ mainPage }">메인 페이지</a>
                 </li>
                 <li class="nav-item">
-                    <c:url var="questionCreatePage" value="/questions/questionCreate" /> 
-                    <a class="nav-link" href="${ questionCreatePage }">새 문의사항 작성</a>
+                    <c:url var="questionFaqListPage" value="/questions/questionFaqList" />
+                   <a class="nav-link" href=${ questionFaqListPage }>자주묻는 질문</a>
                 </li>
-         </ul>
+                <sec:authorize access="isAuthenticated()">
+                <li class="nav-item">
+                    <c:url var="questionQnaCreatePage" value="/questions/questionQnaCreate" /> 
+                    <a class="nav-link" href="${questionQnaCreatePage}">새 문의사항 작성</a>
+                </li>
+                </sec:authorize>
+
+                </ul>
     </nav>
 
     <main class="my-2">
@@ -41,37 +53,34 @@
                   
                     <tr>
                         <th>번호</th>
-                        <th>문의 유형</th>
                         <th>답변여부</th>
+                        <th>문의 유형</th>
                         <th>제목</th>
                         <th>작성자 아이디</th>
                         <th>작성시간</th>
-                        <th>제품 이름</th>
                     </tr>
                
                 </thead>
                 <tbody>
                    <!-- var는 도메인 모델 이름! -->
-                    <c:forEach items="${questionsList }" var="question">
+                    <c:forEach items="${questionQnaList }" var="question">
                         <tr>
                             <td>${ question.id }</td>
-                            <td>${ question.qtype }</td>
                             <td>${ question.is_answered }</td>
+                            <td>${ question.qtype }</td>
                             <td> 
-                                <c:url var ="QuestionDetailPage" value="/questions/questionDetail">
-                                    <c:param name="pid" value="${ question.id }" />
+                                <c:url var ="QuestionDetailPage" value="/questions/questionQnaDetail">
+                                    <c:param name="id" value="${ question.id }" />
                                 </c:url>
                                 <a href="${ QuestionDetailPage }">${ question.qtitle }</a>
                             </td>
-                            <td>
-                            ${ question.login_id}
-                            </td>
+                            
+                            <td>${ question.login_id }</td>
                             <td>
                                     <fmt:formatDate
                                         value="${ question.qcreated_time }"
                                         pattern="yyyy-MM-dd HH:MM:mm" />
                             </td>
-                            <td>${ question.product.pname }</td>
                         </tr>
                     </c:forEach>
                 </tbody>
@@ -84,4 +93,4 @@
            </div>
        </main>
 </body>
-</html> 
+</html>
