@@ -60,7 +60,7 @@
                                     <ul class="dropdown-menu">
                                         <li><a
                                             class="dropdown-item"
-                                            href="/joo/user/myPrivate">개인정보 수정</a></li>
+                                            href="/joo/user/myDetails">개인정보 수정</a></li>
                                         <li><a
                                             class="dropdown-item"
                                             href="/joo/user/myGrade">적립금 확인</a></li>

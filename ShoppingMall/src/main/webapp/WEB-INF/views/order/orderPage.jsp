@@ -96,7 +96,7 @@
             <h3 class="text-center">주문서 작성</h3>
         </header>
         
-        <c:set var="count" value="200" />
+        <c:set var="count" value="1" />
         <div class="orderListArea ">
             <div class="title">
                 <h3 class="body1" style="letter-spacing: 0px;">상품

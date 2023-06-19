@@ -94,11 +94,11 @@
       
       // 카드 결제 선택한 경우
       if(selectedMethod === 'card') {
-				  requestCardPay();
+		requestCardPay();
       } 
       // 카카오페이 선택한 경우
       else {
-				  requestKakaoPay();
+		requestKakaoPay();
       }
   });
 });
@@ -194,7 +194,7 @@
 						 
 						 // 결제 성공한 경우에만 주문 정보 저장
 						 submitOrder();
-		        } else {
+	        		} else {
 						 alert('결제에 실패하였습니다. 에러 내용: ' + rsp.error_msg);
 					 }
 				  });

@@ -57,9 +57,6 @@
               console.log('포인트 잘못 입력');
               
               myModal.style.display = "block";
-            } else if (count > stock) {
-                console.log('재고 부족');
-                myModalStock.style.display = "block";
             } else {
               // 결제 처리 코드를 작성.
               // 포인트가 유효한 경우 결제 로직을 수행.
@@ -73,7 +70,14 @@
 				  requestKakaoPay();
 			  }
             } 
-        }        
+        }  
+        const selectedMethod = $('input[name=paymentMethod]:checked', '#recipientInfo').val();
+              
+              if(selectedMethod === 'card') {
+				  requestCardPay();
+			  } else {
+				  requestKakaoPay();
+			  }      
   });
 });
 
@@ -118,6 +122,8 @@
 					  if(rsp.paid_amount === data.response.amount) {
 						 alert('결제 성공: ' + rsp.paid_amount);
 						 
+						 // 취소 테스트
+						 // cancelOrder();
 						 // 결제 성공한 경우에만 주문 정보 저장
 						 submitOrder();
 		             } else {
@@ -144,7 +150,6 @@
 	      pay_method: "card",
 	      merchant_uid: 'merchant_' + new Date().getTime(),
 	      name: "노르웨이 회전 의자",
-	      // amount: paymentPrice, // 실제 결제 금액
 	      amount: oFinalPrice,
 	      buyer_email: email,
 	      buyer_name: rName,
@@ -178,6 +183,28 @@
 			}
 	    });
 	  }
+	  
+	function cancelOrder() {
+		$.ajax({
+			"url": '/joo/payment/cancel',
+			"type": 'POST',
+			"contentType": 'application/json',
+			"data": JSON.stringify({
+				"merchant_uid": data['merchant_uid'],
+		        "cancel_request_amount": data['amount'],
+		        "reason": "테스트 결제 환불",
+		        "refund_holder": "서원준", 
+		        "refund_bank": "90", 
+		        "refund_account": "account_no" 
+			}),
+			"dataType": 'json',
+			success: function(res) {
+				console.log(res);
+			}, error: function(error) {
+				console.log(error);
+			}
+		});
+	}
     
     function submitOrder() {
       // var uId = uId;
