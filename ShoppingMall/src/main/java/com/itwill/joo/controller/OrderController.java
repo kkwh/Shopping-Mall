@@ -39,7 +39,7 @@ public class OrderController {
         long id = userService.getUserInfo(principal.getName()).getId();
         log.info("principal : " + id);
         
-        OrderedProductDto product = orderService.selectOrderedProduct(6); // param: 상품 id
+        OrderedProductDto product = orderService.selectOrderedProduct(21); // param: 상품 id
         OrdererInfoDto user = orderService.selectOrdererInfo(id); // param: 유저 id
         model.addAttribute("product", product);
         model.addAttribute("user", user);

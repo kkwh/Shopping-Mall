@@ -40,7 +40,7 @@ public class PaymentService {
 	}
 
 	public int insertPaymentData(PaymentInfoDto dto) {
-		log.info("insertPaymentDate({})", dto);
+		log.info("insertPaymentData({})", dto);
 		
 		return paymentRepository.insertPaymentData(dto.toEntity());
 	}
