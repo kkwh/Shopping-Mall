@@ -3,25 +3,18 @@ package com.itwill.joo.controller;
 import java.security.Principal;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.itwill.joo.domain.BasketProduct;
-import com.itwill.joo.dto.basket.BasketProductCreateDto;
+import com.itwill.joo.dto.basket.BasketProductDto;
 import com.itwill.joo.dto.basket.BasketProductListDto;
-import com.itwill.joo.dto.basket.BasketProductReadDto;
-import com.itwill.joo.dto.basket.BasketUpdateDto;
+import com.itwill.joo.dto.basket.TestDto;
 import com.itwill.joo.service.BasketProductService;
 import com.itwill.joo.service.BasketService;
 import com.itwill.joo.service.UserService;
@@ -84,6 +77,7 @@ public class BasketProductController {
 	}
 	
 	 //장바구니 상품 추가
+	/*
 	@PostMapping("/productAddBasket")
 	@ResponseBody
 	public String productAddBasket(@RequestBody BasketProductCreateDto dto) {
@@ -95,39 +89,35 @@ public class BasketProductController {
 		
 		return "redirect:/user/postDetail";
 	}
-	
+	*/
 
-	//장바구니에 있는 상품인지 체크 checkProductInBas
-	@PostMapping("/checkProductInBasket")
+	
+	@PostMapping("/test")
 	@ResponseBody
-	public boolean checkProductInBasket(@RequestBody BasketProductListDto dto) {
-	    log.info("checkProductInBasket({})", dto);
+	public int test(@RequestBody List<TestDto> list) {
+	    for(TestDto dto : list) {
+	        log.info("dto = {}", dto);
+	    }
 	    
-	    boolean inBasket = basketProductService.selectById(dto);
-	    
-	    return inBasket;
+	    return list.size();
 	}
 	
-	//장바구니에 있는 상품인지 체크 
-	@GetMapping("/{id}")
-	@ResponseBody
-	public ResponseEntity<BasketProductReadDto> readById(@PathVariable long id) {
-	    log.info("readById(id={})", id);
-	    
-	    BasketProductReadDto dto = basketProductService.readById(id);
-	     log.info("dto={}", dto);
-        
-        return ResponseEntity.ok(dto);
-	}
 	//장바구니에 있을 경우 pcount 업데이트. 
-	@PutMapping
-	public ResponseEntity<Integer> updatePcount(
-	        @PathVariable long id,
-	        @RequestBody BasketUpdateDto dto){
-	    log.info("updatePcount(id={}, dto={}",id,dto);
+	@PostMapping("/updatePcount")
+	@ResponseBody
+	public ResponseEntity<Integer> updatePcount(@RequestBody BasketProductDto dto){
+	    log.info("updatePcount(dto={}", dto);
 	    
-	    int result = basketProductService.updatePcount(id,dto);
-	    return ResponseEntity.ok(result);
+	    //장바구니에 있는 상품인지 체크
+	    int result = basketProductService.selectById(dto);
+	    int rsp = 0;
+	    if(result == 0) {
+	        rsp = basketProductService.productAddBasket(dto);
+	    } else {
+	        rsp = basketProductService.updatePcount(dto);
+	    }
+	    
+	    return ResponseEntity.ok(rsp);
 	    
 	}
 

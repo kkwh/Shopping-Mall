@@ -11,15 +11,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BasketProductCreateDto {
+public class BasketProductDto {
 	
 	private long id;
 	private long b_id;
 	private long p_id;
 	private int pcount;
 	
-	public BasketProduct toEntity() {
-		
+	public BasketProduct toEntity() {		
 		return BasketProduct.builder()
 				.id(id)
 				.b_id(b_id)

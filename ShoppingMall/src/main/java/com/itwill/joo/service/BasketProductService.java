@@ -3,14 +3,11 @@ package com.itwill.joo.service;
 
 import java.util.List;
 
-
 import org.springframework.stereotype.Service;
 
 import com.itwill.joo.domain.BasketProduct;
-import com.itwill.joo.dto.basket.BasketProductCreateDto;
+import com.itwill.joo.dto.basket.BasketProductDto;
 import com.itwill.joo.dto.basket.BasketProductListDto;
-import com.itwill.joo.dto.basket.BasketProductReadDto;
-import com.itwill.joo.dto.basket.BasketUpdateDto;
 import com.itwill.joo.repository.BasketProductRepository;
 import com.itwill.joo.repository.BasketRepository;
 
@@ -75,41 +72,32 @@ public class BasketProductService {
 	 * @param productId
 	 * @return
 	 */
-	public int productAddBasket(BasketProductCreateDto dto) {
+	public int productAddBasket(BasketProductDto dto) {
 		return basketProductRepository.insertProductAddBasket(dto.toEntity());
 		
 	}
 
 
-    public int updatePcount(long id, BasketUpdateDto dto) {
-        log.info("updatePcount(id={}, dto={}", id, dto);
+
+    public int selectById(BasketProductDto dto) {
+        log.info("selectById({})", dto);
+        
+        return basketProductRepository.selectById(dto.toEntity());
+    }
+
+
+    public int updatePcount(BasketProductDto dto) {
+        log.info("updatePcount(dto={}", dto);
         
         BasketProduct entity = BasketProduct.builder()
-                .id(id)
-                .pcount(0)
+                .b_id(dto.getB_id())
+                .p_id(dto.getP_id())
+                .pcount(dto.getPcount())
                 .build();
         log.info("entity={}", entity);
         return basketProductRepository.updatePcount(entity);
         
     }
-
-
-    public boolean selectById(BasketProductListDto dto) {
-        
-        return basketProductRepository.selectById(dto.getId());
-    }
-
-
-    //장바구니에 있는 상품인지 확인.
-    public BasketProductReadDto readById(long id) {
-      
-        BasketProduct entity = basketProductRepository.selectById(id);
-        
-        return BasketProductReadDto.fromEntity(entity);
-    }
-
-
-
   
 	
 	

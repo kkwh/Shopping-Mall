@@ -25,7 +25,7 @@ public class ProductController {
     
     private final UserService userService;
     private final BasketService basketService;
-    private final BasketProductService basketProductService;
+   
     
 	@GetMapping("/productsList")
 	public void productList() {

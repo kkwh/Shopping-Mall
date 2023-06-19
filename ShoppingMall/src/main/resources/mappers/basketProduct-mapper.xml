@@ -44,19 +44,20 @@
 			select bp.* from BASKET_PRODUCTS bp
 			JOIN PRODUCTS p ON bp.p_id = p.id 
 			where bp.b_id = ${userId}
-		</select> -->
-		
-		<select id="selectById" >
-			select id from BASKET_PRODUCTS 
-			where B_ID = ${userId} and P_ID = 22 
+		</select> 
+-->		
+		<select id="selectById" resultType="int">
+			select count(*) from BASKET_PRODUCTS 
+			where B_ID = #{b_id} and P_ID = #{p_id} 
 		</select>
-		
+
+	
 		<update id="updatePcount">
 			update BASKET_PRODUCTS 
-			set PCOUNT = #{pcount}
-			where ID = #{id}
+			set PCOUNT = #{pcount} + PCOUNT
+			where B_ID = #{b_id}
+			and P_ID = #{p_id}
 		</update>
-		
 	
 		
 		

@@ -1,6 +1,8 @@
 package com.itwill.joo.dto.basket;
 
 
+import com.itwill.joo.domain.BasketProduct;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,12 +20,18 @@ public class BasketProductListDto {
 	
 	private long b_id;
 	private long p_id;
-	private long pcount;
+	private int pcount;
 	
 	private String pname;
 	private int pprice;
 	
+	public BasketProduct toEntity() {
+	    return BasketProduct.builder()
+	            .b_id(b_id)
+	            .p_id(p_id)
+	            .pcount(pcount)
+	            .build();
+	}
 	
-
 	
 }
