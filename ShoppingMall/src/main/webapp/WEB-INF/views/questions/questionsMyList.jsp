@@ -18,7 +18,7 @@
         <body>
             <div class="container-fluid">
             <header class="my-2 p-5 text-center text-bg-dark">
-                <h1> 상품문의 (총 ${questionsList.size()}건)</h1>
+                <h1> 상품문의 (총 ${myQuestionsList.size()}건)</h1>
             </header>
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -41,10 +41,9 @@
                   
                     <tr>
                         <th>번호</th>
-                        <th>문의 유형</th>
                         <th>답변여부</th>
+                        <th>문의 유형</th>
                         <th>제목</th>
-                        <th>작성자 아이디</th>
                         <th>작성시간</th>
                         <th>제품 이름</th>
                     </tr>
@@ -52,11 +51,11 @@
                 </thead>
                 <tbody>
                    <!-- var는 도메인 모델 이름! -->
-                    <c:forEach items="${questionsList }" var="question">
+                    <c:forEach items="${myQuestionsList }" var="question">
                         <tr>
                             <td>${ question.id }</td>
-                            <td>${ question.qtype }</td>
                             <td>${ question.is_answered }</td>
+                            <td>${ question.qtype }</td>
                             <td> 
                                 <c:url var ="QuestionDetailPage" value="/questions/questionDetail">
                                     <c:param name="pid" value="${ question.id }" />
@@ -64,14 +63,11 @@
                                 <a href="${ QuestionDetailPage }">${ question.qtitle }</a>
                             </td>
                             <td>
-                            ${ question.login_id}
-                            </td>
-                            <td>
                                     <fmt:formatDate
                                         value="${ question.qcreated_time }"
                                         pattern="yyyy-MM-dd HH:MM:mm" />
                             </td>
-                            <td>${ question.product.pname }</td>
+                            <td>${ question.product.pname}</td>
                         </tr>
                     </c:forEach>
                 </tbody>
@@ -84,4 +80,4 @@
            </div>
        </main>
 </body>
-</html> 
+</html>

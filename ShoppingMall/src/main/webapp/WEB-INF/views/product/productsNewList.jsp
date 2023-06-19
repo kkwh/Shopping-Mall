@@ -3,17 +3,17 @@ pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1"> <!-- 부트스트랩 -->
-		<title>JOO</title>
-		<link
-			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
-			rel="stylesheet"
-			integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
-			crossorigin="anonymous">
-	</head>
-	<body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- 부트스트랩 -->
+        <title>JOO</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+            crossorigin="anonymous">
+    </head>
+    <body>
     <header class="my-1 p-3 text-bg-dark">
             <div>
                 <nav class="navbar navbar-expand-lg bg-secondary">
@@ -82,9 +82,9 @@ pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 
             <h3 class="text-center">로그인 페이지</h3>
             </header>
-		  <div>
+          <div>
 
-			<main class="my-1 p-5 text-bg-dark">
+            <main class="my-1 p-5 text-bg-dark">
                 <span>
                     메인
                 </span>                
@@ -107,9 +107,9 @@ pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
              <footer class="my-1 p-3 text-bg-dark">
                 <h1 class="text-center">풋터</h1>
             </footer>
-			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-			integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-			crossorigin="anonymous"></script>
-		</div>
-	</body>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+            crossorigin="anonymous"></script>
+        </div>
+    </body>
 </html>
