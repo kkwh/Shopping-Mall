@@ -57,9 +57,6 @@
               console.log('포인트 잘못 입력');
               
               myModal.style.display = "block";
-            } else if (count > stock) {
-                console.log('재고 부족');
-                myModalStock.style.display = "block";
             } else {
               // 결제 처리 코드를 작성.
               // 포인트가 유효한 경우 결제 로직을 수행.
@@ -73,7 +70,14 @@
 				  requestKakaoPay();
 			  }
             } 
-        }        
+        }  
+        const selectedMethod = $('input[name=paymentMethod]:checked', '#recipientInfo').val();
+              
+              if(selectedMethod === 'card') {
+				  requestCardPay();
+			  } else {
+				  requestKakaoPay();
+			  }      
   });
 });
 
@@ -118,9 +122,10 @@
 					  if(rsp.paid_amount === data.response.amount) {
 						 alert('결제 성공: ' + rsp.paid_amount);
 						 
-						 cancelOrder(rsp);
+						 // 취소 테스트
+						 // cancelOrder();
 						 // 결제 성공한 경우에만 주문 정보 저장
-						 // submitOrder();
+						 submitOrder();
 		             } else {
 						 alert('결제에 실패하였습니다. 에러 내용: ' + rsp.error_msg);
 					 }
@@ -179,7 +184,7 @@
 	    });
 	  }
 	  
-	function cancelOrder(rsp) {
+	function cancelOrder() {
 		$.ajax({
 			"url": '/joo/payment/cancel',
 			"type": 'POST',
@@ -190,7 +195,7 @@
 		        "reason": "테스트 결제 환불",
 		        "refund_holder": "서원준", 
 		        "refund_bank": "90", 
-		        "refund_account": "3333146817559" 
+		        "refund_account": "account_no" 
 			}),
 			"dataType": 'json',
 			success: function(res) {
