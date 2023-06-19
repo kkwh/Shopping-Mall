@@ -26,6 +26,11 @@
     	values(#{login_id}, #{upassword}, #{uemail}, #{uphone}, #{uname}, #{ustreet}, #{udetail_address}, #{upostcode}, #{role}, systimestamp, systimestamp)
     </insert>
     
+    <insert id="createUserBasket">
+    	insert into BASKET (U_ID, ESTIMATED_PRICE)
+    	values(#{u_id}, 0)
+    </insert>
+    
     <insert id="createKakaoUser">
     	insert into USERS (LOGIN_ID,  UEMAIL, UPHONE, UNAME, USTREET, UDETAIL_ADDRESS, UPOSTCODE, ROLE, CREATED_TIME, MODIFIED_TIME)
     	values(#{login_id}, #{uemail}, #{uphone}, #{uname}, #{ustreet}, #{udetail_address}, #{upostcode}, #{role}, systimestamp, systimestamp)
