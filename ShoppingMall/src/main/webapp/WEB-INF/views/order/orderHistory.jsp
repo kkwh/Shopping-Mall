@@ -92,7 +92,7 @@
                         <input type="date" class="order-filter-period__input" name="dt_to_input" value="" placeholder="-">
                     </div>
                 </div>
-                <button type="button" class="order-filter-confirm ">조회하기</button>
+                <button type="button" class="order-filter-confirm">조회하기</button>
             </div>
         </div>
 

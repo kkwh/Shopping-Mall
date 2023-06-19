@@ -356,6 +356,54 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
     
+      
+      // 1주일 ~ 6개월 버튼과 조회하기 버튼의 요소를 가지고 옴.
+      // 주문내역조회, 취소내역조회 버튼의 요소를 가지고 옴.
+      var buttons2 = document.getElementsByClassName('order-filter-period__tab__button');
+      var confirmButton = document.querySelector('.order-filter-confirm');
+      var orderHistory = document.querySelector('#btnOrder');
+      var cancelHistory = document.querySelector('#btnCancel');
+
+      // 1주일 ~ 6개월 버튼들에 클릭 이벤트 리스너 등록
+      for (var i = 0; i < buttons2.length; i++) {
+        buttons2[i].addEventListener('click', function() {
+          var activeButton = this;
+
+          // 1주일 ~ 6개월 버튼들의 스타일 초기화
+          for (var j = 0; j < buttons2.length; j++) {
+            buttons2[j].classList.remove('active');
+          }
+
+          // 선택된 버튼에 스타일 추가
+          activeButton.classList.add('active');
+        });
+      }
+
+      // 조회하기 버튼에 클릭 이벤트 리스너 등록
+      confirmButton.addEventListener('click', function() {
+        // 모든 버튼의 스타일 초기화
+        for (var j = 0; j < buttons2.length; j++) {
+          buttons2[j].classList.remove('active');
+        }
+      });
+      
+      // 주문내역조회 버튼에 클릭 이벤트 리스너 등록
+      orderHistory.addEventListener('click', function() {
+        // 모든 버튼의 스타일 초기화
+        for (var j = 0; j < buttons2.length; j++) {
+          buttons2[j].classList.remove('active');
+        }
+      });
+      
+      // 취소내역조회 버튼에 클릭 이벤트 리스너 등록
+      cancelHistory.addEventListener('click', function() {
+        // 모든 버튼의 스타일 초기화
+        for (var j = 0; j < buttons2.length; j++) {
+          buttons2[j].classList.remove('active');
+        }
+      });
+   
+    
     
     
     
