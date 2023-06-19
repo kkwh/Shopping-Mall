@@ -112,7 +112,7 @@
                     <th scope="col">수량</th>
                     <th scope="col">금액</th>
                     <th scope="col">주문일자</th>
-                    <th scope="col" colspan="2">주문 상태</th>
+                    <th scope="col" colspan="2">&nbsp;&nbsp;주문 상태</th>
                 </tr>
             </thead>
             
@@ -147,7 +147,7 @@
                                     <c:choose>
                                         <c:when test="${order.dstatus eq payComple }"> <!-- 결제완료 -->
                                              <div style="color: black; font-weight: bold;">
-                                                ${ order.dstatus }
+                                                &nbsp;&nbsp;${ order.dstatus }&nbsp;&nbsp;&nbsp;
                                              </div>
                                              <c:url var="deliveryCheck" value="/order/deliveryCheck">
                                                 <c:param name="id" value="${ order.id }" />
@@ -155,6 +155,7 @@
                                                 <a href="${ deliveryCheck }" target="_blank" onclick="openWindowWithPosition(event)">
                                                     <button type="button" class="btn btn-primary btn-sm float-right ml-2" >배송조회</button>
                                                 </a>
+                                                &nbsp;&nbsp;&nbsp;
                                              <button id="cancelOrderButton" type="button" class="btn btn-danger btn-sm float-right" 
                                                      data-orderid="${order.id}" data-userid="${order.uid}" data-discount="${order.odiscount_price}"
                                                      data-productid="${order.pid}" data-count="${order.pcount}">
@@ -173,7 +174,7 @@
                                         </c:when>
                                         <c:when test="${order.dstatus eq deliveryReady }"> <!-- 배송준비중 -->
                                              <div style="color: black; font-weight: bold;">
-                                                ${ order.dstatus }
+                                                &nbsp;&nbsp;${ order.dstatus }&nbsp;&nbsp;&nbsp;
                                              </div> 
                                              <c:url var="deliveryCheck" value="/order/deliveryCheck">
                                                 <c:param name="id" value="${ order.id }" />
@@ -181,11 +182,12 @@
                                                 <a href="${ deliveryCheck }" target="_blank" onclick="openWindowWithPosition(event)">
                                                     <button type="button" class="btn btn-primary btn-sm float-right ml-2" >배송조회</button>
                                                 </a>
+                                                &nbsp;&nbsp;&nbsp;
                                              <div class="btn btn-danger btn-sm float-right">취소불가</div>
                                         </c:when>
                                         <c:when test="${order.dstatus eq deliverying }">  <!-- 배송중 -->
                                              <div style="color: black; font-weight: bold;">
-                                                ${ order.dstatus }
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${ order.dstatus }&nbsp;&nbsp;&nbsp;
                                              </div>
                                              <c:url var="deliveryCheck" value="/order/deliveryCheck">
                                                 <c:param name="id" value="${ order.id }" />
@@ -193,11 +195,12 @@
                                                 <a href="${ deliveryCheck }" target="_blank" onclick="openWindowWithPosition(event)">
                                                     <button type="button" class="btn btn-primary btn-sm float-right ml-2" >배송조회</button>
                                                 </a>
+                                                &nbsp;&nbsp;&nbsp;
                                               <div class="btn btn-danger btn-sm float-right">취소불가</div>
                                         </c:when>
                                         <c:when test="${order.dstatus eq deliveryComple }"> <!-- 배송완료 -->
                                              <div style="color: black; font-weight: bold;">
-                                                ${ order.dstatus }
+                                                &nbsp;&nbsp;${ order.dstatus }&nbsp;&nbsp;&nbsp;
                                              </div> 
                                              <c:url var="deliveryCheck" value="/order/deliveryCheck">
                                                 <c:param name="id" value="${ order.id }" />
@@ -205,6 +208,7 @@
                                                 <a href="${ deliveryCheck }" target="_blank" onclick="openWindowWithPosition(event)">
                                                     <button type="button" class="btn btn-primary btn-sm float-right ml-2" >배송조회</button>
                                                 </a>
+                                                &nbsp;&nbsp;&nbsp;
                                               <button id="confirmOrderButton" type="button" class="btn btn-danger btn-sm float-right" 
                                                       data-confirmid="${order.id}" data-point="${order.opoint}" data-userid2="${order.uid}">구매확정
                                               </button>
@@ -221,7 +225,7 @@
                                         </c:when>
                                         <c:otherwise>
                                              <div style="color: black; font-weight: bold;">
-                                                ${ order.dstatus }
+                                                &nbsp;&nbsp;${ order.dstatus }&nbsp;&nbsp;&nbsp;
                                              </div> 
                                              <!-- <a href="/joo/order/deliveryCheck" target="_blank"> -->
                                              <c:url var="deliveryCheck" value="/order/deliveryCheck">
@@ -230,6 +234,7 @@
                                                 <a href="${ deliveryCheck }" target="_blank" onclick="openWindowWithPosition(event)">
                                                     <button type="button" class="btn btn-primary btn-sm float-right ml-2" >배송조회</button>
                                                 </a>
+                                                &nbsp;&nbsp;&nbsp;
                                                 <button id="writeReview" type="button" class="btn btn-danger btn-sm float-right"
                                                 data-pid="${order.pid}" data-uid="${order.uid}" data-oid="${order.oid}">후기작성</button>
                                         </c:otherwise>
@@ -273,7 +278,7 @@
                     <th scope="col">수량</th>
                     <th scope="col">금액</th>
                     <th scope="col">주문일자&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;취소일자</th>
-                    <th scope="col" colspan="2">주문 상태</th>
+                    <th scope="col" colspan="2">&nbsp;&nbsp;주문 상태</th>
                 </tr>
             </thead>
                 
@@ -299,7 +304,7 @@
                                 ${cancelDate}
                             </td>
                             <td class="txt-lighter">
-                                <div class="btn-set btn-parents">${ order.dstatus }</div>
+                                <div class="btn-set btn-parents">&nbsp;&nbsp;${ order.dstatus }</div>
                             </td>
                         </tr>
                     </c:if>
