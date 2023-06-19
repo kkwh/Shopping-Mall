@@ -96,14 +96,18 @@ public class BasketProductController {
 		return "redirect:/user/postDetail";
 	}
 	
-	/**
+
 	//장바구니에 있는 상품인지 체크 checkProductInBas
 	@PostMapping("/checkProductInBasket")
-	public void checkProductInBasket(@RequestBody BasketProductListDto dto) {
+	@ResponseBody
+	public boolean checkProductInBasket(@RequestBody BasketProductListDto dto) {
+	    log.info("checkProductInBasket({})", dto);
 	    
 	    boolean inBasket = basketProductService.selectById(dto);
+	    
+	    return inBasket;
 	}
-	**/
+	
 	//장바구니에 있는 상품인지 체크 
 	@GetMapping("/{id}")
 	@ResponseBody
