@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         cancels.forEach(function(cancel) {
             var cancelDate = cancel.querySelector('td:nth-child(4)').textContent;
-            cancel.style.display = isOrderDateInRange(cancelDate, startDate, endDate) ? 'table-row' : 'none';
+            cancel.style.display = isCancelDateInRange(cancelDate, startDate, endDate) ? 'table-row' : 'none';
         });
     }
 
@@ -453,6 +453,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     
     });*/
+    
+    
 
 })
 
@@ -467,4 +469,115 @@ document.addEventListener('DOMContentLoaded', () => {
       var options = 'width=' + width + ',height=' + height + ',left=' + left + ',top=' + top;
     
       window.open(event.currentTarget.href, '_blank', options);
+    }
+
+
+    
+    //------------------------ 주문 조회 테이블 정렬 기능 추가 --------------------------
+    const orderTableHeaders = document.querySelectorAll('#order-table th');
+    orderTableHeaders.forEach((header) => {
+      header.addEventListener('click', () => {
+        const columnName = header.textContent.trim();
+        sortTable(columnName, '#order-table');
+        updateSortIcons(header, columnName);
+      });
+    });
+    
+    //------------------------ 취소 조회 테이블 정렬 기능 추가 --------------------------
+    const cancelTableHeaders = document.querySelectorAll('#cancel-table th');
+    cancelTableHeaders.forEach((header) => {
+      header.addEventListener('click', () => {
+        const columnName = header.textContent.trim();
+        sortTable(columnName, '#cancel-table');
+        updateSortIcons(header, columnName);
+      });
+    });
+    
+    // 테이블 정렬 함수
+    function sortTable(columnName, tableId) {
+      const tableBody = document.querySelector(`${tableId} tbody`);
+      const rows = Array.from(tableBody.querySelectorAll('tr'));
+    
+      // 해당 열의 값을 기준으로 정렬
+      rows.sort((rowA, rowB) => {
+        const valueA = getCellValue(rowA, columnName, tableId);
+        const valueB = getCellValue(rowB, columnName, tableId);
+    
+        if (sortOrder[columnName] === 'desc') {
+          return compareValues(valueB, valueA);
+        } else {
+          return compareValues(valueA, valueB);
+        }
+      });
+    
+      // 정렬된 행들을 테이블에 다시 추가
+      while (tableBody.firstChild) {
+        tableBody.removeChild(tableBody.firstChild);
+      }
+    
+      rows.forEach((row) => {
+        tableBody.appendChild(row);
+      });
+    
+      // 정렬 상태 업데이트
+      if (sortOrder[columnName] === 'desc') {
+        sortOrder[columnName] = 'asc';
+      } else {
+        sortOrder[columnName] = 'desc';
+      }
+    }
+    
+    // 셀의 값을 가져오는 함수
+    function getCellValue(row, columnName, tableId) {
+      const cell = row.querySelector(`td:nth-child(${getColumnIndex(columnName, tableId)})`);
+      const rawValue = cell ? cell.textContent.trim() : '';
+      
+      // 총 수량과 총 금액에 해당하는 열만 숫자 부분 추출
+      if (columnName === '수량' || columnName === '금액') {
+        const numericValue = rawValue.match(/\d+(\.\d+)?/);
+        return numericValue ? parseFloat(numericValue[0]) : NaN;
+      }
+      
+      return rawValue;
+    }
+    
+    // 값 비교 함수
+    function compareValues(valueA, valueB) {
+      if (isNumeric(valueA) && isNumeric(valueB)) {
+        return Number(valueA) - Number(valueB);
+      } else {
+        return valueA.localeCompare(valueB);
+      }
+    }
+    
+    // 숫자 여부 확인 함수
+    function isNumeric(value) {
+      return /^\d+(\.\d+)?$/.test(value);
+    }
+    
+    // 열 인덱스 가져오는 함수
+    function getColumnIndex(columnName, tableId) {
+      const headers = Array.from(document.querySelectorAll(`${tableId} th`));
+      return headers.findIndex((header) => header.textContent.trim() === columnName) + 1;
+    }
+
+    // 정렬 아이콘 업데이트 함수
+    function updateSortIcons(clickedHeader, columnName) {
+      cancelTableHeaders.forEach(header => {
+        const icon = header.querySelector('i');
+        if (header === clickedHeader) {
+          // 클릭한 헤더의 아이콘 상태 업데이트
+          if (cancelSortOrder[columnName] === 'asc') {
+            icon.classList.remove('fa-sort', 'fa-sort-down');
+            icon.classList.add('fa-sort-up');
+          } else {
+            icon.classList.remove('fa-sort', 'fa-sort-up');
+            icon.classList.add('fa-sort-down');
+          }
+        } else {
+          // 클릭하지 않은 헤더의 아이콘 초기화
+          icon.classList.remove('fa-sort-up', 'fa-sort-down');
+          icon.classList.add('fa-sort');
+        }
+      });
     }

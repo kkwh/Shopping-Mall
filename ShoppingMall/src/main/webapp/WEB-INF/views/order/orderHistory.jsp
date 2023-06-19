@@ -9,6 +9,7 @@
 <!-- 부트스트랩 -->
 <title>JOO</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link rel="stylesheet" href="../static/css/myOrder.css">
 <style>
 .container {
@@ -108,11 +109,11 @@
             </colgroup>
             <thead>
                 <tr>
-                    <th scope="col">상품정보</th>
-                    <th scope="col">수량</th>
-                    <th scope="col">금액</th>
-                    <th scope="col">주문일자</th>
-                    <th scope="col" colspan="2">&nbsp;&nbsp;주문 상태</th>
+                    <th scope="col" data-column="상품정보">상품정보 <i class="fas fa-sort"></i></th>
+                    <th scope="col" data-column="수량">수량 <i class="fas fa-sort"></i></th>
+                    <th scope="col" data-column="금액">금액 <i class="fas fa-sort"></i></th>
+                    <th scope="col" data-column="주문일자">주문일자 <i class="fas fa-sort"></i></th>
+                    <th scope="col" colspan="2" data-column="주문 상태">&nbsp;&nbsp;주문상태 <i class="fas fa-sort"></i></th>
                 </tr>
             </thead>
             
@@ -274,11 +275,11 @@
             </colgroup>
             <thead>
                 <tr>
-                    <th scope="col">상품정보</th>
-                    <th scope="col">수량</th>
-                    <th scope="col">금액</th>
-                    <th scope="col">주문일자&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;취소일자</th>
-                    <th scope="col" colspan="2">&nbsp;&nbsp;주문 상태</th>
+                    <th scope="col" data-column="상품정보">상품정보 <i class="fas fa-sort"></i></th>
+                    <th scope="col" data-column="수량">수량 <i class="fas fa-sort"></i></th>
+                    <th scope="col" data-column="금액">금액 <i class="fas fa-sort"></i></th>
+                    <th scope="col" data-column="취소일자">취소일자 <i class="fas fa-sort"></i></th>
+                    <th scope="col" colspan="2" data-column="주문상태">&nbsp;&nbsp;주문상태 <i class="fas fa-sort"></i></th>
                 </tr>
             </thead>
                 
@@ -297,9 +298,9 @@
                                 KRW ${ order.pprice * order.pcount }</a>
                             </td>
                             <td>
-                                <fmt:formatDate value="${ order.dcreated_time }" pattern="yyyy.MM.dd" var="created" />
+                                <%-- <fmt:formatDate value="${ order.dcreated_time }" pattern="yyyy.MM.dd" var="created" />
                                 ${ created }
-                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --%>
                                 <fmt:formatDate value="${order.dmodified_time}" pattern="yyyy.MM.dd" var="cancelDate" />
                                 ${cancelDate}
                             </td>
@@ -323,6 +324,23 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>        
+            // 테이블 정렬을 위한 변수 설정
+            let sortOrder = {
+              '상품정보': null,
+              '수량': null,
+              '금액': null,
+              '주문일자': null,
+              '주문상태': null
+            };
+            let cancelSortOrder = {
+            		  '상품정보': null,
+            		  '수량': null,
+            		  '금액': null,
+            		  '취소일자': null,
+            		  '주문상태': null
+            		};
+        </script>
         <script src="../static/js/orderPage/myOrder.js"></script>
         <script>  // 후기 작성 버튼 클릭 요소
         const writeReviewButtons = document.querySelectorAll('[data-pid]'); // 후기작성 버튼
