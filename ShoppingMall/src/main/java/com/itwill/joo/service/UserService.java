@@ -4,6 +4,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.itwill.joo.domain.User;
+import com.itwill.joo.dto.user.FindLoginIdDto;
+import com.itwill.joo.dto.user.FindPasswordDto;
+import com.itwill.joo.dto.user.UserAuthenticationDto;
 import com.itwill.joo.dto.user.UserCreateDto;
 import com.itwill.joo.dto.user.UserDetailDto;
 import com.itwill.joo.dto.user.UserUpdateDto;
@@ -32,8 +35,13 @@ public class UserService {
 		return UserDetailDto.fromEntity(user);
 	}
 	
-	public String getLoginId(String name, String email) {
-		return userRepository.findLoginIdByEmailAndName(name, email);
+	public String getLoginId(FindLoginIdDto dto) {
+		return userRepository.selectLoginIdByEmailAndName(dto);
+	}
+	
+	// 비밀번호 찾기 기능에 사용되는 메서드
+	public int isUserExisting(FindPasswordDto dto) {
+		return userRepository.selectByLoginIdAndEmail(dto);
 	}
 	
 	// 이메일 중복 여부 체크
@@ -56,6 +64,17 @@ public class UserService {
 		return 0;
 	}
 	
+	public int selectByLoginIdAndPassword(UserAuthenticationDto dto) {
+		User user = userRepository.selectUserByLoginId(dto.getLoginId());
+		
+		boolean result = passwordEncoder.matches(dto.getPassword(), user.getUpassword());
+		if(result) {
+			return 1;
+		}
+		
+		return 0;
+	}
+	
 	// 사용자의 회원가입 정보를 DB에 저장하는 메서드
 	public int create(UserCreateDto dto) {
 		String password = passwordEncoder.encode(dto.getPassword());
@@ -65,6 +84,7 @@ public class UserService {
 		return userRepository.createUser(dto.toEntity());
 	}
 	
+	// 회원 정보 업데이트하는 메서드
 	public int updateUserInfo(UserUpdateDto dto, String loginId) {
 		log.info("updateUserInfo({})", dto);
 		
@@ -77,12 +97,14 @@ public class UserService {
 		return userRepository.updateUser(user);
 	}
 	
+	// 비밀번호 업데이트하는 메서드
 	public int updatePassword(String loginId, String password) {
 		password = passwordEncoder.encode(password);
 		
 		return userRepository.updatePassword(loginId, password);
 	}
 	
+	// 사용자 탈퇴 메서드
 	public int deleteUser(long id) {
 		log.info("deleteUser({})", id);
 		
