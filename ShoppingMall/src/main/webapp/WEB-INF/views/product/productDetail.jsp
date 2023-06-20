@@ -73,8 +73,8 @@
                         <div>-제품설명- 소주는 옹기숙성을 거친 감압 증류방식으로 탄생한 전통 증류식 소주입니다.</div>
                         <hr>
                         <div class="dropdown-center">
-
-                            <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                         
+                           <select class="form-select form-select-sm" aria-label=".form-select-sm example">
                                 <option selected>[필수]옵션을 선택해 주세요</option>
                                 <option value="1">선택지1 - 금액 원</option>
                                 <option value="2">선택지2 - 금액 원</option>
@@ -93,11 +93,12 @@
                                   <option value="4">4</option>
                                   <option value="5">5</option>
                                 </select>
+                                
                                 <hr>
                             </div>
-                            S
-                            <input type="" id="basketId" name="basketId" value="${ basketId }">
-                            <input id="basketselect" value="${ result }">
+                            
+                            <input type="hidden" id="basketId" name="basketId" value="${ basketId }">
+                            
                             <div class="d-grid gap-2 d-md-block">
                                 <button class="btn btn-primary" type="button">주문하기</button>
                                 <button class="btn btn-primary" type="button" id="btnAddToBasket">장바구니</button>
@@ -178,7 +179,7 @@
 					            	      data: JSON.stringify(param),
 					            	      contentType: 'application/json',
 					            	      success: function(response) {
-						            	    	if(confirm('상품 수량이 변경되었습니다. 장바구니로 이동할까요?')) {
+						            	    	if(confirm('상품 추가 완료. 장바구니로 이동할까요?')) {
 						            	    		window.location.href='/joo/user/myBasket';
 	  					            	    	} else {
 	  					            	      		window.location.href = '/joo/product/productDetail';
