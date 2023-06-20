@@ -1,5 +1,6 @@
 package com.itwill.joo.domain;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
@@ -24,9 +25,9 @@ public class Board {
 	
 	private int bviewed; // 게시물 조회수
 	
-	private LocalDateTime bcreated_time; // 게시물 작성일자
-	private LocalDateTime bmodifeid_time; // 게시물 수정일자
-	private LocalDateTime bstart_time; // 이벤트 시작일자
-	private LocalDateTime bend_time; // 이벤트 종료일자
+	private Timestamp bcreated_time; // 게시물 작성일자
+	private Timestamp bmodified_time; // 게시물 수정일자
+	private Timestamp bstart_time; // 이벤트 시작일자
+	private Timestamp bend_time; // 이벤트 종료일자
 
 }

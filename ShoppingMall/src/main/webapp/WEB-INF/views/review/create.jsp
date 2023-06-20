@@ -16,6 +16,9 @@ crossorigin="anonymous">
 	<div class="container-fluid">
 		<header class="bg-warning p-2 text-dark bg-opacity-50">
 			<h1>후기 작성</h1>
+            <h2>pid : ${ data.pid }</h2>
+            <h2>uid : ${ data.uid }</h2>
+            <h2>oid : ${ data.oid }</h2>
 		</header>
 		<hr>
 		<table width="100%" cellpadding='0' cellspacing='0'>

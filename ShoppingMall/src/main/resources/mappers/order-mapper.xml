@@ -25,15 +25,31 @@
     <!-- 주문 내역 조회 페이지 상품, 배송 정보 -->
     <select id="selectOrderHistory"
         resultType="com.itwill.joo.dto.order.OrderHistoryDto">
-        SELECT D.ID, P.PTITLE_IMAGE, P.pname, P.pstock, OP.pprice, OP.pcount, O.ocreated_time, O.opoint,
-               D.dstatus, D.dmodified_time, O.odiscount_price, U.ID as "uid", P.ID as "pid"
+        SELECT D.ID, P.PTITLE_IMAGE, P.pname, P.pstock, OP.pprice, OP.pcount, D.dcreated_time, O.opoint,
+               D.dstatus, D.dmodified_time, O.odiscount_price, U.ID as "uid", P.ID as "pid",
+               O.ID as "oid", OP.ID as "opid"
         FROM PRODUCTS P, ORDERS O, ORDER_PRODUCTS OP, DELIVERIES D, USERS U
         WHERE O.ID = OP.O_ID
         AND OP.P_ID = P.ID
         AND D.O_ID = O.ID
         AND O.U_ID = U.ID
         AND U.ID = #{id}
-        ORDER BY O.OCREATED_TIME desc
+        ORDER BY D.DCREATED_TIME desc
+    </select>
+    
+    <!-- 0보류0 취소 내역 조회 페이지 상품 정보 -->
+    <select id="selectOrderCancelHistory"
+        resultType="com.itwill.joo.dto.order.OrderCancelHistoryDto">
+        SELECT D.ID, P.PTITLE_IMAGE, P.pname, P.pstock, OP.pprice, OP.pcount, D.dcreated_time, O.opoint,
+               D.dstatus, D.dmodified_time, O.odiscount_price, U.ID as "uid", P.ID as "pid",
+               O.ID as "oid", OP.ID as "opid"
+        FROM PRODUCTS P, ORDERS O, ORDER_PRODUCTS OP, DELIVERIES D, USERS U
+        WHERE O.ID = OP.O_ID
+        AND OP.P_ID = P.ID
+        AND D.O_ID = O.ID
+        AND O.U_ID = U.ID
+        AND U.ID = #{id}
+        ORDER BY D.dmodified_time desc
     </select>
 
     <!-- 0보류0 주문 내역에서 주문취소를 누를 시 주문배송과 관련된 3개의 delete 쿼리문 실행 -->
@@ -104,13 +120,14 @@
     <!-- 장바구니에 의한 주문 페이지 -->
     <select id="selectOrderByBasket"
         resultType="com.itwill.joo.dto.order.OrderByBasketDto">
-        SELECT P.PTITLE_IMAGE, P.PNAME, P.PPRICE, U.UNAME, U.UPOSTCODE, U.USTREET, 
+        SELECT P.PTITLE_IMAGE, P.PNAME, P.PPRICE, P.PSTOCK, U.UNAME, U.UPOSTCODE, U.USTREET, 
         U.UDETAIL_ADDRESS, U.UPHONE, U.UEMAIL, U.UCURRENT_POINT, BP.PCOUNT, U.ID as "uid", P.ID as "pid" 
         FROM PRODUCTS P, USERS U, BASKET_PRODUCTS BP, BASKET B
         WHERE P.ID = BP.P_ID
         AND U.ID = B.U_ID
         AND B.ID = BP.B_ID
         AND U.ID = #{id}
+        ORDER BY BP.PCOUNT desc
     </select>
     
     <!-- 유저 현재 포인트 - 사용 포인트 -> 결제완료 시 -->

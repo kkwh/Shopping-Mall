@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/validate")
-public class ValidateController {
+public class ValidationController {
 	
 	private final UserService userService;
 	

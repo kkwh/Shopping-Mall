@@ -5,6 +5,11 @@
 
 <mapper namespace="com.itwill.joo.repository.UserRepository">
     
+    <select id="selectUserById" resultType="com.itwill.joo.domain.User">
+        select * from USERS
+        where ID = #{id}
+    </select>
+    
     <select id="selectUserByEmail" resultType="com.itwill.joo.domain.User">
     	select * from USERS
     	where UEMAIL = #{email}
@@ -15,15 +20,26 @@
     	where LOGIN_ID = #{login_id}
     </select>
     
-    <select id="findLoginIdByEmailAndName" resultType="String">
+    <select id="selectLoginIdByEmailAndName" resultType="String">
     	select LOGIN_ID
     	from USERS
     	where UEMAIL = #{email} and UNAME = #{name}
     </select>
     
+    <select id="selectByLoginIdAndEmail" resultType="int">
+    	select count(*)
+    	from USERS
+    	where LOGIN_ID = #{loginId} and UEMAIL = #{email}
+    </select>
+    
     <insert id="createUser">
     	insert into USERS (LOGIN_ID, UPASSWORD, UEMAIL, UPHONE, UNAME, USTREET, UDETAIL_ADDRESS, UPOSTCODE, ROLE, CREATED_TIME, MODIFIED_TIME)
     	values(#{login_id}, #{upassword}, #{uemail}, #{uphone}, #{uname}, #{ustreet}, #{udetail_address}, #{upostcode}, #{role}, systimestamp, systimestamp)
+    </insert>
+    
+    <insert id="createUserBasket">
+    	insert into BASKET (U_ID, ESTIMATED_PRICE)
+    	values(#{u_id}, 0)
     </insert>
     
     <insert id="createKakaoUser">

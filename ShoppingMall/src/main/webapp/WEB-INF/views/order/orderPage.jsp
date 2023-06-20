@@ -96,7 +96,7 @@
             <h3 class="text-center">주문서 작성</h3>
         </header>
         
-        <c:set var="count" value="10" />
+        <c:set var="count" value="1" />
         <div class="orderListArea ">
             <div class="title">
                 <h3 class="body1" style="letter-spacing: 0px;">상품
@@ -270,7 +270,25 @@
                         <div data-text-content="true"
                             style="font-size: 16px;" class="">
                             (보유중인 포인트: ${ user.ucurrent_point } 원)</div>
+                            
+                        <fieldset>
+						    <div data-text-content="true"
+                            	style="font-size: 16px;" class="">결제수단</div>
+						    <div>
+						      <input
+						        type="radio"
+						        id="payByCard"
+						        name="paymentMethod"
+						        value="card"
+						        checked />
+						      <label for="payByCard">카드결제</label>
+						
+						      <input type="radio" id="payByKakao" name="paymentMethod" value="kakao" />
+						      <label for="payByKakao">카카오페이</label>
+						    </div>
+					  </fieldset>
                     </form>
+                    
                 </section>
 
                 <br />
@@ -328,6 +346,7 @@
                             style="font-family: Pretendard, serif;">
                             <strong>= </strong>KRW 
                             <strong id="total_order_sale_price_view">${productPrice + shippingFee - totalDiscount}</strong>
+                            <input type="hidden" id="paymentPrice" value="${productPrice + shippingFee - totalDiscount}" />
                             <span class="tail displaynone"><span
                                 id="total_order_sale_price_ref_view"
                                 class="tail"></span></span>
@@ -380,13 +399,15 @@
             crossorigin="anonymous">
         </script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
         <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
         <script> 
             const uId = ${ user.id };
             const currentPoint = parseInt("${user.ucurrent_point}");
-            const productPrice = ${product.pprice * 10};
-            const productShipPrice = ${product.pprice * 10 + 3000};
-            const point = parseInt("${product.pprice * 10 * 0.05}");
+            const productPrice = ${product.pprice * count};
+            const productShipPrice = ${product.pprice * count + 3000};
+            const point = parseInt("${product.pprice * count * 0.05}");
             const pId = ${ product.id };
             const price = ${ product.pprice };
             const stock = ${ product.pstock };

@@ -65,9 +65,9 @@ public class OrderRestController {
         log.info("createOrderInfo(dto={})", dto);
         orderService.createOrder(dto);
         
-        long id = orderService.readOrderMaxId();
+        long id = orderService.readOrderMaxId(); // 주문아이디(oid)
         
-        return ResponseEntity.ok(id); 
+        return ResponseEntity.ok(id); // 주문아이디(oid) 리턴
     }
     
     // 결제시 주문상품 정보 저장
