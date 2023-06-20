@@ -54,7 +54,7 @@ public class BasketProductService {
 	}
 	
 	/**
-	 * userId의 장바구니 상품을 전체 삭제한다.
+	 * userId에 해당하는 리스트를 전체 삭제. 
 	 * @param userId
 	 * @return
 	 */
@@ -78,14 +78,22 @@ public class BasketProductService {
 	}
 
 
-
+	/**
+	 * 장바구니에 넣기 전에 id를 찾기 위해서.
+	 * @param dto
+	 * @return
+	 */
     public int selectById(BasketProductDto dto) {
         log.info("selectById({})", dto);
         
         return basketProductRepository.selectById(dto.toEntity());
     }
 
-
+    /**
+     * 수량을 수정한다.
+     * @param dto
+     * @return
+     */
     public int updatePcount(BasketProductDto dto) {
         log.info("updatePcount(dto={}", dto);
         
@@ -97,6 +105,35 @@ public class BasketProductService {
         log.info("entity={}", entity);
         return basketProductRepository.updatePcount(entity);
         
+    }
+
+
+
+    public int updateQuantityPcount(BasketProductDto dto) {
+       log.info("updateQuantityPcount(dto)", dto);
+       
+       BasketProduct entity = BasketProduct.builder()
+               .b_id(dto.getB_id())
+               .p_id(dto.getP_id())
+               .pcount(dto.getPcount())
+               .build();
+       log.info("entity={}", entity);
+        
+        return basketProductRepository.updateQuantityPcount(entity);
+    }
+
+
+
+    public int selectByBasketProductsId(BasketProductDto dto) {
+ log.info("updatePcount(dto={}", dto);
+        
+        BasketProduct entity = BasketProduct.builder()
+                .b_id(dto.getB_id())
+                .p_id(dto.getP_id())
+                .pcount(dto.getPcount())
+                .build();
+        log.info("entity={}", entity);
+        return basketProductRepository.selectByBasketProductsId(entity);
     }
   
 	

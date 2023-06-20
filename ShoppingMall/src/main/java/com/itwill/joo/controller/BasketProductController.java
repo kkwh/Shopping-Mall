@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwill.joo.dto.basket.BasketProductDto;
@@ -44,7 +45,10 @@ public class BasketProductController {
 		
 		log.info("size = {}", list.size());
 		
+		long basketId = basketService.selectByUserId(userId).getId();
+		
 		model.addAttribute("basketproducts",list);
+		model.addAttribute("basketId", basketId);
 		model.addAttribute("userId", userId);
 		
 		return "basket/myBasket";
@@ -78,7 +82,7 @@ public class BasketProductController {
 	
 	
 
-	
+	//test
 	@PostMapping("/test")
 	@ResponseBody
 	public int test(@RequestBody List<TestDto> list) {
@@ -108,4 +112,24 @@ public class BasketProductController {
 	    
 	}
 
+	//장바구니 페이지에서 상품수량 수정. 
+	@PostMapping("/updateQuantity")
+	@ResponseBody
+	public ResponseEntity<Integer> updateQuantity(@RequestBody BasketProductDto dto) {
+	    log.info("updateQuantityPcount(dto=P{}", dto);
+	    
+	    //int result = basketProductService.selectByBasketProductsId(dto);
+	 // 업데이트할 데이터 가져오기
+	   
+	    
+	    int result = basketProductService.updateQuantityPcount(dto);
+	    log.info("result = {}", result);
+	   
+	    return ResponseEntity.ok(result);
+	    
+	}
+
+	
+	
+	
 }

@@ -2,13 +2,17 @@ package com.itwill.joo.repository;
 
 import java.util.List;
 
+import com.itwill.joo.domain.Basket;
 import com.itwill.joo.domain.BasketProduct;
 import com.itwill.joo.dto.basket.BasketProductListDto;
 
 
 public interface BasketProductRepository {
 
-	/**
+	
+
+
+    /**
 	 * 장바구니에 넣는다.
 	 * @param basketProduct
 	 * @return
@@ -37,18 +41,38 @@ public interface BasketProductRepository {
 	 */
 	int deleteById(long id);
 
-
-
     
-    
+    /**
+     * 수량을 수정한다. +count
+     * @param basketProduct
+     * @return
+     */
     int updatePcount(BasketProduct basketProduct);
 
 
-    //장바구니에 있는 상품인지 찾기
+    /**
+     * 장바구니에 같은 상품이 몇개의 행이 있는지 찾는다.
+     * @param entity
+     * @return
+     */
     int selectById(BasketProduct entity);
 
+    /**
+     * 장바구니페이지에서 수량 바꾸기.
+     * @param basketProduct
+     * @return
+     */
+    int updateQuantityPcount(BasketProduct basketProduct);
 
 
+    /**
+     * 
+     * @param entity
+     * @return
+     */
+    int selectByBasketProductsId(BasketProduct entity);
+
+    
 
 
 
