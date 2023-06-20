@@ -64,4 +64,59 @@
     	where ID = #{id}
     </delete>
     
+    <!-- 장바구니 관련 데이터 삭제 -->
+    <select id="selectBasketByUserId" resultType="long">
+    	select U_ID
+    	from BASKET
+    	where U_ID = #{u_id}
+    </select>
+    
+    <delete id="deleteBasketByUserId">
+    	delete from BASKET
+    	where U_ID = #{u_id}
+    </delete>
+    
+    <delete id="deleteBasketProductsByBasketId">
+    	delete from BASKET_PRODUCTS
+    	where B_ID = #{b_id}
+    </delete>
+    
+    <!-- 주문, 배송 관련 데이터 삭제 -->
+    <select id="selectOrderByUserId" resultType="long">
+    	select ID
+    	from ORDERS
+    	where U_ID = #{u_id}
+    </select>
+    
+    <delete id="deleteOrderProductsByOrderId">
+    	delete from ORDER_PRODUCTS
+    	where O_ID = #{o_id}
+    </delete>
+    
+    <delete id="deletePaymentsByOrderId">
+    	delete from PAYMENTS
+    	where O_ID = #{o_id}
+    </delete>
+    
+    <delete id="deleteDeliveriesByOrderId">
+    	delete from DELIVERIES
+    	where O_ID = #{o_id}
+    </delete>
+    
+    <delete id="deleteOrdersByUserId">
+    	delete from ORDERS
+    	where U_ID = #{u_id}
+    </delete>
+    
+    <!-- 유저가 작성한 문의, 리뷰 삭제 -->
+    <delete id="deleteQuestionsByUserId">
+    	delete from QUESTIONS
+    	where U_ID = #{u_id}
+    </delete>
+    
+    <delete id="deleteReviewsByUserId">
+    	delete from REVIEWS
+    	where U_ID = #{u_id}
+    </delete>
+    
 </mapper>
