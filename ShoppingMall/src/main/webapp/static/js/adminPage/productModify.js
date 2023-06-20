@@ -165,8 +165,8 @@
             selectedContens.innerHTML = productlang;
             resetProductList();
             // 상품검색 버튼 찾기 / 이벤트 처리
-            const btnUserSearch = document.querySelector('input#btnUserSearch');
-            btnUserSearch.addEventListener('click', searchProduct);
+            const btnProductSearch = document.querySelector('input#btnProductSearch');
+            btnProductSearch.addEventListener('click', searchProduct);
             
             // 상품 정렬(제고수가 없는 순서)
             const thPstock = document.querySelector('th#thPstock');
@@ -177,8 +177,8 @@
             selectedContens.innerHTML = userslang;
             resetUserList();
             //유저 이름이나, 아이디, 이메일로 검색(새로운 리스트 출력)
-            const btnProductSearch = document.querySelector('input#btnUserSearch');
-            btnProductSearch.addEventListener('click', searchUser);
+            const btnUserSearch = document.querySelector('input#btnUserSearch');
+            btnUserSearch.addEventListener('click', searchUser);
             
             
         }else if(selectedMenu=="quseries"){ 
@@ -927,7 +927,7 @@
                     <td>${ product.palc }</td>
                     <td>${ product.pregion }</td>
                     <td>${ ctime }</td>
-                    <td>${ product.modified_time }</td>
+                    <td>${ product.pmodified_time }</td>
                     <td>${ product.pvoluem }</td>
                     <td>${ psotck }</td>
                     <td>${ product.psold }</td>
