@@ -53,6 +53,7 @@ public class AdminController {
 		// 할인률이 0일때 랜덤값 처리
 		if (dto.getPdiscount() == 0) {
 			int randomDiscount = ra.nextInt(20) + 5;
+			log.info("랜덤값 설정 ! = {}",randomDiscount);
 			dto.setPdiscount(randomDiscount);
 		}
 		// dto.getName으로 된 파일이름의 폴더가 존재하는지 체크,
