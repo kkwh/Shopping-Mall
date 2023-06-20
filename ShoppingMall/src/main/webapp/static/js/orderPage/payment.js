@@ -65,146 +65,146 @@
               const selectedMethod = $('input[name=paymentMethod]:checked', '#recipientInfo').val();
               
               if(selectedMethod === 'card') {
-                  requestCardPay();
-              } else {
-                  requestKakaoPay();
-              }
+				  requestCardPay();
+			  } else {
+				  requestKakaoPay();
+			  }
             } 
         }  
         const selectedMethod = $('input[name=paymentMethod]:checked', '#recipientInfo').val();
               
               if(selectedMethod === 'card') {
-                  requestCardPay();
-              } else {
-                  requestKakaoPay();
-              }      
+				  requestCardPay();
+			  } else {
+				  requestKakaoPay();
+			  }      
   });
 });
 
-    let data = null;
+	let data = null;
 
-    // 결제
-    var IMP = window.IMP;
-    IMP.init("imp84048403");
-    function requestCardPay() {
-          const email = $('#email').val();
-          const dStreet = $("#addr2").val();
-          const dDetailAddress = $("#detailAddr2").val();
-          const dPostcode = $("#postCode2").val();
-          const rName = $("#name2").val();
-          const rPhone = $("#phone2").val();
-          const oFinalPrice = productShipPrice - $("#currentPoint").val();
-          
-        IMP.request_pay({
-          pg: "html5_inicis.INIpayTest",
-          pay_method: "card",
-          merchant_uid: 'merchant_' + new Date().getTime(),
-          name: "노르웨이 회전 의자",
-          amount: oFinalPrice, // 실제 결제 금액
-          buyer_email: email,
-          buyer_name: rName,
-          buyer_tel: rPhone,
-          buyer_addr: dStreet + ", " + dDetailAddress,
-          buyer_postcode: dPostcode
-        }, function (rsp) { // callback 
-            console.log(rsp);
-            data = {
-                "imp_uid": rsp.imp_uid,
-                "merchant_uid": rsp.merchant_uid,
-                "pay_method": rsp.pay_method,
-                "amount": rsp.paid_amount
-            };
-            if(rsp.success) {
-                $.ajax({
-                      method: 'POST',
-                      url: '/joo/payment/verify/' + rsp.imp_uid,
-                  }).done(function(data) {
-                      if(rsp.paid_amount === data.response.amount) {
-                         alert('결제 성공: ' + rsp.paid_amount);
-                         
-                         // 취소 테스트
-                         // cancelOrder();
-                         // 결제 성공한 경우에만 주문 정보 저장
-                         submitOrder();
-                     } else {
-                         alert('결제에 실패하였습니다. 에러 내용: ' + rsp.error_msg);
-                     }
-                  });
-            } else {
-                alert('결제에 실패하였습니다. 에러 내용: ' + rsp.error_msg);
-            }
-        });
-      }
-    
-      function requestKakaoPay() {
-          const email = $('#email').val();
-          const dStreet = $("#addr2").val();
-          const dDetailAddress = $("#detailAddr2").val();
-          const dPostcode = $("#postCode2").val();
-          const rName = $("#name2").val();
-          const rPhone = $("#phone2").val();
-          const oFinalPrice = productShipPrice - $("#currentPoint").val();
-          
-        IMP.request_pay({
-          pg: "kakaopay.TC0ONETIME",
-          pay_method: "card",
-          merchant_uid: 'merchant_' + new Date().getTime(),
-          name: "노르웨이 회전 의자",
-          amount: oFinalPrice,
-          buyer_email: email,
-          buyer_name: rName,
-          buyer_tel: rPhone,
-          buyer_addr: dStreet + ", " + dDetailAddress,
-          buyer_postcode: dPostcode
-        }, function (rsp) { // callback 
-            console.log(rsp);
-            data = {
-                "imp_uid": rsp.imp_uid,
-                "merchant_uid": rsp.merchant_uid,
-                "pay_method": rsp.pay_method,
-                "amount": rsp.paid_amount
-            };
-            if(rsp.success) {
-                $.ajax({
-                      method: 'POST',
-                      url: '/joo/payment/verify/' + rsp.imp_uid,
-                  }).done(function(data) {
-                      if(rsp.paid_amount === data.response.amount) {
-                         alert('결제 성공: ' + rsp.paid_amount);
-                         
-                         // 결제 성공한 경우에만 주문 정보 저장
-                         submitOrder();
-                     } else {
-                         alert('결제에 실패하였습니다. 에러 내용: ' + rsp.error_msg);
-                     }
-                  });
-            } else {
-                alert('결제에 실패하였습니다. 에러 내용: ' + rsp.error_msg);
-            }
-        });
-      }
-      
-    function cancelOrder() {
-        $.ajax({
-            "url": '/joo/payment/cancel',
-            "type": 'POST',
-            "contentType": 'application/json',
-            "data": JSON.stringify({
-                "merchant_uid": data['merchant_uid'],
-                "cancel_request_amount": data['amount'],
-                "reason": "테스트 결제 환불",
-                "refund_holder": "서원준", 
-                "refund_bank": "90", 
-                "refund_account": "account_no" 
-            }),
-            "dataType": 'json',
-            success: function(res) {
-                console.log(res);
-            }, error: function(error) {
-                console.log(error);
-            }
-        });
-    }
+	// 결제
+	var IMP = window.IMP;
+  	IMP.init("imp84048403");
+  	function requestCardPay() {
+		  const email = $('#email').val();
+	      const dStreet = $("#addr2").val();
+	      const dDetailAddress = $("#detailAddr2").val();
+	      const dPostcode = $("#postCode2").val();
+	      const rName = $("#name2").val();
+	      const rPhone = $("#phone2").val();
+	      const oFinalPrice = productShipPrice - $("#currentPoint").val();
+		  
+	    IMP.request_pay({
+	      pg: "html5_inicis.INIpayTest",
+	      pay_method: "card",
+	      merchant_uid: 'merchant_' + new Date().getTime(),
+	      name: "노르웨이 회전 의자",
+	      amount: oFinalPrice, // 실제 결제 금액
+	      buyer_email: email,
+	      buyer_name: rName,
+	      buyer_tel: rPhone,
+	      buyer_addr: dStreet + ", " + dDetailAddress,
+	      buyer_postcode: dPostcode
+	    }, function (rsp) { // callback	
+	    	console.log(rsp);
+	    	data = {
+				"imp_uid": rsp.imp_uid,
+				"merchant_uid": rsp.merchant_uid,
+				"pay_method": rsp.pay_method,
+				"amount": rsp.paid_amount
+			};
+	    	if(rsp.success) {
+				$.ajax({
+					  method: 'POST',
+					  url: '/joo/payment/verify/' + rsp.imp_uid,
+				  }).done(function(data) {
+					  if(rsp.paid_amount === data.response.amount) {
+						 alert('결제 성공: ' + rsp.paid_amount);
+						 
+						 // 취소 테스트
+						 // cancelOrder();
+						 // 결제 성공한 경우에만 주문 정보 저장
+						 submitOrder();
+		             } else {
+						 alert('결제에 실패하였습니다. 에러 내용: ' + rsp.error_msg);
+					 }
+				  });
+			} else {
+				alert('결제에 실패하였습니다. 에러 내용: ' + rsp.error_msg);
+			}
+	    });
+	  }
+  	
+	  function requestKakaoPay() {
+		  const email = $('#email').val();
+	      const dStreet = $("#addr2").val();
+	      const dDetailAddress = $("#detailAddr2").val();
+	      const dPostcode = $("#postCode2").val();
+	      const rName = $("#name2").val();
+	      const rPhone = $("#phone2").val();
+	      const oFinalPrice = productShipPrice - $("#currentPoint").val();
+		  
+	    IMP.request_pay({
+	      pg: "kakaopay.TC0ONETIME",
+	      pay_method: "card",
+	      merchant_uid: 'merchant_' + new Date().getTime(),
+	      name: "노르웨이 회전 의자",
+	      amount: oFinalPrice,
+	      buyer_email: email,
+	      buyer_name: rName,
+	      buyer_tel: rPhone,
+	      buyer_addr: dStreet + ", " + dDetailAddress,
+	      buyer_postcode: dPostcode
+	    }, function (rsp) { // callback	
+	    	console.log(rsp);
+	    	data = {
+				"imp_uid": rsp.imp_uid,
+				"merchant_uid": rsp.merchant_uid,
+				"pay_method": rsp.pay_method,
+				"amount": rsp.paid_amount
+			};
+	    	if(rsp.success) {
+				$.ajax({
+					  method: 'POST',
+					  url: '/joo/payment/verify/' + rsp.imp_uid,
+				  }).done(function(data) {
+					  if(rsp.paid_amount === data.response.amount) {
+						 alert('결제 성공: ' + rsp.paid_amount);
+						 
+						 // 결제 성공한 경우에만 주문 정보 저장
+						 submitOrder();
+		             } else {
+						 alert('결제에 실패하였습니다. 에러 내용: ' + rsp.error_msg);
+					 }
+				  });
+			} else {
+				alert('결제에 실패하였습니다. 에러 내용: ' + rsp.error_msg);
+			}
+	    });
+	  }
+	  
+	function cancelOrder() {
+		$.ajax({
+			"url": '/joo/payment/cancel',
+			"type": 'POST',
+			"contentType": 'application/json',
+			"data": JSON.stringify({
+				"merchant_uid": data['merchant_uid'],
+		        "cancel_request_amount": data['amount'],
+		        "reason": "테스트 결제 환불",
+		        "refund_holder": "서원준", 
+		        "refund_bank": "90", 
+		        "refund_account": "account_no" 
+			}),
+			"dataType": 'json',
+			success: function(res) {
+				console.log(res);
+			}, error: function(error) {
+				console.log(error);
+			}
+		});
+	}
     
     function submitOrder() {
       // var uId = uId;
@@ -250,20 +250,20 @@
     }
     
     function submitPayment() {
-        data['o_id'] = orderId;
-        
-        $.ajax({
-            method: 'POST',
-            url: '/joo/api/payment/save',
-            contentType: 'application/json',
-            data: JSON.stringify(data),
-            success: function(res) {
-                console.log('Payment data inserted successfully.');
-            }, error: function(error) {
-                console.log(error);
-            }
-        });
-    }
+		data['o_id'] = orderId;
+		
+		$.ajax({
+			method: 'POST',
+			url: '/joo/api/payment/save',
+			contentType: 'application/json',
+			data: JSON.stringify(data),
+			success: function(res) {
+				console.log('Payment data inserted successfully.');
+			}, error: function(error) {
+				console.log(error);
+			}
+		});
+	}
     
     function submitOrderProduct() { 
       // var pId 
@@ -382,6 +382,7 @@
         }
       });
     }
+
 
 
 

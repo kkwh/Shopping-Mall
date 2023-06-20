@@ -1,6 +1,8 @@
 package com.itwill.joo.controller;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.itwill.joo.domain.PaymentInfo;
+import com.itwill.joo.dto.payment.PaymentCancelDto;
 import com.itwill.joo.service.PaymentService;
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
@@ -44,6 +48,18 @@ public class PaymentController {
 		log.info("paymentByImpUid({})", imp_uid);
 		
 		return iamportClient.paymentByImpUid(imp_uid);
+	}
+	
+	@RequestMapping("/cancel")
+	public IamportResponse<Payment> paymentCancel(@RequestBody PaymentCancelDto dto) 
+			throws IamportResponseException, IOException {
+		log.info("paymentCancel({})", dto);
+		
+		BigDecimal val = BigDecimal.valueOf(dto.getCancel_request_amount());
+		
+		CancelData data = new CancelData(dto.getMerchant_uid(), false, val);
+		
+		return iamportClient.cancelPaymentByImpUid(data);
 	}
 
 }

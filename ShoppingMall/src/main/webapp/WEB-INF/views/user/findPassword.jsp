@@ -18,7 +18,7 @@
 		<form id="find-id">
 			<div style="width: 100%; margin-top: 200px;">
 				<div id="id-panel" class="p-2">
-					<input type="text" id="name" name="name" class="form-control" placeholder="이름" />
+					<input type="text" id="loginId" name="loginId" class="form-control" placeholder="아이디" />
 				</div>
 				<div id="password-panel" style="width: 100%" class="p-2">
 					<input type="text" id="email" class="form-control" name="email" placeholder="이메일" />
@@ -28,7 +28,7 @@
 					<button type="button" id="findPwd" class="btn btn-dark w-100">비밀번호 찾기</button>
 				</div>
 				<div id="signup-btn-panel" class="p-2" style="width: 100%;">
-					<a href="/joo/user/login" class="btn btn-outline-danger w-100">취소</a>
+					<a href="/joo/user/login" class="btn btn-outline-dark w-100">취소</a>
 				</div>
 			</div>
 		</form>
@@ -40,11 +40,11 @@
 			$('#findPwd').click(function() {
 				const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 				
-				const name = $('#name').val();
+				const loginId = $('#loginId').val();
 				const email = $('#email').val();
 				
-				if(name === '') {
-					alert('이름을 입력해주세요.');
+				if(loginId === '') {
+					alert('아이디를 입력해주세요.');
 					return;
 				}
 				if(email === '') {
@@ -59,11 +59,14 @@
 				$.ajax({
 					url: '/joo/user/findPassword',
 					type: 'POST',
-					data: {"name": name, "email": email},
+					data: JSON.stringify(
+							{"loginId": loginId, "email": email}
+					),
+					contentType: 'application/json',
 					success: function(res) {
 						if(res === 0) {
 							alert('해당 정보로 가입된 사용자가 없습니다.');
-							$('#name').val('');
+							$('#loginId').val('');
 							$('#email').val('');
 						} else {
 							alert('입력된 이메일로 임시 비밀번호가 발급되었습니다.');

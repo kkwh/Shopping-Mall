@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.itwill.joo.dto.user.FindLoginIdDto;
+import com.itwill.joo.dto.user.FindPasswordDto;
+import com.itwill.joo.dto.user.UserAuthenticationDto;
 import com.itwill.joo.dto.user.UserCreateDto;
 import com.itwill.joo.dto.user.UserDetailDto;
 import com.itwill.joo.dto.user.UserUpdateDto;
@@ -67,36 +70,54 @@ public class UserController {
 	
 	@PostMapping("/findId")
 	@ResponseBody
-	public String findId(@RequestParam("name") String name, @RequestParam("email") String email) {
-		log.info("findId({}, {})", name, email);
+	public String findId(@RequestBody FindLoginIdDto dto) {
+		log.info("findId({})", dto);
 		
-		String loginId = userService.getLoginId(name, email);
+		String loginId = userService.getLoginId(dto);
 		log.info("loginId = {}", loginId);
 		
 		return loginId;
 	}
 	
 	@GetMapping("/findPassword")
-	public String finaPassword() {
+	public String findPassword() {
 		return "user/findPassword";
 	}
 	
 	@PostMapping("/findPassword")
 	@ResponseBody
-	public int sendPassword(@RequestParam("name") String name, @RequestParam("email") String email) {
-		log.info("findPassword({}, {})", name, email);
+	public int sendPassword(@RequestBody FindPasswordDto dto) {
+		log.info("findPassword({})", dto);
 		
-		String loginId = userService.getLoginId(name, email);
-		if(loginId == null || loginId.equals("0")) {
+		int count = userService.isUserExisting(dto);
+		if(count == 0) {
 			return 0;
 		}
 		
 		String code = MailService.generateTemporaryPassword();
-		MailService.sendTemporaryPassword(email, code);
+		MailService.sendTemporaryPassword(dto.getEmail(), code);
 		log.info("code = {}", code);
 		
-		log.info("updatePassword({}, {})", loginId, code);
-		int result = userService.updatePassword(loginId, code);
+		log.info("updatePassword({}, {})", dto.getLoginId(), code);
+		int result = userService.updatePassword(dto.getLoginId(), code);
+		
+		return result;
+	}
+	
+	@GetMapping("/passwordAuthentication")
+	public String passwordAuthentication(Principal principal, Model model) {
+		model.addAttribute("loginId", principal.getName());
+		
+		return "user/passwordAuthentication";
+	}
+	
+	@PostMapping("/passwordAuthentication")
+	@ResponseBody
+	public int passwordAuthentication(@RequestBody UserAuthenticationDto dto) {
+		log.info("passwordAuthentication({})", dto);
+		
+		int result = userService.selectByLoginIdAndPassword(dto);
+		log.info("result = {}", result);
 		
 		return result;
 	}

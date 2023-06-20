@@ -49,7 +49,7 @@
                              
                                  <sec:authorize access="isAuthenticated()">
                                  <li class="nav-item"><a
-                                        class="nav-link" href="/joo/user/logout">Logout</a></li>
+                                        class="nav-link" href="/joo/user/logout">로그아웃</a></li>
                                  
                                  <li class="nav-item dropdown"><a
                                     class="nav-link dropdown-toggle"
@@ -60,7 +60,7 @@
                                     <ul class="dropdown-menu">
                                         <li><a
                                             class="dropdown-item"
-                                            href="/joo/user/myPrivate">개인정보 수정</a></li>
+                                            href="/joo/user/passwordAuthentication">개인정보 수정</a></li>
                                         <li><a
                                             class="dropdown-item"
                                             href="/joo/user/myGrade">적립금 확인</a></li>
@@ -76,13 +76,13 @@
                                             href="/joo/user/myBasket">장바구니</a></li>
                                     </ul>
                                     </li>
-                                 </sec:authorize>
+                                 
                                 
                                 <!-- 최근본 상품은 모달로 처리 -->
                                 
                                 <li class="nav-item"><a class="nav-link" href="/joo/product/list">최근본상품</a></li>
                                 <li class="nav-item"><a class="nav-link" href="/joo/questions/questionQnaList">문의하기</a></li>
-                                
+                                </sec:authorize>
                             </ul>
 
 

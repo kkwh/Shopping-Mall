@@ -21,7 +21,6 @@ public class Question {
 	private String qcontent; // 문의 내용
 	private String qtype; // 문의 유형
 	
-	// ERD에 없는데 필요할거 같아서 새로 추가
 	private String  is_answered; // 답변 완료된 문의 인지 확인 (빈칸  -> 미완료, 칸차있으면 -> 답변완료) (기본값: null)
 	
 	private LocalDateTime qcreated_time; // 문의 작성일자

@@ -20,10 +20,16 @@
     	where LOGIN_ID = #{login_id}
     </select>
     
-    <select id="findLoginIdByEmailAndName" resultType="String">
+    <select id="selectLoginIdByEmailAndName" resultType="String">
     	select LOGIN_ID
     	from USERS
     	where UEMAIL = #{email} and UNAME = #{name}
+    </select>
+    
+    <select id="selectByLoginIdAndEmail" resultType="int">
+    	select count(*)
+    	from USERS
+    	where LOGIN_ID = #{loginId} and UEMAIL = #{email}
     </select>
     
     <insert id="createUser">
