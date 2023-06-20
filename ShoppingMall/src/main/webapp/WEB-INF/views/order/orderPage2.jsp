@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> <!-- 소수점 제거 함수를 사용하기 위해 선언한 네임스페이스 -->
 <!DOCTYPE html>
 <html>
@@ -138,7 +139,7 @@
                                         <div class="discount">
                                             <strong
                                                 class="body2 color-white"
-                                                style="font-family: Pretendard, serif;">KRW ${ info.pprice }</strong>
+                                                style="font-family: Pretendard, serif;">KRW <fmt:formatNumber value="${ info.pprice }" pattern="###,###" /></strong>
                                         </div>
                                     </div>
                                     <p class="quantity body2">수량 :
@@ -271,7 +272,7 @@
 
                         <div data-text-content="true"
                             style="font-size: 16px;" class="">
-                            (보유중인 포인트: ${ infos[0].ucurrent_point } 원)</div>
+                            (보유중인 포인트: KRW <fmt:formatNumber value="${ infos[0].ucurrent_point }" pattern="###,###" /> 원)</div>
                             
                          <fieldset>
 						    <div data-text-content="true"
@@ -309,7 +310,7 @@
                         <div class="price-name">상품금액</div>
                         <div class="box"
                             style="font-family: Pretendard, serif;">KRW
-                            <span>${ totalPrice }</span>
+                            <span><fmt:formatNumber value="${ totalPrice }" pattern="###,###" /></span>
                         </div>
                     </div>
                     <div>
@@ -317,7 +318,7 @@
                         <div class="box">
                             <span>+</span><span
                                 style="font-family: Pretendard, serif;">KRW
-                                3000</span>
+                                <fmt:formatNumber value="3000" pattern="###,###" /></span>
                         </div>
                     </div>
                     <div class="option "

@@ -136,7 +136,7 @@
                             </td>
                             <td>${ order.pcount }개</td>
                             <td>
-                                KRW ${ order.pprice * order.pcount }</a>
+                                KRW <fmt:formatNumber value="${order.pprice * order.pcount}" pattern="###,###" />
                             </td>
                             <td>
                                 <fmt:formatDate value="${ order.dcreated_time }" pattern="yyyy.MM.dd" var="created" />
@@ -295,7 +295,7 @@
                             </td>
                             <td>${ order.pcount }개</td>
                             <td>
-                                KRW ${ order.pprice * order.pcount }</a>
+                                KRW <fmt:formatNumber value="${order.pprice * order.pcount}" pattern="###,###" />
                             </td>
                             <td>
                                 <%-- <fmt:formatDate value="${ order.dcreated_time }" pattern="yyyy.MM.dd" var="created" />
