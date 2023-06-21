@@ -272,6 +272,23 @@
                         <div data-text-content="true"
                             style="font-size: 16px;" class="">
                             (보유중인 포인트: ${ infos[0].ucurrent_point } 원)</div>
+                            
+                         <fieldset>
+						    <div data-text-content="true"
+			                         	style="font-size: 16px;" class="">결제수단</div>
+						    <div>
+						      <input
+						        type="radio"
+						        id="payByCard"
+						        name="paymentMethod"
+						        value="card"
+						        checked />
+						      <label for="payByCard">카드결제</label>
+						
+						      <input type="radio" id="payByKakao" name="paymentMethod" value="kakao" />
+						      <label for="payByKakao">카카오페이</label>
+						    </div>
+					  </fieldset>
                     </form>
                 </section>
                 
@@ -361,6 +378,14 @@
           </div>
         </div>
         
+        <!-- 사용자가 결제하기 버튼을 클릭했을때 재고가 구매수량보다 적을 때 보여질 모달 -->
+        <div id="myModalStock" class="modal">
+          <div class="modal-content">
+            <span class="closeStock">&times;</span>
+            <h2>재고가 부족합니다.</h2>
+          </div>
+        </div>
+        
                 <div class="container">
                     <div class="payment-button">
                         <button id="paymentButton" class="btn">결제하기</button>
@@ -381,6 +406,8 @@
             crossorigin="anonymous">
         </script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
         <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
         <script> 
             const uId = ${ infos[0].uid };
@@ -390,19 +417,28 @@
             const point = parseInt("${productPrice * 0.05}");
             const pId = ${ infos[0].pid };
             const price = ${ infos[0].pprice };
+            // const stock = ${ info.pstock };     // 장바구니 리스트 개별 재고 처리
+            // const count = ${ info.pcount };     // 장바구니 리스트 개별 수량 처리
         </script>
         <script>
-            var infos = [ // 주문 정보 리스트
+            var infos = [ // 주문 상품 정보 리스트
               <c:forEach var="info" items="${infos}" varStatus="status">
                 { pcount: ${info.pcount}, pprice: ${info.pprice}, p_id: ${info.pid} }<c:if test="${!status.last}">,</c:if>
               </c:forEach>
               ];
             
-            var stocks = [ // 재고, 판매량 리스트
+            var stocks = [ // 재고, 판매량 업데이트 리스트
                 <c:forEach var="stock" items="${infos}" varStatus="status">
                   { pcount: ${stock.pcount}, p_id: ${stock.pid} }<c:if test="${!status.last}">,</c:if>
                 </c:forEach>
                 ];
+            
+            var products = [ // 재고량 부족 모달에 사용
+                <c:forEach var="product" items="${infos}" varStatus="status">
+                  { pcount: ${product.pcount}, pstock: ${product.pstock}, pid: ${product.pid}, pname: "${product.pname}" }<c:if test="${!status.last}">,</c:if>
+                </c:forEach>
+                ];
+            
         </script>
         <script src="../static/js/orderPage/productOrder2.js"></script>
         <script src="../static/js/orderPage/searchPostCode.js"></script>

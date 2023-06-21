@@ -5,26 +5,27 @@
 
 <mapper namespace="com.itwill.joo.repository.QuestionRepository">
 
-    <insert id="insert">
-        insert into QUESTIONS (U_ID, P_ID, QTITLE, QCONTENT, QTYPE, QCREATED_TIME,
-        QMODIFIED_TIME)
-        values (#{u_id}, #{p_id}, #{qtitle}, #{qcontent}, #{qtype}, systimestamp,
-        systimestamp)
-    </insert>
+	<insert id="insert">
+		insert into QUESTIONS (U_ID, P_ID, QTITLE, QCONTENT, QTYPE, QCREATED_TIME,
+		QMODIFIED_TIME)
+		values (#{u_id}, #{p_id}, #{qtitle}, #{qcontent}, #{qtype}, systimestamp,
+		systimestamp)
+	</insert>
 
-    <!-- 상품 문의 조회 -->
-      
-      <select id="selectWhereTypeProduct" resultType="com.itwill.joo.domain.Question">
-        SELECT *
-        FROM QUESTIONS A 
-        JOIN PRODUCTS B 
-        ON A.P_ID = B.ID
-        WHERE A.QTYPE IN ('배송', '재입고', '기타 상품문의') AND A.P_ID = #{p_id}
-        ORDER BY A.ID DESC
-    </select>
-    
-   <!--상품 문의 조회 - 페이징(일단보류 -->   
-    <select id="selectWhereTypeProductWithPaging">
+	<!-- 상품 문의 조회 -->
+
+	<select id="selectWhereTypeProduct"
+		resultType="com.itwill.joo.domain.Question">
+		SELECT *
+		FROM QUESTIONS A
+		JOIN PRODUCTS B
+		ON A.P_ID = B.ID
+		WHERE A.QTYPE IN ('배송', '재입고', '기타 상품문의') AND A.P_ID = #{p_id}
+		ORDER BY A.ID DESC
+	</select>
+
+	<!--상품 문의 조회 - 페이징(일단보류 -->
+	<select id="selectWhereTypeProductWithPaging">
     <![CDATA[
     SELECT *
     FROM (
@@ -141,7 +142,5 @@
         select * from PRODUCTS
         where ID = #{id}
     </select>
-    
-    
 
 </mapper>

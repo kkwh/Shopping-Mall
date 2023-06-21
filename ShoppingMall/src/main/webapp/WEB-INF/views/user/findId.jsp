@@ -12,43 +12,56 @@
 		integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
 		crossorigin="anonymous">
 </head>
-<body>
-	<form id="find-id">
-		<input type="text" id="name" name="name" placeholder="이름을 입력해주세요." />
-		<input type="text" id="email" name="email" placeholder="이메일을 입력해주세요." />
-		<button type="button" id="findIdBtn" class="btn btn-outline-primary">아이디 찾기</button>
-		<a href="/joo/user/login" class="btn btn-outline-danger">취소</a>
-	</form>
+<body>	
+	<div id="container" style="margin: 0 auto; width: 30%;">
+		<form id="find-id">
+			<div style="width: 100%; margin-top: 200px;">
+				<div id="id-panel" class="p-2">
+					<input type="text" id="name" name="name" class="form-control" placeholder="NAME" />
+				</div>
+				<div id="password-panel" style="width: 100%" class="p-2">
+					<input type="text" id="email" class="form-control" name="email" placeholder="EMAIL" />
+				</div>
 	
-	<div class="modal" tabindex="-1">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title">Modal title</h5>
-	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-	      </div>
-	      <div class="modal-body">
-	        <p>Modal body text goes here.</p>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-	        <button type="button" class="btn btn-primary">Save changes</button>
-	      </div>
-	    </div>
-	  </div>
+				<div id="login-btn-panel" class="p-2" style="width: 100%;">
+					<button type="button" id="findIdBtn" class="btn btn-dark w-100">아이디 찾기</button>
+				</div>
+				<div id="signup-btn-panel" class="p-2" style="width: 100%;">
+					<a href="/joo/user/login" class="btn btn-outline-dark w-100">취소</a>
+				</div>
+			</div>
+		</form>
 	</div>
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<script>
 		$(function() {
 			$('#findIdBtn').click(function() {
+				const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+				
 				const name = $('#name').val();
 				const email = $('#email').val();
+				
+				if(name === '') {
+					alert('이름을 입력해주세요.');
+					return;
+				}
+				if(email === '') {
+					alert('이메일을 입력해주세요.');
+					return;
+				}
+				if(!email.match(mailformat)) {
+					alert('이메일 형식에 맞게 입력해주세요.');
+					return;
+				}
 				
 				$.ajax({
 					type: 'POST',
 					url: '/joo/user/findId',
-					data: {"name": name, "email": email},
+					data: JSON.stringify(
+							{"name": name, "email": email}
+					),
+					contentType: 'application/json',
 					success: function(res) {
 						if(res.trim().length > 0) {
 							alert('아이디: ' + res);

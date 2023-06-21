@@ -1,6 +1,5 @@
 /**
- * payment.js
- * orderPage.jsp에서 사용됨.
+ * 
  */
 
 /*$(document).ready(function() {
@@ -32,6 +31,7 @@
             });
         });
     });*/
+    
     const myModal = document.getElementById("myModal"); // 포인트 모달창 요소를 가져옴.
     const closeBtn = document.getElementsByClassName("close")[0]; // 포인트 모달 창을 닫는 요소를 가져옴.
       
@@ -47,6 +47,8 @@
         
         console.log('결제하기 버튼 클릭');
         const inputPoint = parseInt(document.getElementById("currentPoint").value);
+        
+        let allStockValid = true;
         // const currentPoint = parseInt("<%= user.ucurrent_point %>");
         // 포인트 유효성 검사
         if (inputPoint != 0) {
@@ -57,23 +59,150 @@
               console.log('포인트 잘못 입력');
               
               myModal.style.display = "block";
-            } else {
-              // 결제 처리 코드를 작성.
-              // 포인트가 유효한 경우 결제 로직을 수행.
-              console.log('포인트 정상 입력');
-              submitOrder(); // 주문 정보 저장
-              updateCurrentPointWhenBuy(); // 결제완료 시 현재 포인트 차감
-              updateStockAndSold(); // 결제완료 시 재고 감소, 판매량 증가
-              
-            } 
+              return;
+            }
         } 
         
-        /*submitOrder(); // 주문 정보 저장
-        updateCurrentPointWhenBuy(); // 결제완료 시 현재 포인트 차감
-        updateStockAndSold(); // 결제완료 시 재고 감소, 판매량 증가*/
-        
+         // 각 제품에 대한 재고량 유효성 검사
+    for (let i = 0; i < products.length; i++) {
+      const product = products[i];
+      const currentStock = product.pstock;
+
+      const productQuantity = product.pcount // 장바구니에서 제품 수량 가져오기
+
+      if (productQuantity > currentStock) {
+        console.log(product.pname + '의 선택된 수량이 재고량보다 많습니다.');
+        allStockValid = false;
+        /*const modalId = "myModalStock" + product.pname;
+        const modal = document.getElementById(modalId);
+        const productNameElement = modal.querySelector(".product-name");
+        productNameElement.textContent = product.pname;*/
+        myModalStock.style.display = "block";
+      }
+    }
+    
+    if (!allStockValid) {
+      console.log('재고 부족');
+      return;
+    }
+    
+     // 포인트와 재고량이 모두 유효한 경우 결제 로직을 수행
+    console.log('포인트 정상 입력');
+    
+      // 결제 옵션
+      const selectedMethod = $('input[name=paymentMethod]:checked', '#recipientInfo').val();
+      
+      // 카드 결제 선택한 경우
+      if(selectedMethod === 'card') {
+		requestCardPay();
+      } 
+      // 카카오페이 선택한 경우
+      else {
+		requestKakaoPay();
+      }
   });
 });
+
+	let data = null;
+
+	// 결제
+	var IMP = window.IMP;
+  	IMP.init("imp84048403");
+  	function requestCardPay() {
+		  const email = $('#email').val();
+	      const dStreet = $("#addr2").val();
+	      const dDetailAddress = $("#detailAddr2").val();
+	      const dPostcode = $("#postCode2").val();
+	      const rName = $("#name2").val();
+	      const rPhone = $("#phone2").val();
+	      const oFinalPrice = productShipPrice - $("#currentPoint").val();
+		  
+	    IMP.request_pay({
+	      pg: "html5_inicis.INIpayTest",
+	      pay_method: "card",
+	      merchant_uid: 'merchant_' + new Date().getTime(),
+	      name: "노르웨이 회전 의자",
+	      amount: oFinalPrice, // 실제 결제 금액
+	      buyer_email: email,
+	      buyer_name: rName,
+	      buyer_tel: rPhone,
+	      buyer_addr: dStreet + ", " + dDetailAddress,
+	      buyer_postcode: dPostcode
+	    }, function (rsp) { // callback	
+	    	console.log(rsp);
+	    	data = {
+				"imp_uid": rsp.imp_uid,
+				"merchant_uid": rsp.merchant_uid,
+				"pay_method": rsp.pay_method,
+				"amount": rsp.paid_amount
+			};
+	    	if(rsp.success) {
+				$.ajax({
+					  method: 'POST',
+					  url: '/joo/payment/verify/' + rsp.imp_uid,
+				  }).done(function(data) {
+					  if(rsp.paid_amount === data.response.amount) {
+						 alert('결제 성공: ' + rsp.paid_amount);
+						 
+						 // 결제 성공한 경우에만 주문 정보 저장
+						 submitOrder();
+		        } else {
+						 alert('결제에 실패하였습니다. 에러 내용: ' + rsp.error_msg);
+					 }
+				  });
+			} else {
+				alert('결제에 실패하였습니다. 에러 내용: ' + rsp.error_msg);
+			}
+	    });
+	  }
+  	
+	  function requestKakaoPay() {
+		  const email = $('#email').val();
+	      const dStreet = $("#addr2").val();
+	      const dDetailAddress = $("#detailAddr2").val();
+	      const dPostcode = $("#postCode2").val();
+	      const rName = $("#name2").val();
+	      const rPhone = $("#phone2").val();
+	      const oFinalPrice = productShipPrice - $("#currentPoint").val();
+		  
+	    IMP.request_pay({
+	      pg: "kakaopay.TC0ONETIME",
+	      pay_method: "card",
+	      merchant_uid: 'merchant_' + new Date().getTime(),
+	      name: "노르웨이 회전 의자",
+	      amount: oFinalPrice,
+	      buyer_email: email,
+	      buyer_name: rName,
+	      buyer_tel: rPhone,
+	      buyer_addr: dStreet + ", " + dDetailAddress,
+	      buyer_postcode: dPostcode
+	    }, function (rsp) { // callback	
+	    	console.log(rsp);
+	    	data = {
+				"imp_uid": rsp.imp_uid,
+				"merchant_uid": rsp.merchant_uid,
+				"pay_method": rsp.pay_method,
+				"amount": rsp.paid_amount
+			};
+	    	if(rsp.success) {
+				$.ajax({
+					  method: 'POST',
+					  url: '/joo/payment/verify/' + rsp.imp_uid,
+				  }).done(function(data) {
+					  if(rsp.paid_amount === data.response.amount) {
+						 alert('결제 성공: ' + rsp.paid_amount);
+						 
+						 // 결제 성공한 경우에만 주문 정보 저장
+						 submitOrder();
+	        		} else {
+						 alert('결제에 실패하였습니다. 에러 내용: ' + rsp.error_msg);
+					 }
+				  });
+			} else {
+				alert('결제에 실패하였습니다. 에러 내용: ' + rsp.error_msg);
+			}
+	    });
+	  }
     
     function submitOrder() {
       // var uId = uId;
@@ -103,8 +232,12 @@
           console.log(response);
           console.log("Order data inserted successfully.");
           
+          submitPayment();
           submitOrderProduct(); // 주문 상품 정보 저장
           submitDelivery(); // 배송 정보 저장
+          
+          updateStockAndSold();
+          updateCurrentPointWhenBuy();
           
         },
         error: function(error) {
@@ -113,6 +246,22 @@
         }
       });
     }
+    
+    function submitPayment() {
+		data['o_id'] = orderId;
+		
+		$.ajax({
+			method: 'POST',
+			url: '/joo/api/payment/save',
+			contentType: 'application/json',
+			data: JSON.stringify(data),
+			success: function(res) {
+				console.log('Payment data inserted successfully.');
+			}, error: function(error) {
+				console.log(error);
+			}
+		});
+	}
     
     function submitOrderProduct() {
     var oId = orderId // order의 o_id 리턴 받은 값으로 초기화
@@ -237,6 +386,19 @@
           console.error("Error updating stock and sold:", error);
         }
          });
+      });
+    }
+    
+    // 각 모달 창을 닫는 이벤트 핸들러
+    for (let i = 0; i < products.length; i++) {
+      /*const product = products[i];
+      const modalId = "myModalStock" + product.id;
+      const closeBtnStock = document.getElementsByClassName("closeStock")[i];
+      const modal = document.getElementById(modalId);*/
+    
+      closeBtnStock.addEventListener("click", function() {
+        console.log('모달 닫기');
+        myModalStock.style.display = "none";
       });
     }
 

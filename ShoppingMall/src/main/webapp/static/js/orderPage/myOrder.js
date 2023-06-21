@@ -345,6 +345,114 @@ document.addEventListener('DOMContentLoaded', () => {
     // 구매 확정 후 모달 닫기
     confirmOrderModal.style.display = 'none';
     });
+    
+    
+    // 버튼 클릭 시 active 클래스 토글
+    const buttons = document.querySelectorAll('.order-filter-period__tab__button');
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        buttons.forEach((btn) => btn.classList.remove('active'));
+        button.classList.add('active');
+      });
+    });
+    
+      
+      // 1주일 ~ 6개월 버튼과 조회하기 버튼의 요소를 가지고 옴.
+      // 주문내역조회, 취소내역조회 버튼의 요소를 가지고 옴.
+      var buttons2 = document.getElementsByClassName('order-filter-period__tab__button');
+      var confirmButton = document.querySelector('.order-filter-confirm');
+      var orderHistory = document.querySelector('#btnOrder');
+      var cancelHistory = document.querySelector('#btnCancel');
+
+      // 1주일 ~ 6개월 버튼들에 클릭 이벤트 리스너 등록
+      for (var i = 0; i < buttons2.length; i++) {
+        buttons2[i].addEventListener('click', function() {
+          var activeButton = this;
+
+          // 1주일 ~ 6개월 버튼들의 스타일 초기화
+          for (var j = 0; j < buttons2.length; j++) {
+            buttons2[j].classList.remove('active');
+          }
+
+          // 선택된 버튼에 스타일 추가
+          activeButton.classList.add('active');
+        });
+      }
+
+      // 조회하기 버튼에 클릭 이벤트 리스너 등록
+      confirmButton.addEventListener('click', function() {
+        // 모든 버튼의 스타일 초기화
+        for (var j = 0; j < buttons2.length; j++) {
+          buttons2[j].classList.remove('active');
+        }
+      });
+      
+      // 주문내역조회 버튼에 클릭 이벤트 리스너 등록
+      orderHistory.addEventListener('click', function() {
+        // 모든 버튼의 스타일 초기화
+        for (var j = 0; j < buttons2.length; j++) {
+          buttons2[j].classList.remove('active');
+        }
+      });
+      
+      // 취소내역조회 버튼에 클릭 이벤트 리스너 등록
+      cancelHistory.addEventListener('click', function() {
+        // 모든 버튼의 스타일 초기화
+        for (var j = 0; j < buttons2.length; j++) {
+          buttons2[j].classList.remove('active');
+        }
+      });
+   
+    
+    
+    
+    
+    
+    
+    
+   /*  // 후기 작성 버튼 클릭 요소
+    //const writeReviewButtons = document.querySelectorAll('[data-pid]'); // 후기작성 버튼
+    const btnReview = document.querySelector('button#writeReview');
+       
+    // 모든 후기 작성  버튼에 대해 이벤트 리스너를 등록.
+  /*writeReviewButtons.forEach(function(button) {
+    button.addEventListener('click', function() {
+    const pid = button.getAttribute('data-pid'); // 상품 아이디
+    const uid = button.getAttribute('data-uid'); // 유저 아이디
+    const oid = button.getAttribute('data-oid'); // 주문 아이디
+
+  });
+});*/
+
+    // 후기작성 버튼 클릭 시 실제 구매 확정 동작 수행
+    /*btnReview.addEventListener('click', function() {
+        // 후기작성 로직 작성
+        // AJAX 요청.
+        console.log('후기작성');
+
+        // 구매 확정시 유저 누적 포인트 + 적립 포인트 / 유저 현재 포인트 + 적립 포인트
+        console.log('구매 확정시 누적, 현재 포인트 적립 시작');    
+        const pid = this.getAttribute('data-pid');
+        console.log('pid = '+ pid);
+        const uid = this.getAttribute('data-uid');
+        console.log('uid = '+ uid);
+        const oid = this.getAttribute('data-oid');
+        console.log('oid = '+ oid);
+        const reqUrl = `/joo/review/create`;
+        const data = { pid, uid , oid };
+        axios.get(reqUrl, data)
+            .then((response) => {
+                console.log(response);
+                console.log(uid + "후기 작성버튼 작동!");
+                window.location.href = reqUrl;
+            })
+            .catch((error) => {
+                console.log(uid + "후기 작성버튼 안눌림");
+                console.log(error);
+            });
+    
+    
+    });*/
 
 })
 

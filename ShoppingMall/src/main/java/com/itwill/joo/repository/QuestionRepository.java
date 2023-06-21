@@ -6,6 +6,7 @@ import com.itwill.joo.domain.Criteria;
 import com.itwill.joo.domain.Product;
 import com.itwill.joo.domain.Question;
 import com.itwill.joo.dto.question.QuestionsListDto;
+import com.itwill.joo.dto.question.QuestionAdminListDto
 
 //application-context.xml에서 scan하는 패키지에 있기 때문에
 //인터페이스를 구현하는 클래스가 MyBatis에 의해서 자동으로 만들어짐.
@@ -35,9 +36,7 @@ public interface QuestionRepository {
    List<Question> selectByUserId(long u_id);
    // 유저 번호를 통한 문의 조회(자기 문의 조회) + 페이징
    List<Question> selectByUserIdWithPaging(long u_id, Criteria cri);
-  
-  
-  
+ 
   // 상품 문의 조회 -일단 보류 
   //List<Question> selectWhereTypeProductWithPaging(long p_id, Criteria criteria);
   
@@ -60,5 +59,18 @@ public interface QuestionRepository {
   
   //상품 아이디 통한 상세 조회
   Product selectProductById(long id);
-  
+
+	// ====================================================================== //
+	// 세엽
+	List<QuestionAdminListDto> selectWithUsersNameList();
+
+	// id로 검색시 문의를 남긴 유저의 이름과 같이 반환(QuestionAdminListDto 타입객체)
+	QuestionAdminListDto selectWithUsersNameOne(long id);
+
+	// 문의 리스트 1. 미답변 우선, 2. 오래된 순서로 리스트 반환
+	List<QuestionAdminListDto> selectNoAnsweredFirst();
+
+	// 업데이트
+	int updateAnswered(Question entity);
+
 }

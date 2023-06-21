@@ -12,6 +12,8 @@ import com.itwill.joo.domain.Criteria;
 import com.itwill.joo.domain.Product;
 import com.itwill.joo.domain.Question;
 import com.itwill.joo.domain.User;
+import com.itwill.joo.dto.question.QuestionAdminListDto;
+import com.itwill.joo.dto.question.QuestionAnsweredUpdateDto;
 import com.itwill.joo.dto.question.QuestionCreateDto;
 import com.itwill.joo.dto.question.QuestionsListDto;
 import com.itwill.joo.repository.ProductRepository;
@@ -224,5 +226,25 @@ public class QuestionService {
         return questionRepository.selectProductById(id);
     }
     
-    
+   
+	// 세엽
+	// 유저 아이디 대신 이름으로 검색
+	public List<QuestionAdminListDto> readWithUsersName() {
+		return questionRepository.selectWithUsersNameList();
+	}
+
+	// 유저 아이디 대신 이름으로 검색
+	public List<QuestionAdminListDto> selectNoAnsweredFirst() {
+		return questionRepository.selectNoAnsweredFirst();
+	}
+	
+	public QuestionAdminListDto readWithName(long id) {
+		return questionRepository.selectWithUsersNameOne(id);
+	}
+
+	public int answere(QuestionAnsweredUpdateDto dto) {
+
+		return questionRepository.updateAnswered(dto.toEntity());
+	}
+
 }

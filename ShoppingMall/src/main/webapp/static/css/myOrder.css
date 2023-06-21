@@ -1,8 +1,9 @@
 @charset "UTF-8";
 /* orderHistory.jsp CSS */
 body {
-    font-family: Arial, sans-serif;
+    font-family:"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
     background-color: #f4f4f4;
+    color: #000;
 }
 
 .container {
@@ -106,3 +107,21 @@ body {
     font-size: 28px;
     font-weight: bold;
 }
+
+.order-filter-period__tab__button {
+    border: none;
+    background-color: #E0E0E0;
+    color: #333333;
+    border-radius: 5px;
+    cursor: pointer;
+    }
+
+.order-filter-period__tab__button.active {
+    background-color: #007bff;
+    color: #fff;
+    }
+
+/* .order-filter-period__tab__button.selected {
+      background-color: blue;
+      color: white;
+    } */
