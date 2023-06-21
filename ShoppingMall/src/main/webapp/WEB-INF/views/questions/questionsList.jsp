@@ -28,9 +28,12 @@
                     <a class="nav-link" href="${ mainPage }">메인 페이지</a>
                 </li>
                 <li class="nav-item">
-                    <c:url var="questionCreatePage" value="/questions/questionCreate" /> 
-                    <a class="nav-link" href="${ questionCreatePage }">새 문의사항 작성</a>
+                    <a class="nav-link" href="/joo/product/productsList">뒤로 가기</a>
                 </li>
+                <%-- <li class="nav-item">
+                    <c:url var="questionCreatePage" value="/questions/questionCreate" /> 
+                    <a class="nav-link" href="${ questionCreatePage }">${product.pname} 문의사항 작성</a>
+                </li> --%>
          </ul>
     </nav>
 

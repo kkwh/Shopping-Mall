@@ -72,12 +72,39 @@
                     </c:forEach>
                 </tbody>
             </table>
+            <!--페이징 -->
+            <div class="pull-right">
+                        <ul class="pagination">
+                            <c:if test="${ pageMaker.prev }">
+                                <li class="page-item"><a class="page-link"
+                                    href="${ pageMaker.startPage -1 }"> 이전 </a>
+                                </li>
+                            </c:if>
+                            <c:forEach begin="${ pageMaker.startPage }"
+                                end="${ pageMaker.endPage }" var="num">
+                                <li class="page-item ${ pageMaker.cri.pageNum == num ? "active" : "" } ">
+                                    <a class="page-link" href="${ num }">${ num }</a>
+                                </li>
+                            </c:forEach>
+                            <c:if test="${ pageMaker.next }">
+                                <li class="page-item"><a class="page-link"
+                                    href="${ pageMaker.endPage +1 }"> 다음 </a></li>
+                            </c:if>
+                        </ul>
+                    </div>
+                    <form id="actionForm" action="/joo/questions/questionsMyList" method="get">
+                        <input type="hidden" name="pageNum" value="${ pageMaker.cri.pageNum }" /> 
+                        <input type="hidden" name="amount" value="${ pageMaker.cri.amount }" /> 
+                        <input type="hidden" name="category" value="${ pageMaker.cri.category }" />
+                        <input type="hidden" name="keyword" value="${ pageMaker.cri.keyword }" />
+                    </form>
+                        
     
                         <script
                             src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
                             integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
                             crossorigin="anonymous"></script>
            </div>
-       </main>
+      </main>
 </body>
 </html>
