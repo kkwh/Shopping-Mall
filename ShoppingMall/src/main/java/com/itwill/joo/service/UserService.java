@@ -1,9 +1,14 @@
 package com.itwill.joo.service;
 
+import java.util.List;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.itwill.joo.domain.User;
+import com.itwill.joo.dto.user.FindLoginIdDto;
+import com.itwill.joo.dto.user.FindPasswordDto;
+import com.itwill.joo.dto.user.UserAuthenticationDto;
 import com.itwill.joo.dto.user.UserCreateDto;
 import com.itwill.joo.dto.user.UserDetailDto;
 import com.itwill.joo.dto.user.UserUpdateDto;
@@ -32,8 +37,13 @@ public class UserService {
 		return UserDetailDto.fromEntity(user);
 	}
 	
-	public String getLoginId(String name, String email) {
-		return userRepository.findLoginIdByEmailAndName(name, email);
+	public String getLoginId(FindLoginIdDto dto) {
+		return userRepository.selectLoginIdByEmailAndName(dto);
+	}
+	
+	// 비밀번호 찾기 기능에 사용되는 메서드
+	public int isUserExisting(FindPasswordDto dto) {
+		return userRepository.selectByLoginIdAndEmail(dto);
 	}
 	
 	// 이메일 중복 여부 체크
@@ -56,15 +66,33 @@ public class UserService {
 		return 0;
 	}
 	
+	public int selectByLoginIdAndPassword(UserAuthenticationDto dto) {
+		User user = userRepository.selectUserByLoginId(dto.getLoginId());
+		
+		boolean result = passwordEncoder.matches(dto.getPassword(), user.getUpassword());
+		if(result) {
+			return 1;
+		}
+		
+		return 0;
+	}
+	
 	// 사용자의 회원가입 정보를 DB에 저장하는 메서드
 	public int create(UserCreateDto dto) {
 		String password = passwordEncoder.encode(dto.getPassword());
 		dto.setPassword(password);
 		dto.setRole("ROLE_USER");
 		
-		return userRepository.createUser(dto.toEntity());
+		int result = userRepository.createUser(dto.toEntity());
+		log.info("result = {}", result);
+		
+		long u_id = userRepository.selectUserByLoginId(dto.getLoginId()).getId();
+		userRepository.createUserBasket(u_id);
+		
+		return result;
 	}
 	
+	// 회원 정보 업데이트하는 메서드
 	public int updateUserInfo(UserUpdateDto dto, String loginId) {
 		log.info("updateUserInfo({})", dto);
 		
@@ -77,15 +105,37 @@ public class UserService {
 		return userRepository.updateUser(user);
 	}
 	
+	// 비밀번호 업데이트하는 메서드
 	public int updatePassword(String loginId, String password) {
 		password = passwordEncoder.encode(password);
+		
 		return userRepository.updatePassword(loginId, password);
 	}
 	
-	public int deleteUser(long id) {
-		log.info("deleteUser({})", id);
+	// 사용자 탈퇴 메서드
+	public int deleteUser(long u_id) {
+		log.info("deleteUser({})", u_id);
 		
-		return userRepository.deleteUserById(id);
+		// 유저 장바구니 삭제
+		long b_id = userRepository.selectBasketByUserId(u_id);
+		userRepository.deleteBasketProductsByBasketId(b_id);
+		userRepository.deleteBasketByUserId(u_id);
+		
+		// 주문, 배송 기록 삭제
+		List<Long> orderIds = userRepository.selectOrderByUserId(u_id);
+		for(long o_id : orderIds) {
+			userRepository.deletePaymentsByOrderId(o_id);
+			userRepository.deleteDeliveriesByOrderId(o_id);
+			userRepository.deleteOrderProductsByOrderId(o_id);
+		}
+		userRepository.deleteOrdersByUserId(u_id);
+		
+		// 문의, 리뷰 삭제
+		userRepository.deleteQuestionsByUserId(u_id);
+		userRepository.deleteReviewsByUserId(u_id);
+		
+		// USERS 테이블에서 user 삭제
+		return userRepository.deleteUserById(u_id);
 	}
 
 }

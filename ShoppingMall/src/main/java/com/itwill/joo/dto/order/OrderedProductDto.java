@@ -1,5 +1,7 @@
 package com.itwill.joo.dto.order;
 
+import com.itwill.joo.domain.Product;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,14 +12,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class OrderedProductDto {
-
-	private long id;
-
+	
+	private long id;	
+	
 	private String pdetail_image; // 상품 이미지
 	private String pname; // 상품 이름
 	private int pprice; // 상품 가격
 	private int pstock; // 상품 수량
-
+	
+	
+	
 //	public Product toEntity() {
 //		return Product.builder()
 //				.login_id(loginId)
@@ -31,5 +35,5 @@ public class OrderedProductDto {
 //				.role("ROLE_USER")
 //				.build();
 //	}
-
+	
 }
