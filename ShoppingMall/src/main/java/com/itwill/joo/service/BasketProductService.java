@@ -1,3 +1,5 @@
+
+ 
 package com.itwill.joo.service;
 
 
@@ -14,9 +16,9 @@ import com.itwill.joo.repository.BasketRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
 @Service
 @RequiredArgsConstructor
-
 @Slf4j
 public class BasketProductService {
 
@@ -29,6 +31,7 @@ public class BasketProductService {
 	 * @return
 	 */
 	
+	
 	public List<BasketProductListDto> read(long userId) {
 		log.info("read(uid={})", userId);
 		
@@ -39,7 +42,8 @@ public class BasketProductService {
 		return basketProductRepository.selectOrderByBasketProductIdDesc(b_id);
 		
 	}
-		
+	
+	
 	
 	
 	/**
@@ -47,6 +51,7 @@ public class BasketProductService {
 	 * @param id
 	 * @return
 	 */
+	
 	public int delete(long id) {
 		log.info("delete(id={})", id);
 		
@@ -58,6 +63,7 @@ public class BasketProductService {
 	 * @param userId
 	 * @return
 	 */
+
 		public int deleteAll(long userId) {
 		log.info("deleteAllBaket(id={})", userId);
 		
@@ -72,6 +78,7 @@ public class BasketProductService {
 	 * @param productId
 	 * @return
 	 */
+	
 	public int productAddBasket(BasketProductDto dto) {
 		return basketProductRepository.insertProductAddBasket(dto.toEntity());
 		
@@ -83,6 +90,7 @@ public class BasketProductService {
 	 * @param dto
 	 * @return
 	 */
+	
     public int selectById(BasketProductDto dto) {
         log.info("selectById({})", dto);
         
@@ -94,6 +102,7 @@ public class BasketProductService {
      * @param dto
      * @return
      */
+	
     public int updatePcount(BasketProductDto dto) {
         log.info("updatePcount(dto={}", dto);
         
@@ -108,7 +117,11 @@ public class BasketProductService {
     }
 
 
-
+  /**
+   * 장바구니 창에서 수량을 수정할때
+   * @param dto
+   * @return
+   */
     public int updateQuantityPcount(BasketProductDto dto) {
        log.info("updateQuantityPcount(dto)", dto);
        
@@ -123,20 +136,5 @@ public class BasketProductService {
     }
 
 
-
-    public int selectByBasketProductsId(BasketProductDto dto) {
- log.info("updatePcount(dto={}", dto);
-        
-        BasketProduct entity = BasketProduct.builder()
-                .b_id(dto.getB_id())
-                .p_id(dto.getP_id())
-                .pcount(dto.getPcount())
-                .build();
-        log.info("entity={}", entity);
-        return basketProductRepository.selectByBasketProductsId(entity);
-    }
-  
-	
-	
-	
+   
 }

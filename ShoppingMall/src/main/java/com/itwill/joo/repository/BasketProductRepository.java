@@ -4,12 +4,11 @@ import java.util.List;
 
 import com.itwill.joo.domain.Basket;
 import com.itwill.joo.domain.BasketProduct;
+import com.itwill.joo.dto.basket.BasketProductDto;
 import com.itwill.joo.dto.basket.BasketProductListDto;
 
 
 public interface BasketProductRepository {
-
-	
 
 
     /**
@@ -64,23 +63,6 @@ public interface BasketProductRepository {
      */
     int updateQuantityPcount(BasketProduct basketProduct);
 
-
-    /**
-     * 
-     * @param entity
-     * @return
-     */
-    int selectByBasketProductsId(BasketProduct entity);
-
-    
-
-
-
-
-	
-	
-	
-	
 	
 	
 

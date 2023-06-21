@@ -5,7 +5,7 @@
 	
 	<mapper namespace="com.itwill.joo.repository.BasketProductRepository">
 		
-		
+	
 		<!-- 상품을 장바구니에 넣는다. -->
 		<insert id="insertProductAddBasket">
 			insert into BASKET_PRODUCTS (B_ID , P_ID, PCOUNT) values (#{b_id} , #{p_id} , #{pcount})
@@ -22,6 +22,7 @@
 		
 		<!-- userId의 장바구니 상품을 전체 삭제한다. -->
 		 <delete id="deleteAll">
+		 <!--  
 	        delete from BASKET_PRODUCTS
 	        where B_ID in  (
 	        select BP.B_ID
@@ -29,7 +30,10 @@
 	        INNER JOIN BASKET B ON BP.B_ID = B.ID
 	        INNER JOIN USERS U ON U.ID = B.U_ID
 	        WHERE U.ID = ${userId}
-	        )
+	        )-->
+	        
+	        delete from BASKET_PRODUCTS
+	        where B_ID = (select B.ID from BASKET B where B.U_ID = #{userId})
    		 </delete>
 		
 		
@@ -72,6 +76,5 @@
 			where B_ID = #{b_id}
 			and P_ID = #{p_id}
 		</update>
-		
 		
 	</mapper>
