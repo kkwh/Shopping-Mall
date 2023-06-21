@@ -104,24 +104,29 @@ public class QuestionService {
 
 		return dto;
 	}
+	
+//    // 문의 총 개수
+//    public int getTotalSelectQuestions(Criteria cri) {
+//        return questionRepository.totalSelectQuestions(cri);
+//    }
 
-	// 상품문의 총 개수
-	public int getTotalProductQuestion() {
-		return questionRepository.totalSelectQuestionTypeProduct();
-	}
-
-	// 고객문의 총 개수
-	public int getTotalQnaQuestion() {
-		return questionRepository.totalSelectWhereTypeQnA();
-	}
+//	// 상품문의 총 개수
+//	public int getTotalProductQuestion() {
+//		return questionRepository.totalSelectQuestionTypeProduct();
+//	}
+//
+//	// 고객문의 총 개수
+//	public int getTotalQnaQuestion() {
+//		return questionRepository.totalSelectWhereTypeQnA();
+//	}
 
 	// 상품 문의 전체보기
 	public List<QuestionsListDto> readAll() {
 		log.info("readAll() ");
 		List<Question> list = questionRepository.selectOrderByDesc();
 		List<QuestionsListDto> result = new ArrayList<>();
-		for(Question l : list) {
-			result.add(QuestionsListDto.fromEntity(l));
+		for(Question q: list) {
+			result.add(QuestionsListDto.fromEntity(q));
 		}
 		return result;
 	}
