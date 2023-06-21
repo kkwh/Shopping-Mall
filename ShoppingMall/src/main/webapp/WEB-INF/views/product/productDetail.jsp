@@ -230,13 +230,29 @@
                 </div>
                 
                     <!-- 리뷰 -->
-                    <div id="review">
-                        리뷰 <br /> <br /> <br /> <br /> <br /> <br /> <br />
-                        <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
-                        <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
-                        <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
-                        <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
-                        ----
+                    <div id="reviews">                        
+                        <table class="table table-dark text-center">
+						  <thead>
+						    <tr>
+						      <th scope="col">#</th>
+						      <th scope="col">유저 id</th>
+						      <th scope="col">리뷰 내용</th>
+						      <th scope="col">별점</th>
+						      <th scope="col">작성일자</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						    <c:forEach items="${ reviewList }" var="review">
+	                        	<tr>
+	                        		<td>${ review.id }</td>
+		                        	<td>${ review.u_id }</td>
+		                        	<td>${ review.rcontent }</td>
+		                        	<td>${ review.rratings }</td>
+		                        	<td>${ review.rcreated_time }</td>
+	                        	</tr>
+	                        </c:forEach>
+						  </tbody>
+						</table>
                     </div>
     
                     <!-- 문의 -->
