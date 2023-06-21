@@ -322,13 +322,13 @@
             <br />
 
             <nav class="nav nav-pills nav-justified">
-                <a id="aNewList" class="nav-link active">신상</a> <a
-                    id="aHotist" class="nav-link" href="#">인기</a> <a
-                    id="aOldList" class="nav-link" href="#">전통주</a> <a
-                    id="aSojuList" class="nav-link" href="#">소주</a> <a
-                    id="aBearList" class="nav-link" href="#">맥주</a> <a
-                    id="aWineList" class="nav-link" href="#">와인</a> <a
-                    id="aAnotherList" class="nav-link" href="#">기타</a>
+                <a id="aNewList" class="nav-link active">신상</a> 
+                <a id="aHotist" class="nav-link" href="#">인기</a> 
+                <a id="aOldList" class="nav-link" href="#">전통주</a> 
+                <a id="aSojuList" class="nav-link" href="#">소주</a> 
+                <a id="aBearList" class="nav-link" href="#">맥주</a> 
+                <a id="aWineList" class="nav-link" href="#">와인</a>
+                <a id="aAnotherList" class="nav-link" href="#">기타</a>
             </nav>
 
             <!-- 버튼이 눌렸을때 하단의 selectedCategory 초기화, 해당하는 리스트 보여주기 -->

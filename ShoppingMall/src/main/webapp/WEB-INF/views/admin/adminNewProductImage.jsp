@@ -26,7 +26,7 @@
                 <div class="row p-3">
 
                     <div class="col-1">
-                        <label for="pname"> 제품이름 : </label>
+                        <label> 제품이름 : </label>
                     </div>
                     <div class="col-3">
                         <input value="${ product.pname }" name="pname"
@@ -35,7 +35,7 @@
                             ${ product.pname } ]</strong>
                     </div>
                     <div class="col-1">
-                        <label for="pname"> 카테고리 : </label>
+                        <label> 카테고리 : </label>
                     </div>
                     <div class="col-1">
                         <input value="${ product.pcategory }"
@@ -44,7 +44,7 @@
                         <strong>[ ${ product.pcategory } ]</strong>
                     </div>
                     <div class="col-1">
-                        <label for="pstock"> 제고수 : </label>
+                        <label> 제고수 : </label>
                     </div>
                     <div class="col-1">
                         <input value="${ product.pstock }" readonly
@@ -53,7 +53,7 @@
                             ${ product.pstock } 개]</strong>
                     </div>
                     <div class="col-1">
-                        <label for="palc"> 도수 : </label>
+                        <label> 도수 : </label>
                     </div>
                     <div class="col-1">
                         <input value="${ product.palc }" readonly
@@ -62,7 +62,7 @@
                             ${ product.palc } 도]</strong>
                     </div>
                     <div class="col-1">
-                        <label for="pregion"> 원산지 : </label>
+                        <label> 원산지 : </label>
                     </div>
                     <div class="col-1">
                         <input value="${ product.pregion }" readonly
@@ -74,7 +74,7 @@
 
                 <div class="row p-1">
                     <div class="col-1">
-                        <label for="pprice"> 가격 : </label>
+                        <label> 가격 : </label>
                     </div>
                     <div class="col-3">
                         <input value="${ product.pprice }" readonly
@@ -84,7 +84,7 @@
 
                     </div>
                     <div class="col-1">
-                        <label for="pvolume"> 용량 : </label>
+                        <label> 용량 : </label>
                     </div>
 
                     <div class="col-3">
@@ -95,7 +95,7 @@
                     </div>
 
                     <div class="col-1">
-                        <label for="pdiscount"> 할인률 : </label>
+                        <label> 할인률 : </label>
                     </div>
 
                     <div class="col-3">
@@ -109,7 +109,8 @@
                 <hr class="p-3" />
                 <label for="title_image" class="form-label"> -
                     타이틀 이미지 (1장)) -</label> <input class="form-control"
-                    type="file" id="title_image" /> <label
+                    type="file" id="title_image" />
+                    <label
                     for="detail_image" class="form-label"> - 디데일
                     이미지 (1~3장) -</label> <input class="form-control" type="file"
                     id="detail_image" multiple />
@@ -122,6 +123,9 @@
                     id="btnPrevious" value="이전" /> <input
                     class="btn btn-outline-secondary" type="button"
                     id="btnSkip" value="다음에 설정하기" />
+                    
+                    <input class="d-none" type="text" name="ptitle_image" id="ptitle_image" value=""/>
+                    <input class="d-none" type="text" name="pdetail_image" id="pdetail_image" value=""/>
             </form>
         </div>
 

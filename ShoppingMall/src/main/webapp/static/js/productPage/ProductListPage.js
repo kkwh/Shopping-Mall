@@ -230,6 +230,7 @@ document.addEventListener('DOMContentLoaded', function(){
         aOldList.classList.remove('active');
         aSojuList.classList.remove('active');
         aBearList.classList.remove('active');
+        aWineList.classList.remove('active');
         aAnotherList.classList.remove('active');
     }
 
@@ -335,7 +336,7 @@ document.addEventListener('DOMContentLoaded', function(){
         const reqUrl = `/joo/api/ProductList/showBearList`;
         // 처리
         try{
-            const response = await axios.get(reqUrl);
+            const response = await axios.get(reqUrl); 
             makeProductElemants(response.data);
             console.log(response);
         }catch (error){
