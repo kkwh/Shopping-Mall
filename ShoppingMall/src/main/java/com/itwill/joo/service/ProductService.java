@@ -35,7 +35,6 @@ public class ProductService {
 	 * @return List<ProductListPageDto>
 	 */
 	public List<ProductListPageDto> showAllProductsList(){
-		
 		List<Product> list = productRepository.selectByNew();		
 		return list.stream().map(ProductListPageDto::fromEntity).toList();
 	}

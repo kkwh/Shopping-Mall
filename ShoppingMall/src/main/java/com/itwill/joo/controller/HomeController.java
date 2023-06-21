@@ -18,6 +18,8 @@ public class HomeController {
 	public String accessError() {
 		return "accessError";
 	}
-
 	
+	@GetMapping("/map/map")
+	    public void mapWhere() {
+	 }
 }

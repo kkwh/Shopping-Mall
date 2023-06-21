@@ -79,10 +79,10 @@
                             <thead>
                                 <tr>
                                     <th scope="col" id="answered">답변여부</th>
-                                    <th scope="col">유저 아이디</th>
+                                    <th scope="col">작성자 아이디</th>
                                     <th scope="col">리뷰 내용</th>
-                                    <th scope="col">문의시간</th>
-                                    <th scope="col">답변시간</th>
+                                    <th scope="col">문의 시간</th>
+                                    <th scope="col">답변 시간</th>
                                     <th scope="col"> ㅇ</th>
                                 </tr>
                             </thead>
@@ -93,7 +93,22 @@
                     </div>
     `;
     
+    // 유저 테이블
     const userslang = `
+                <form>
+                    <div class="input-group mb-3">
+    
+                        <div class="form-floating">
+                            <input type="text" class="form-control"
+                                id="searchUsers"
+                                placeholder="searchProduct" /> 
+                                <label for="searchUsers">유저의 로그인 아이디/이름/이메일로 검색</label>
+                        </div>
+    
+                        <input type="button" class="btn btn-outline-primary"
+                            value="검색" id="btnUserSearch"/>
+                    </div>                
+                </form>
                     <div>
                         <table class="table table-striped border-dark">
                             <thead>
@@ -105,6 +120,7 @@
                                     <th scope="col">유저 등급</th>
                                     <th scope="col">유저 포인트</th>
                                     <th scope="col">유저 가입일자</th>
+                                    <th scope="col" class="text-center">BAN</th>
                                 </tr>
                             </thead>
                             <tbody id="tableUserBody">
@@ -160,6 +176,10 @@
            // 유저------------         
             selectedContens.innerHTML = userslang;
             resetUserList();
+            //유저 이름이나, 아이디, 이메일로 검색(새로운 리스트 출력)
+            const btnUserSearch = document.querySelector('input#btnUserSearch');
+            btnUserSearch.addEventListener('click', searchUser);
+            
             
         }else if(selectedMenu=="quseries"){ 
            // 문의-------------------------                          
@@ -186,6 +206,101 @@
     
     //-------------------------------------------- 유저관리 -----------------------------------------------------------------------
     
+    //유저 검색
+    const searchUser = async () =>{
+        //버튼 클릭시 검색어 받아오기
+        let search = document.querySelector('input#searchUsers').value;
+        const reqUrl = `/joo/api/AdminUser/search/${search}`;
+        try{
+            const response = await axios.get(reqUrl);
+            if(response.data == ""){
+                alert(`검색결과가 없습니다. 검색어 = ${search}`);
+                //검색 초기화
+                document.querySelector('input#searchUsers').value ='';
+                return;
+            }
+            makeUserElemants(response.data);
+            //검색 초기화
+            document.querySelector('input#searchUsers').value ='';
+        }catch (error){
+            console.log(error);
+        }
+    }
+    
+    // 유저 Ban 메서드
+    const banUser = (e) =>{
+        
+        // 삭제할 유저의 id와 함께 전송        
+        const id = e.target.getAttribute('data-id');
+        console.log(id);
+        const result = confirm('정말 BAN하시겠습니까?');
+        if(result==0){
+            return;
+        }
+        const url = `/joo/api/AdminUser/UserBan/${id}`
+        
+        axios.delete(url)
+        .then((response) => {
+            alert('상품 삭제 성공');
+            // 상품리스트 초기화
+            resetUserList();
+        })
+        .catch((error) => {
+            console.log(error);            
+        });
+    }
+    
+    // 유저 요소들 꺼내서 정리할 문장 표현 (테이블에 문장을 추가하기 위해 설정하는 값)
+    const makeUserElemants = (data) => {
+        
+        // 유저리스트가 보여질 div
+        const postList = document.querySelector('tbody#tableUserBody');
+
+        let userStr = '';
+        
+        // 요소체울 반복문
+        for(let user of data){
+
+            // 유저 한명을 표시할 html 코드
+            userStr += `
+                <tr>
+                    <td>${ user.login_id }</td>
+                    <td>${ user.uname }</td>
+                    <td>${ user.uemail }</td>
+                    <td>${ user.uphone }</td>
+                    <td>${ user.ugrade }</td>
+                    <td>${ user.ucurrent_point }</td>
+                    <td>${ user.created_time }</td>
+                    <!-- 수정/삭제버튼 -->
+                    <td class="text-end">
+                        <button id="btnUserBan" class="btn btn-outline-danger" data-id="${ user.id }">BAN</button>
+                    </td>
+                </tr>
+            `;
+            postList.innerHTML = userStr;
+            
+                // 삭제버튼 찾기
+                const btnUserBan = document.querySelectorAll('button#btnUserBan');
+                    for(let btn of btnUserBan){
+                        btn.addEventListener('click', banUser);
+                }
+                
+        }
+        }// 유저 요소찾기 메서드 끝
+        
+        
+        // 유저 리스트 초기화 (가입일자)
+        const resetUserList = async () => {
+            const reqUrl = `/joo/api/AdminUser/UserList`;
+            
+            try{
+                const response = await axios.get(reqUrl);
+                makeUserElemants(response.data);
+                console.log(response);
+            }catch (error){
+                console.log(error);
+            }
+        };
      
     //-------------------------------------------- 게시글관리 -----------------------------------------------------------------------
     // id 제목, 시작시간 끝나는시간 남은시간(ex/d-2) 수정버튼/삭제버튼 클릭시 내용 모달(수정까지 가능)
@@ -210,6 +325,9 @@
     const deletepost = (e) => {
         
         const result = confirm('정말 삭제하시겠습니까?')
+        if(result==0){
+            return;
+        }
         const id = e.target.getAttribute('data-id');
         const url = `/joo/api/AdminPost/delete/${id}`;
         
@@ -320,12 +438,12 @@
             postList.innerHTML = postStr;
             
                  // 수정버튼 찾기
-                const btnModify = document.querySelectorAll('button#btnModify')
+                const btnModify = document.querySelectorAll('button#btnModify');
                     for(let btn of btnModify){
                         btn.addEventListener('click', showUpdatePostModal);
                 }
                 // 삭제버튼 찾기
-                const btnDelete = document.querySelectorAll('button#btnDelete')
+                const btnDelete = document.querySelectorAll('button#btnDelete');
                     for(let btn of btnDelete){
                         btn.addEventListener('click', deletepost);
                 }
@@ -348,7 +466,7 @@
     };
     
     
-	
+    
     
    //-------------------------------------------- 리뷰관리 -----------------------------------------------------------------------
     // 문의랑 같음
@@ -385,17 +503,17 @@
         
         axios.get(url)
         .then((response) =>{
-            
+            console.log(response);
             console.log(`data = ${response.data}`);
             
             // 전달 받은 데이터 각각 넣기 배열은 [] 로 찾고, 값설정 / 리스트는 {} 로 각각의 키값의 이름을 찾아 값 설정
-            const { r_id, rcontent, u_id, is_answered} = response.data;
+            const { r_id, rcontent, login_id, rreview_reply} = response.data;
             
             // 모달 인풋에 기존값 넣어주기
             reviewr_id.value = r_id;
-            reviewrname.value = u_id;
+            reviewrname.value = login_id;
             reviewrcontent.value = rcontent;
-            reviewis_answered.value = is_answered;
+            reviewis_answered.value = rreview_reply;
             
             // 모달 보여주기
             Reviewmodal.show();
@@ -423,40 +541,31 @@
         
         axios.post(reqUrl, data)
         .then((response) => {
-			console.log(response);
-		})
-		.catch((error) => {
-			console.log(error);
-		})
-        .finally(() => Reviewmodal.hide());
-        
-        /*
-        axios.put(reqUrl, data)
-        .then((response) => {
+            console.log(response);
             alert(`답변 완료 ${response.data}`);
             resetReviewList();
         })
         .catch((error) => {
             console.log(error);
-        })*/
-        
-        
+        })
+        .finally(() => Reviewmodal.hide());
         
     });
     
     // 리뷰 요소들 꺼내서 정리할 문장 표현 (테이블에 문장을 추가하기 위해 설정하는 값)
     const makeReviewElemants = (data) => {
-	
-	// 리뷰리스트가 보여질 div
+    
+    // 리뷰리스트가 보여질 div
         const reviewList = document.querySelector('tbody#tableReviewBody');
         
         let reviewStr = '';
-        
         // 요소체울 반복문
         for(let review of data){
         // 답변여부 체크를 답변의 문장이 있나없나로 체크        
-        let answered = review.is_answered;
-        let replyTime = review.qreplycreate_time;
+        let answered = review.rreview_reply;
+        let replyTime = review.rcreated_time;
+        console.log('answered: ' + answered);
+        console.log('replyTime: ' + replyTime);
         let answeredStr = `
             <td>
                 <button id="btnAnswer" data-id="${ review.r_id }" class="btn btn-outline-success">답변 하기</button>
@@ -469,7 +578,7 @@
             answered = '<img src="../static/assets/question/answered/yes.png" alt="YesImage" width="40" height="40">';
             answeredStr = `
                 <td>
-                    <button id="btnAnswer" data-id="${ review.r_id }" class="btn btn-outline-warning">답변 변경</button>
+                    <button id="btnAnswer" data-id="${ review.login_id }" class="btn btn-outline-warning">답변 변경</button>
                 </td>
             `;
         }
@@ -478,7 +587,7 @@
             reviewStr += `
                 <tr>
                     <td>${ answered }</td>
-                    <td>${ review.u_id }</td>
+                    <td>${ review.login_id }</td>
                     <td>${ review.rcontent }</td>
                     <td>${ review.rcreated_time }</td>
                     <td>${ replyTime }</td>
@@ -489,15 +598,14 @@
             reviewList.innerHTML = reviewStr;
             
                 // 답변버튼 찾기
-                const btnReview = document.querySelectorAll('button#btnAnswer')
+                const btnReview = document.querySelectorAll('button#btnAnswer');
                     for(let btn of btnReview){
                         btn.addEventListener('click', showAnswerdModal);
                 }
-                
         }
-	
-	
-	}
+    
+    
+    }
     // 리뷰 리스트 초기화
     const resetReviewList = async () => {
         const reqUrl = `/joo/api/AdminReview/ReviewList`;
@@ -641,7 +749,7 @@
             questionList.innerHTML = questionStr;
             
                 // 답변버튼 찾기
-                const btnAnswere = document.querySelectorAll('button#btnAnswere')
+                const btnAnswere = document.querySelectorAll('button#btnAnswere');
                     for(let btn of btnAnswere){
                         btn.addEventListener('click', showAnswereModal);
                 }
@@ -684,11 +792,11 @@
         const search = document.querySelector('input#searchProduct').value;
         console.log(`검색어 = ${search}`);
         const reqUrl = `/joo/api/AdminProduct/search/${search}`;
-        
+        document.querySelector('input#searchProduct').value = '';
         try{
             const response = await axios.get(reqUrl);
             if(response.data == ""){
-                alert('검색결과가 없습니다.');
+                alert(`검색결과가 없습니다. 검색어 = ${search}`);
                 return;
             }
             makeProductsElemants(response.data);
@@ -702,7 +810,7 @@
     // 상품 삭제
     const deleteproduct = (e) => {
         
-        const result = confirm('정말 삭제하시겠습니까?')
+        const result = confirm('정말 삭제하시겠습니까?');
         if(result==0){
             return;
         }
@@ -812,7 +920,7 @@
                     <td>${ product.palc }</td>
                     <td>${ product.pregion }</td>
                     <td>${ ctime }</td>
-                    <td>${ product.modified_time }</td>
+                    <td>${ product.pmodified_time }</td>
                     <td>${ product.pvoluem }</td>
                     <td>${ psotck }</td>
                     <td>${ product.psold }</td>

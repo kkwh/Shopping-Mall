@@ -1,5 +1,6 @@
 package com.itwill.joo.domain;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
@@ -18,7 +19,7 @@ import lombok.NoArgsConstructor;
  */
 public class Review {
 	
-private long id;
+	private long id;
 	
 	private long p_id; // 후기 작성한 상품 아이디
 	private long o_id; // 주문 아이디
@@ -30,8 +31,8 @@ private long id;
 	
 	private int rratings; // 별점
 	
-	private LocalDateTime rcreated_time; // 후기 작성일자
-	private LocalDateTime rmodified_time; // 후기 수정일자
-	private LocalDateTime ris_time;
+	private Timestamp rcreated_time; // 후기 작성일자
+	private Timestamp rmodified_time; // 후기 수정일자
+	private Timestamp ris_time;
 
 }

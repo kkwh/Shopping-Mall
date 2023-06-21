@@ -20,11 +20,14 @@ import com.itwill.joo.dto.product.ProductDto;
 import com.itwill.joo.dto.product.ProductListPageDto;
 import com.itwill.joo.dto.question.QuestionsListDto;
 import com.itwill.joo.dto.recommend.RecommendDto;
+import com.itwill.joo.dto.review.ReviewListDto;
+
 import com.itwill.joo.service.BasketService;
+import com.itwill.joo.service.UserService;
 import com.itwill.joo.service.ProductService;
 import com.itwill.joo.service.QuestionService;
 import com.itwill.joo.service.RecommendService;
-import com.itwill.joo.service.UserService;
+import com.itwill.joo.service.ReviewService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,6 +40,7 @@ public class ProductController {
 
     private final BasketService basketService;
     private final UserService userService;
+	  private final ReviewService reviewService;
     private final ProductService productService;
     private final QuestionService questionService;
     private final RecommendService recommendService;
@@ -66,6 +70,10 @@ public class ProductController {
         ProductDto p = productService.userReadOneProductByid(pid);
 		model.addAttribute("product", p);
         
+		// 상품 리뷰 리스트
+		List<ReviewListDto> reviewList = reviewService.selectReviewsByPid(pid);
+		model.addAttribute("reviewList", reviewList);
+		
         // 뷰에 보여줄 데이터를 모델에 저장
         model.addAttribute("questionsList", list);
         model.addAttribute("productId", pid);

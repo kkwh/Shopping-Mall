@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.itwill.joo.dto.order.CurrentPointWhenBuyDto;
 import com.itwill.joo.dto.order.DeliveryCreateDto;
 import com.itwill.joo.dto.order.DeliveryInfoDto;
+import com.itwill.joo.dto.order.DetailOrderProductDto;
 import com.itwill.joo.dto.order.OrderByBasketDto;
 import com.itwill.joo.dto.order.OrderCancelHistoryDto;
 import com.itwill.joo.dto.order.OrderCreateDto;
@@ -104,6 +105,10 @@ public class OrderService {
     
     public int updatePointWhenComple(PointWhenCompleDto dto) {
         return orderRepository.updateCurrentPointWhenComple(dto);
+    }
+    
+    public List<DetailOrderProductDto> readDetailOrderProduct(long id) {
+        return orderRepository.selectDetailOrderProduct(id);
     }
     
     
