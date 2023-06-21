@@ -79,10 +79,10 @@
                             <thead>
                                 <tr>
                                     <th scope="col" id="answered">답변여부</th>
-                                    <th scope="col">유저 아이디</th>
+                                    <th scope="col">작성자 아이디</th>
                                     <th scope="col">리뷰 내용</th>
-                                    <th scope="col">문의시간</th>
-                                    <th scope="col">답변시간</th>
+                                    <th scope="col">문의 시간</th>
+                                    <th scope="col">답변 시간</th>
                                     <th scope="col"> ㅇ</th>
                                 </tr>
                             </thead>
@@ -325,6 +325,9 @@
     const deletepost = (e) => {
         
         const result = confirm('정말 삭제하시겠습니까?')
+        if(result==0){
+            return;
+        }
         const id = e.target.getAttribute('data-id');
         const url = `/joo/api/AdminPost/delete/${id}`;
         
@@ -500,17 +503,17 @@
         
         axios.get(url)
         .then((response) =>{
-            
+            console.log(response);
             console.log(`data = ${response.data}`);
             
             // 전달 받은 데이터 각각 넣기 배열은 [] 로 찾고, 값설정 / 리스트는 {} 로 각각의 키값의 이름을 찾아 값 설정
-            const { r_id, rcontent, u_id, is_answered} = response.data;
+            const { r_id, rcontent, login_id, rreview_reply} = response.data;
             
             // 모달 인풋에 기존값 넣어주기
             reviewr_id.value = r_id;
-            reviewrname.value = u_id;
+            reviewrname.value = login_id;
             reviewrcontent.value = rcontent;
-            reviewis_answered.value = is_answered;
+            reviewis_answered.value = rreview_reply;
             
             // 모달 보여주기
             Reviewmodal.show();
@@ -539,23 +542,13 @@
         axios.post(reqUrl, data)
         .then((response) => {
 			console.log(response);
+			alert(`답변 완료 ${response.data}`);
+			resetReviewList();
 		})
 		.catch((error) => {
 			console.log(error);
 		})
         .finally(() => Reviewmodal.hide());
-        
-        /*
-        axios.put(reqUrl, data)
-        .then((response) => {
-            alert(`답변 완료 ${response.data}`);
-            resetReviewList();
-        })
-        .catch((error) => {
-            console.log(error);
-        })*/
-        
-        
         
     });
     
@@ -566,12 +559,13 @@
         const reviewList = document.querySelector('tbody#tableReviewBody');
         
         let reviewStr = '';
-        
         // 요소체울 반복문
         for(let review of data){
         // 답변여부 체크를 답변의 문장이 있나없나로 체크        
-        let answered = review.is_answered;
-        let replyTime = review.qreplycreate_time;
+        let answered = review.rreview_reply;
+        let replyTime = review.rcreated_time;
+        console.log('answered: ' + answered);
+        console.log('replyTime: ' + replyTime);
         let answeredStr = `
             <td>
                 <button id="btnAnswer" data-id="${ review.r_id }" class="btn btn-outline-success">답변 하기</button>
@@ -584,7 +578,7 @@
             answered = '<img src="../static/assets/question/answered/yes.png" alt="YesImage" width="40" height="40">';
             answeredStr = `
                 <td>
-                    <button id="btnAnswer" data-id="${ review.r_id }" class="btn btn-outline-warning">답변 변경</button>
+                    <button id="btnAnswer" data-id="${ review.login_id }" class="btn btn-outline-warning">답변 변경</button>
                 </td>
             `;
         }
@@ -593,7 +587,7 @@
             reviewStr += `
                 <tr>
                     <td>${ answered }</td>
-                    <td>${ review.u_id }</td>
+                    <td>${ review.login_id }</td>
                     <td>${ review.rcontent }</td>
                     <td>${ review.rcreated_time }</td>
                     <td>${ replyTime }</td>
@@ -608,7 +602,6 @@
                     for(let btn of btnReview){
                         btn.addEventListener('click', showAnswerdModal);
                 }
-                
         }
 	
 	
