@@ -65,21 +65,20 @@
               const selectedMethod = $('input[name=paymentMethod]:checked', '#recipientInfo').val();
               
               if(selectedMethod === 'card') {
-				  requestCardPay();
-			  } else {
-				  requestKakaoPay();
-			  }
+                requestCardPay();
+              } else {
+                requestKakaoPay();
+              }
             } 
-        } 
+        }
         else {
         	const selectedMethod = $('input[name=paymentMethod]:checked', '#recipientInfo').val();
-              
-              if(selectedMethod === 'card') {
-				  requestCardPay();
-			  } else {
-				  requestKakaoPay();
+          if(selectedMethod === 'card') {
+				    requestCardPay();
+			    } else {
+				    requestKakaoPay();
+			    } 
 			  }      
-		  }
   });
 });
 
@@ -271,7 +270,7 @@
       // var pId 
       var oId = orderId // order의 o_id 리턴 받은 값으로 초기화
       console.log('주문상품 oid 테스트' + oId);
-      var pCount = 10 // 수량 입력받아서 초기화
+      var pCount = count; // 수량 입력받아서 초기화
       // var pPrice
       
       $.ajax({
@@ -364,7 +363,7 @@
     }
     
     function updateStockAndSold() {
-      var pCount = 10 // 수량 입력받아서 초기화  
+      var pCount = count; // 수량 입력받아서 초기화  
         
       $.ajax({
         url: "/joo/api/order/stockAndSoldWhenBuy", // 
