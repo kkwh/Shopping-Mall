@@ -70,14 +70,16 @@
 				  requestKakaoPay();
 			  }
             } 
-        }  
-        const selectedMethod = $('input[name=paymentMethod]:checked', '#recipientInfo').val();
+        } 
+        else {
+        	const selectedMethod = $('input[name=paymentMethod]:checked', '#recipientInfo').val();
               
               if(selectedMethod === 'card') {
 				  requestCardPay();
 			  } else {
 				  requestKakaoPay();
 			  }      
+		  }
   });
 });
 

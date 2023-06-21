@@ -14,9 +14,11 @@
 		crossorigin="anonymous">
 </head>
 <body>
-	<div style="width: 60%; margin: 0 auto;">
-		<h1>회원정보</h1>
-		<hr/>
+	<div style="width: 60%; margin: 0 auto; padding: 30px 5px;">
+		<div id="title-area" style="margin: 0 auto; padding: 20px 5px;">
+			<h2 style="text-align: center;">"${ user.uname }"님의 회원정보</h2>
+			<hr />
+		</div>
 		<form id="update-form" >
 			<table class="table">
 				<tr>
@@ -98,9 +100,11 @@
 					<td></td>
 				</tr>
 			</table>
-		  <button type="button" id="modifyBtn" class="btn btn-outline-success">수정</button>
-		  <a href="/joo" class="btn btn-outline-danger">취소</a>
-		  <a href="/joo/user/withdrawal" class="btn btn-outline-danger">회원탈퇴</a>
+			<div id="btn-section py-3">
+				<button type="button" id="modifyBtn" class="btn btn-outline-dark w-100 my-1">회원정보 수정</button>
+			  	<a href="/joo" class="btn btn-outline-primary w-100 my-1">메인으로 이동</a>
+			  	<a href="/joo/user/withdrawal" class="btn btn-outline-danger w-100 my-1">회원 탈퇴</a>
+			</div>
 		</form>
 	</div>
 	

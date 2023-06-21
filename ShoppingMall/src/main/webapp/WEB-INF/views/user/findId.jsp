@@ -17,10 +17,10 @@
 		<form id="find-id">
 			<div style="width: 100%; margin-top: 200px;">
 				<div id="id-panel" class="p-2">
-					<input type="text" id="name" name="name" class="form-control" placeholder="이름" />
+					<input type="text" id="name" name="name" class="form-control" placeholder="NAME" />
 				</div>
 				<div id="password-panel" style="width: 100%" class="p-2">
-					<input type="text" id="email" class="form-control" name="email" placeholder="이메일" />
+					<input type="text" id="email" class="form-control" name="email" placeholder="EMAIL" />
 				</div>
 	
 				<div id="login-btn-panel" class="p-2" style="width: 100%;">
