@@ -8,4 +8,5 @@
 		select * from BASKET
 		where U_ID = #{userId}
 	</select>
+
 </mapper>
