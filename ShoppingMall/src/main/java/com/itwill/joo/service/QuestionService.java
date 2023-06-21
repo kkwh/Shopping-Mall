@@ -104,10 +104,12 @@ public class QuestionService {
 	// 상품 문의 전체보기
 	public List<QuestionsListDto> readAll() {
 		log.info("readAll() ");
-
 		List<Question> list = questionRepository.selectOrderByDesc();
-
-		return list.stream().map(QuestionsListDto::fromEntity).toList();
+		List<QuestionsListDto> result = new ArrayList<>();
+		for(Question l : list) {
+			result.add(QuestionsListDto.fromEntity(l));
+		}
+		return result;
 	}
 
 	// 상품 문의 작성

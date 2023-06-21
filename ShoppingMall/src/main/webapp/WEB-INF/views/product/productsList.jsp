@@ -327,6 +327,7 @@
                     id="aOldList" class="nav-link" href="#">전통주</a> <a
                     id="aSojuList" class="nav-link" href="#">소주</a> <a
                     id="aBearList" class="nav-link" href="#">맥주</a> <a
+                    id="aWineList" class="nav-link" href="#">와인</a> <a
                     id="aAnotherList" class="nav-link" href="#">기타</a>
             </nav>
 

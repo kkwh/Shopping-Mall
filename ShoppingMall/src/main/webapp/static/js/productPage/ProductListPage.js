@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function(){
     const aOldList = document.querySelector('a#aOldList');
     const aSojuList = document.querySelector('a#aSojuList');
     const aBearList = document.querySelector('a#aBearList');
+    const aWineList = document.querySelector('a#aWineList');
     const aAnotherList = document.querySelector('a#aAnotherList');
     
      // 상품 data를 받아 설정
@@ -341,6 +342,27 @@ document.addEventListener('DOMContentLoaded', function(){
             console.log(error);
         }
     }
+    //--와인상품리스트------------------------------------------------------------------------------------
+    // 와인상품 리스트 보여주기 
+    const showWineList = async () => {
+        // 검색창 표시 안보이기
+        document.querySelector('div#divSearchWord').classList.replace('text-center', 'd-none');
+        // 버튼 상태 초기화
+        resetAClass();
+        // 버튼 한곳으로 active 추가
+        aWineList.classList.add('active');
+        
+        // 보내질 주소        
+        const reqUrl = `/joo/api/ProductList/showWineList`;
+        // 처리
+        try{
+            const response = await axios.get(reqUrl);
+            makeProductElemants(response.data);
+            console.log(response);
+        }catch (error){
+            console.log(error);
+        }
+    }
     //--기타상품리스트------------------------------------------------------------------------------------
     // 기타상품 리스트 보여주기 
     const showAnotherList = async () => {
@@ -369,6 +391,7 @@ document.addEventListener('DOMContentLoaded', function(){
     aOldList.addEventListener('click', showOldList);
     aSojuList.addEventListener('click', showSojuList);
     aBearList.addEventListener('click', showBearList);
+    aWineList.addEventListener('click', showWineList);
     aAnotherList.addEventListener('click', showAnotherList);
     
     // 상세검색 요소들 찾기 ---------------------------------------------------------

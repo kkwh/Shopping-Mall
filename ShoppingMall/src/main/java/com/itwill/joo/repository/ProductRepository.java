@@ -82,6 +82,8 @@ public interface ProductRepository {
 	List<Product> selectBySoju();
 	// 맥주상품 보기
 	List<Product> selectByBear();
+	// 와인상품보기
+	List<Product> selectByWine();
 	// 기타상품 보기
 	List<Product> selectByAnother();
 	// 검색상품 보기

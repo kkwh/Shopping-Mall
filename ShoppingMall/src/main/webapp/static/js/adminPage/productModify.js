@@ -915,7 +915,7 @@
 
         //제고수 0 일때 "제고없음 처리"
         let psotck = product.pstock;
-        if(psotck==0){
+        if(psotck<=0){
             psotck = `<strong style="color:red;">제고없음</strong>`;
         }
             // 상품 1개를 표시할 html 코드
