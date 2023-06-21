@@ -37,12 +37,12 @@ public class QuestionController {
 
     //상품 디테일 페이지에서 해당 상품의 문의사항을 확인
     @GetMapping("/questionDetail")
-    public void questionDetail(@RequestParam("id") long id, long pid, Principal principal, Model model) {
-        log.info("detail(id={})", id);
+    public void questionDetail(@RequestParam("id") long q_id, Principal principal, Model model) {
+        log.info("detail(id={})", q_id);
         
-        QuestionDetailDto dto = questionService.read(id);
+        QuestionDetailDto dto = questionService.read(q_id);
         long userId = userService.select(principal.getName()).getId();
-        long p_id = questionService.getProduct(pid).getId();
+        long p_id = questionService.getProduct(q_id).getId();
         
         model.addAttribute("question", dto);
         model.addAttribute("userid", userId);
@@ -53,7 +53,7 @@ public class QuestionController {
 
     
     @GetMapping("/questionsList")
-    public void list( Model model, long p_id) {
+    public void list( Model model, @RequestParam("p_id") long p_id) {
         log.info("GET: productQuestionsList()");
 
         
