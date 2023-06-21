@@ -548,8 +548,7 @@
         .catch((error) => {
             console.log(error);
         })
-        .finally(() => Reviewmodal.hide());
-        
+        .finally(() => Reviewmodal.hide());        
     });
     
     // 리뷰 요소들 꺼내서 정리할 문장 표현 (테이블에 문장을 추가하기 위해 설정하는 값)
@@ -908,7 +907,7 @@
 
         //제고수 0 일때 "제고없음 처리"
         let psotck = product.pstock;
-        if(psotck==0){
+        if(psotck<=0){
             psotck = `<strong style="color:red;">제고없음</strong>`;
         }
             // 상품 1개를 표시할 html 코드
