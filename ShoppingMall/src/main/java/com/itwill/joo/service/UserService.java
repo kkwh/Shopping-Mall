@@ -1,5 +1,7 @@
 package com.itwill.joo.service;
 
+import java.util.List;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -81,7 +83,13 @@ public class UserService {
 		dto.setPassword(password);
 		dto.setRole("ROLE_USER");
 		
-		return userRepository.createUser(dto.toEntity());
+		int result = userRepository.createUser(dto.toEntity());
+		log.info("result = {}", result);
+		
+		long u_id = userRepository.selectUserByLoginId(dto.getLoginId()).getId();
+		userRepository.createUserBasket(u_id);
+		
+		return result;
 	}
 	
 	// 회원 정보 업데이트하는 메서드
@@ -105,16 +113,29 @@ public class UserService {
 	}
 	
 	// 사용자 탈퇴 메서드
-	public int deleteUser(long id) {
-		log.info("deleteUser({})", id);
+	public int deleteUser(long u_id) {
+		log.info("deleteUser({})", u_id);
 		
-		/* TODO: 
-		 * 유저 장바구니 삭제
-		 * 주문 기록 삭제
-		 * 배송 기록 삭제
-		 * 리뷰, 문의 작성글 삭제
-		*/
-		return userRepository.deleteUserById(id);
+		// 유저 장바구니 삭제
+		long b_id = userRepository.selectBasketByUserId(u_id);
+		userRepository.deleteBasketProductsByBasketId(b_id);
+		userRepository.deleteBasketByUserId(u_id);
+		
+		// 주문, 배송 기록 삭제
+		List<Long> orderIds = userRepository.selectOrderByUserId(u_id);
+		for(long o_id : orderIds) {
+			userRepository.deletePaymentsByOrderId(o_id);
+			userRepository.deleteDeliveriesByOrderId(o_id);
+			userRepository.deleteOrderProductsByOrderId(o_id);
+		}
+		userRepository.deleteOrdersByUserId(u_id);
+		
+		// 문의, 리뷰 삭제
+		userRepository.deleteQuestionsByUserId(u_id);
+		userRepository.deleteReviewsByUserId(u_id);
+		
+		// USERS 테이블에서 user 삭제
+		return userRepository.deleteUserById(u_id);
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.itwill.joo.domain.Review;
 import com.itwill.joo.dto.review.ReviewAdminListDto;
+import com.itwill.joo.dto.review.ReviewReplyUpdateDto;
 
 public interface AdminReviewRepository {
 
@@ -27,5 +28,5 @@ public interface AdminReviewRepository {
 	List<ReviewAdminListDto> selectNoAnsweredFirst();
 
 	// 업데이트
-	int addReviewReply(Review entity);
+	int addReviewReply(ReviewReplyUpdateDto dto);
 }

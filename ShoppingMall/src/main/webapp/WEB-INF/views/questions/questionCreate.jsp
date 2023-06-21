@@ -45,7 +45,7 @@
                         <a class="nav-link" href="${ mainPage }">메인 페이지</a>
                     </li>
                     <li class="nav-item">
-                            <a class="nav-link" href="/joo/questions/questionQnaList">문의하기</a>
+                            <a class="nav-link" href="/joo/questions/questionsList?p_id=${product.id}" >${product.pname } 문의목록</a>
                     </li>
 
                 </ul>

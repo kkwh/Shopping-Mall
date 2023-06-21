@@ -16,7 +16,7 @@ pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 	</head>
 	<body>
 		<div>
-			<h1>관리자 페이지 6/19</h1>
+			<h1>관리자 페이지</h1>
             <hr/>
                 <select id="menu" class="form-select form-select-lg mb-3"
                     aria-label=".form-select-lg example">
@@ -167,7 +167,7 @@ pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
                                 <!-- 내용 체울 부분 -->
                                 <div class="row">
                                     <div class="col">
-                                        유저 아이디 : <input type="text" readonly id="reviewrname" class="form-control"/>
+                                        작성자 아이디 : <input type="text" readonly id="reviewrname" class="form-control"/>
                                     </div>
                                 </div>
                                 

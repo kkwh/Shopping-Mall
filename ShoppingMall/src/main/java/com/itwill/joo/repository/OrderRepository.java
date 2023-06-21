@@ -5,6 +5,7 @@ import java.util.List;
 import com.itwill.joo.dto.order.CurrentPointWhenBuyDto;
 import com.itwill.joo.dto.order.DeliveryCreateDto;
 import com.itwill.joo.dto.order.DeliveryInfoDto;
+import com.itwill.joo.dto.order.DetailOrderProductDto;
 import com.itwill.joo.dto.order.OrderByBasketDto;
 import com.itwill.joo.dto.order.OrderCancelHistoryDto;
 import com.itwill.joo.dto.order.OrderCreateDto;
@@ -54,6 +55,8 @@ OrderedProductDto selectOrderedProduct(long id);
     int updateStockAndSoldWhenCancel(StockWhenCancelDto dto);
     
     int updateCurrentPointWhenComple(PointWhenCompleDto dto);
+    
+    List<DetailOrderProductDto> selectDetailOrderProduct(long id);
 
 }
 

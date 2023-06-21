@@ -43,11 +43,14 @@ public class ReviewController {
 	}
 	
 	@PostMapping("/create")
-	public String create(ReviewCreateDto dto) {
+	@ResponseBody
+	public int create(@RequestBody ReviewCreateDto dto) {
 	    log.info("REVIEW: create({})", dto);
 	    
+	    int result = reviewService.createReview(dto);
+	    log.info("result = {}", result);
 	    
-	    return "redirect:/joo";
+	    return result;
 	}
 	
 	@ResponseBody
