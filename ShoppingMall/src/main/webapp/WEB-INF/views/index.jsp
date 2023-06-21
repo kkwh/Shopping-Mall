@@ -143,17 +143,17 @@
                     </div>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                        <a href="/joo/post/postDetail">
+                        <a href="/joo/post/postDetail?id=2">
                             <img src="./static/assets/bannerImages/001.jpg" class="d-block w-100" alt="bannerImege01">
                         </a>
                         </div>
                         <div class="carousel-item">
-                        <a href="/joo/post/postDetail">
+                        <a href="/joo/post/postDetail?id=3">
                             <img src="./static/assets/bannerImages/002.jpg" class="d-block w-100" alt="bannerImege02">
                         </a>
                         </div>
                         <div class="carousel-item">
-                        <a href="/joo/post/postDetail">
+                        <a href="/joo/post/postDetail?id=4">
                             <img src="./static/assets/bannerImages/003.jpg" class="d-block w-100" alt="bannerImege03">
                         </a>
                         </div>
