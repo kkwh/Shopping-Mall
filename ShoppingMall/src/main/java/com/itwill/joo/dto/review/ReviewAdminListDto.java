@@ -1,6 +1,6 @@
 package com.itwill.joo.dto.review;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,16 +13,15 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ReviewAdminListDto {
 
-	// 답변아이디, 유저 아이디
+	// 리뷰 아이디
 	private long r_id;
 
-	// 작성자의 이름을 받아 사용
-	private String u_id;
+	// 리뷰 작성자의 로그인 아이디
+	private String login_id;
 
-	private String rcontent;
-	private String is_answered;
+	private String rcontent; // 리뷰 내용
+	private String rreview_reply; // 리뷰 답변 내용
 
-	private Timestamp rcreated_time;
-	private Timestamp rreplycreate_time;
+	private LocalDateTime rcreated_time; // 리뷰 작성시간
 
 }

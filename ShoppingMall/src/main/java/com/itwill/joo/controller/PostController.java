@@ -29,7 +29,10 @@ public class PostController {
 		BoardDetailDto dto = boardService.read(id);
 
 		model.addAttribute("board", dto);
-		model.addAttribute("loginId", principal.getName());
+		
+		if(principal != null) {
+			model.addAttribute("loginId", principal.getName());
+		}
 	}
 
 	@GetMapping("/postList")
@@ -37,7 +40,9 @@ public class PostController {
 
 		model.addAttribute("boards", boardService.select(cri));
 		model.addAttribute("pageMaker", new PageDTO(cri, boardService.getTotal(cri)));
-		model.addAttribute("loginId", principal.getName());
+		if(principal != null) {
+			model.addAttribute("loginId", principal.getName());
+		}
 	}
 
 	@GetMapping("/postNotice")

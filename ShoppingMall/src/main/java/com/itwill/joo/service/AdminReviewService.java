@@ -34,7 +34,7 @@ public class AdminReviewService {
 	}
 
 	public int addReviewReply(ReviewReplyUpdateDto dto) {
-		return adminReviewRepository.addReviewReply(dto.toEntity());
+		return adminReviewRepository.addReviewReply(dto);
 	}
     
 }
