@@ -17,7 +17,9 @@
     integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
     crossorigin="anonymous">
 <link rel="stylesheet" href="../static/css/productDetailQuestionsList.css" />
- 
+ <link href="${pageContext.request.contextPath}/static/css/questions/questionQna.css" rel="stylesheet"> 
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+     
 </head>
 <body>
     <div>
@@ -190,100 +192,78 @@
                     </div>
     
                     <!-- 문의 -->
-                    <div id="question" class="container mt-4">
-<h5>< ${product.pname} > 상품문의 (총 ${questionsList.size()}건)</h5>
-
-                    <table class="table" id="QuestionsList">
-                        <thead>
-                            <tr>
-                                <th scope="col">번호</th>
-                                <th scope="col">답변여부</th>
-                                <th scope="col">문의 유형</th>
-                                <th scope="col">작성자 아이디</th>
-                                <th scope="col">등록일자</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${questionsList}"
-                                var="question">
-                                <tr>
-                                    <td>${question.id}</td>
-                                    <td>${question.is_answered}</td>
-                                    <td><c:choose>
-                                            <c:when
-                                                test="${ question.login_id eq login_id }">
-                                                <c:url
-                                                    var="QuestionDetailPage"
-                                                    value="/questions/questionDetail">
-                                                    <c:param name="pid"
-                                                        value="${ question.id }" />
-                                                </c:url>
-                                                <a
-                                                    href="${ QuestionDetailPage }">${question.qtype}</a>
-                                            </c:when>
-                                            <c:when
-                                                test="${ question.login_id ne login_id }">
+                    <div id="question" class="container-fluid">
+                                <div class="card my-2 p-1 text-left" style="background-color: #343A40;">
+                                    <h2 class="text-center" style="color: #fff;">&lt;${product.pname}&gt; 상품문의 (총 ${questionsList.size()}건)</h2>
+                                
+                                    <table class="card-body table"style="background-color: #343A40;" id="QuestionsList">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">번호</th>
+                                                <th scope="col">답변여부</th>
+                                                <th scope="col">문의 유형</th>
+                                                <th scope="col">작성자 아이디</th>
+                                                <th scope="col">등록일자</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <c:forEach items="${questionsList}" var="question" >
+                                                <tr style= font-weight: bold;">
+                                                    <td style="color: #b69ccc; font-weight: bold;">${question.id}</td>
+                                                    <td style="color: #b69ccc; font-weight: bold;">${question.is_answered}</td>
+                                                    <td style="color: #b69ccc; font-weight: bold;">
+                                                        <sec:authentication property="principal.username" var="login_id" />
+                                                        <c:set value="${question.login_id}" var="qlogin_id" />
+                                                        <c:url var="QuestionDetailPage" value="/questions/questionDetail">
+                                                            <c:param name="p_id" value="${question.id}" />
+                                                        </c:url>
+                                                        <c:choose>
+                                                            <c:when test="${login_id == qlogin_id}">
+                                                                <a href="${QuestionDetailPage}" style="color: #a43c0c; font-weight: bold;">${question.qtype}</a>
+                                                            </c:when>
+                                                            <c:otherwise>
                                                                 ${question.qtype}
-                                                                </c:when>
-                                                                        <c:otherwise>
-                                                                  ${question.qtype}
-                                                             </c:otherwise>
-                                                                    </c:choose></td>
-                                                                <td>${question.login_id}</td>
-                                                                <td><fmt:formatDate
-                                                                        value="${question.qcreated_time}"
-                                                                        pattern="yyyy-MM-dd HH:MM:mm" />
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="row pt-3">
-                    <div class="col-2"></div>
-                    <div>
-                        <button type="button" id="QuestionCreateBtn"
-                            class="btn btn-sm btn-outline-secondary" style="text-align: center"
-                            onclick="questionCreate();"> < ${product.pname} >문의 작성</button>
-                    </div>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </td>
+                                                    <td style="color: #b69ccc; font-weight: bold;">${question.login_id}</td>
+                                                    <td style="color: #b69ccc; font-weight: bold;"><fmt:formatDate value="${question.qcreated_time}" pattern="yyyy-MM-dd HH:MM:mm" /></td>
+                                                </tr>
+                                            </c:forEach>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row pt-3">
+                                <div class="col-2"></div>
+                                    <div class="text-end">
+                                        <button type="button" id="QuestionCreateBtn" class="btn btn-lg btn-outline-secondary" style="text-align: center; margin-right: 45px;" onclick="questionCreate();">< ${product.pname} >문의 작성</button>
+                                    </div>
 
+                                
+                                <div class="pull-right">
+                                    <ul class="pagination">
+                                        <c:if test="${pageMaker.prev}">
+                                            <li class="page-item"><a class="page-link" href="${pageMaker.startPage - 1}"> 이전 </a></li>
+                                        </c:if>
+                                        <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="num">
+                                            <li class="page-item ${pageMaker.cri.pageNum == num ? 'active' : ''}">
+                                                <a class="page-link" href="${num}" style="color: #b69ccc; font-weight: bold;">${num}</a>
+                                            </li>
+                                        </c:forEach>
+                                        <c:if test="${pageMaker.next}">
+                                            <li class="page-item"><a class="page-link" href="${pageMaker.endPage + 1}"> 다음 </a></li>
+                                        </c:if>
+                                    </ul>
+                                </div>
+                            </div>
 
-                    <!-- 페이징 -->
-                    <div class="big-width" style="text-align: center">
-                        <nav>
-                            <ul class="custom-pagination">
-                                <li
-                                    class="page-item ${paging.prev ? '' : 'disabled'}">
-                                    <a class="page-link"
-                                    href="${paging.startPage - 1}"
-                                    tabindex="-1">&laquo;</a>
-                                </li>
-                                <c:forEach begin="${paging.startPage}"
-                                    end="${paging.endPage}" var="num">
-                                    <li
-                                        class="page-item ${paging.criteria.pageNum == num ? 'active' : ''}">
-                                        <a class="page-link"
-                                        href="${num}">${num}</a>
-                                    </li>
-                                </c:forEach>
-                                <li
-                                    class="page-item ${paging.next ? '' : 'disabled'}">
-                                    <a class="page-link"
-                                    href="${paging.endPage + 1}"
-                                    tabindex="-1">&raquo;</a>
-                                </li>
-                            </ul>
-                        </nav>
-                        <form id="actionForm"
-                            action="joo/question/questionsList"
-                            method="get">
-                            <input type="hidden" name="pageNum"
-                                value="${paging.criteria.pageNum}" /> <input
-                                type="hidden" name="amount"
-                                value="${paging.criteria.amount}" />
-                        </form>
-                    </div>
-                    <!-- 페이징 -->
+                    <form id="actionForm" action="/joo/post/postList" method="get">
+                        <input type="hidden" name="pageNum" value="${ pageMaker.cri.pageNum }" /> 
+                        <input type="hidden" name="amount" value="${ pageMaker.cri.amount }" /> 
+                        <input type="hidden" name="category" value="${ pageMaker.cri.category }" />
+                        <input type="hidden" name="keyword" value="${ pageMaker.cri.keyword }" />
+                    </form>
 
                 </div>
                 <div class="text-center">
@@ -374,7 +354,7 @@
          	  });
          	}
         </script>
-
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script>const pid = ${ productId }</script>
         <script src="../static/js/productPage/ProductDetailPage.js"></script>
