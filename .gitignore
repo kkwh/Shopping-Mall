@@ -5,3 +5,4 @@
 .gitignore
 .settings/
 application-context.xml
+security-context.xml

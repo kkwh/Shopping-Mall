@@ -26,8 +26,7 @@
 </style>
 	</head>
 	<body>
-	
-		 <header>
+		 <header class="my-2 p-5 text-center text-bg-dark">
 			<h1>
 				<sec:authorize access="isAuthenticated()">
 					<p><sec:authentication property="principal.username"/>의 장바구니</p>
@@ -45,25 +44,27 @@
 				<table id="basketProductList" >
 					<thead>
 						<tr>
+                            <th>상품 아아디</th>
 							<th>상품이름</th>
 							<th>가격</th>
 							<th>수량</th>
 							<th>삭제</th>
 						</tr>
 					</thead>
-				
 					<tbody>
                         <c:set var="totalPrice" value="0" />
 						<c:forEach items="${basketproducts }" var="basketproduct">	
                         			
-								<tr>									
+								<tr>
+                                    <input type="hidden" value="${ basketproduct.p_id }" class="p_id" data-id="${ basketproduct.p_id }" />  
+               						<td>${ basketproduct.p_id }</td>			
 									<td>${ basketproduct.pname }</td>
 									<td>${ basketproduct.pprice }</td>
 									<td>
-                                        <button class="btnMinus">-</button>
-                                           <span class="count">${ basketproduct.pcount }</span>
-                                           <input type="hidden" class="pcount" value="${ basketproduct.pcount }"/>
-                                        <button class="btnPlus">+</button>
+                                        <button class="btnMinus" data-id="${ basketproduct.p_id }">-</button>
+                                          <span class="count">${ basketproduct.pcount }</span>
+                                          <input type="hidden" class="pcount" value="${ basketproduct.pcount }"/>
+                                        <button class="btnPlus"  data-id="${ basketproduct.p_id }">+</button>
                                     </td>
 									<td><button id="btnDelete"  data-id="${ basketproduct.id }">삭제하기</button></td>
 								</tr>
@@ -91,18 +92,14 @@
 				<div>
 					<div>
 						<button>전체 주문</button>
-						<button id="btndeleteAll"  >전체 삭제</button>
-						<script>
-							
-						</script>
+						<button type="button" id="btndeleteAll"  >전체 삭제</button>
 					</div>
 				</div>
-
 	
 		</main>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
  <script>
  // 버튼과 수량 요소 선택
  var btnPlus = document.querySelectorAll('.btnPlus');
@@ -120,6 +117,26 @@
      } else {
        alert('최대 수량은 5입니다.');
      }
+
+     const b_id = document.querySelector('#basketId').value;
+     console.log('b_id = ' + b_id);
+     const p_id = this.getAttribute('data-id');
+     console.log('p_id = ' + p_id);
+     const pcount = this.parentNode.querySelector('.count').innerHTML;
+     console.log('pcount = ' + pcount);
+     
+     axios
+     	.post('/joo/user/updateQuantity', {b_id, p_id, pcount})
+     	.then(resp => {
+     		console.log(resp.data);
+     		alert('success');
+     		location.reload();
+     	})
+     	.catch(e => {
+     		alert(e);
+     		console.log(e);
+     	});
+     
    });
  }
 
@@ -133,9 +150,30 @@
 	    } else {
 	      alert('최소 수량은 1입니다.');
 	    }
+	    
+	    const b_id = document.querySelector('#basketId').value;
+	     console.log('b_id = ' + b_id);
+	     const p_id = this.getAttribute('data-id');
+	     console.log('p_id = ' + p_id);
+	     const pcount = this.parentNode.querySelector('.count').innerHTML;
+	     console.log('pcount = ' + pcount);
+	     
+	     axios
+	     	.post('/joo/user/updateQuantity', {b_id, p_id, pcount})
+	     	.then(resp => {
+	     		console.log(resp.data);
+	     		alert('success');
+	     		location.reload();
+	     	})
+	     	.catch(e => {
+	     		alert(e);
+	     		console.log(e);
+	     	});
 	  });
 	}
  </script>
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
     $(document).ready(function() {
         $("#btndeleteAll").click(function() {
@@ -160,44 +198,8 @@
             }
         });
     });
-    
-    $(document).ready(function() {
-    	  // Plus 버튼 클릭 이벤트 처리
-    	  $('.btnPlus').click(function() {
-    	    const id = $('#userId').val();
-    	    const b_id = $('#basketId').val();
-    	    const p_id = 22;
-    	    const pcount = $('.count').text();
-    	    
-    	    console.log(b_id + " " + pcount);
 
-    	    const param = {
-    	      "b_id": b_id,
-    	      "p_id": p_id,
-    	      "pcount": Number(pcount)
-    	    };
-
-    	    // AJAX 요청 전에 장바구니에 동일한 제품이 있는지 확인
-    	    $.ajax({
-    	      url: '/joo/user/updateQuantity',
-    	      type: 'POST',
-    	      data: JSON.stringify(param),
-    	      contentType: 'application/json',
-    	      success: function(response) {
-    	    	  console.log(response);
-    	        alert('상품 수량 변경 완료');
-    	        window.location.reload();
-    	      },
-    	      error: function(error) {
-    	        alert(error);
-    	      }
-    	    });
-    	  });
-
-    	  
-    	});
-
-</script>
+    </script>
 
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" 
             integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" 

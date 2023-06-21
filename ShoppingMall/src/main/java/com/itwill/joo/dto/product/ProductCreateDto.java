@@ -34,7 +34,7 @@ public class ProductCreateDto {
 	private LocalDateTime pmodified_time;
 	
 	public Product toEntity() {
-		return Product.builder().id(id).pname(pname).pcategory(pcategory).pregion(pregion).pvolume(pvolume)
+		return Product.builder().id(id).pname(pname).pcategory(pcategory).pregion(pregion).pvolume(pvolume).pdiscount(pdiscount)
 				.pprice(pprice).palc(palc).pstock(pstock).ptitle_image(ptitle_image).pdetail_image(pdetail_image).build();
 	}
 	

@@ -43,8 +43,8 @@
         <!-- 상품추가(관리자:상품관리)(이미지 추가없을 때) -->
         <insert id="insertNewProductWithOutImage">
             insert into products
-            (pname, pcategory, pprice, palc, pregion, pstock, pvolume, pdiscount)
-            values(#{pname}, #{pcategory}, #{pprice}, #{palc}, #{pregion}, #{pstock}, #{pvolume}, #{pdiscount})
+            (pname, pcategory, pprice, palc, pregion, pstock, pvolume, pdiscount, ptitle_image, pdetail_image)
+            values(#{pname}, #{pcategory}, #{pprice}, #{palc}, #{pregion}, #{pstock}, #{pvolume}, #{pdiscount}, #{ptitle_image},#{pdetail_image})
         </insert>
         
         <!-- 상품검색(관리자:상품관리) -->
@@ -116,6 +116,14 @@
             *
             from products
             where pcategory = '맥주'
+        </select>
+        
+        <!-- 와인 상품 리스트 (유저 :상품리스트보기) -->
+        <select id="selectByWine" resultType="com.itwill.joo.domain.Product">
+            select
+            *
+            from products
+            where pcategory = '와인'
         </select>
         
         <!-- 기타 상품 리스트 (유저 :상품리스트보기) -->

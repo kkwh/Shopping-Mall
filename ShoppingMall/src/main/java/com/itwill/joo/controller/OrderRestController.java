@@ -1,5 +1,7 @@
 package com.itwill.joo.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,8 +15,10 @@ import com.itwill.joo.dto.order.CurrentPointWhenBuyDto;
 import com.itwill.joo.dto.order.DeliveryCreateDto;
 import com.itwill.joo.dto.order.OrderCreateDto;
 import com.itwill.joo.dto.order.OrderProductCreateDto;
+import com.itwill.joo.dto.order.OrderToProductDto;
 import com.itwill.joo.dto.order.PointWhenCancelDto;
 import com.itwill.joo.dto.order.PointWhenCompleDto;
+import com.itwill.joo.dto.order.ReviewToOrderDto;
 import com.itwill.joo.dto.order.StockAndSoldWhenBuyDto;
 import com.itwill.joo.dto.order.StockWhenCancelDto;
 import com.itwill.joo.service.OrderService;
@@ -134,6 +138,15 @@ public class OrderRestController {
         int result = orderService.updatePointWhenComple(dto);
         
         return ResponseEntity.ok(result);
+    }
+    
+    // 상품 상세 페이지 -> 주문 페이지
+    @PostMapping("/toOrder")
+    public String readToOrder(@RequestBody OrderToProductDto dto, HttpSession session) {
+        log.info("readToOrder({})", dto);
+        session.setAttribute("productInfo", dto);
+        
+        return "order/orderPage";
     }
 
 }

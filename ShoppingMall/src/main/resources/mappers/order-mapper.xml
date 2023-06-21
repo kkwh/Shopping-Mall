@@ -27,7 +27,7 @@
         resultType="com.itwill.joo.dto.order.OrderHistoryDto">
         SELECT D.ID, P.PTITLE_IMAGE, P.pname, P.pstock, OP.pprice, OP.pcount, D.dcreated_time, O.opoint,
                D.dstatus, D.dmodified_time, O.odiscount_price, U.ID as "uid", P.ID as "pid",
-               O.ID as "oid", OP.ID as "opid"
+               O.ID as "oid", OP.ID as "opid", D.DCODE, O.OINITIAL_PRICE, P.PALC, P.PREGION
         FROM PRODUCTS P, ORDERS O, ORDER_PRODUCTS OP, DELIVERIES D, USERS U
         WHERE O.ID = OP.O_ID
         AND OP.P_ID = P.ID
@@ -168,6 +168,18 @@
             UCURRENT_POINT = UCURRENT_POINT + #{opoint}
         WHERE USERS.ID = #{uid}
     </update>
+    
+    <!-- 주문조회에서 주문번호 눌렀을 시 상품 상세페이지 정보 -->
+    <select id="selectDetailOrderProduct"
+        resultType="com.itwill.joo.dto.order.DetailOrderProductDto">
+        SELECT P.PTITLE_IMAGE, P.PNAME, OP.PCOUNT, OP.PPRICE, D.ID, D.dcreated_time
+        FROM PRODUCTS P, ORDER_PRODUCTS OP, ORDERS O, DELIVERIES D
+        WHERE P.ID = OP.P_ID
+        AND OP.O_ID = O.ID
+        AND O.ID = D.O_ID
+        AND D.ID = #{id}
+        ORDER BY OP.PCOUNT desc
+    </select>
     
     
 

@@ -132,7 +132,8 @@
                                             ${ product.pvolume }
                                             ---------- ${ product.pprice }원</option>
                                     </select>
-
+                       
+                             
                                     <div>
                                         <!-- 옵션 클릭시 제품이 추가되는 부분 -->
 
@@ -180,11 +181,13 @@
 
                                     </div>
                                     <br />
+                                    <input type="hidden" id="basketId" value="${ basketId }"/>
+                                    <input type="hidden" value="${ product.id }" id="productId"/>
                                     <div class="d-grid gap-2 d-md-block">
                                         <button class="btn btn-primary"
                                             id="btnOrder" type="button">주문하기</button>
                                         <button class="btn btn-primary"
-                                            type="button">장바구니</button>
+                                            type="button" id="btnAddToBasket">장바구니</button>
                                     </div>
                                 </div>
                             </c:when>
@@ -230,13 +233,29 @@
                 </div>
                 
                     <!-- 리뷰 -->
-                    <div id="review">
-                        리뷰 <br /> <br /> <br /> <br /> <br /> <br /> <br />
-                        <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
-                        <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
-                        <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
-                        <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
-                        ----
+                    <div id="reviews">                        
+                        <table class="table table-dark text-center">
+						  <thead>
+						    <tr>
+						      <th scope="col">#</th>
+						      <th scope="col">유저 id</th>
+						      <th scope="col">리뷰 내용</th>
+						      <th scope="col">별점</th>
+						      <th scope="col">작성일자</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						    <c:forEach items="${ reviewList }" var="review">
+	                        	<tr>
+	                        		<td>${ review.id }</td>
+		                        	<td>${ review.u_id }</td>
+		                        	<td>${ review.rcontent }</td>
+		                        	<td>${ review.rratings }</td>
+		                        	<td>${ review.rcreated_time }</td>
+	                        	</tr>
+	                        </c:forEach>
+						  </tbody>
+						</table>
                     </div>
     
                     <!-- 문의 -->
@@ -260,12 +279,74 @@
 
             <a href="#">home</a>
         </footer>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+         $(function() {
+       
+         	  $('#btnAddToBasket').click(function() {
+         	    const b_id = $('#basketId').val();
+         	    const p_id = $('#productId').val();
+         	    const pcount = $('#productCount').text().match(/\d+/);
+         	    const count = parseInt(pcount, 10);
+         	    //alert(b_id + " " + p_id + " " + count);
+         	    
+         	    const param = {"b_id": b_id, "p_id": p_id, "pcount": count};
+         	   
+         	    // AJAX 요청 전에 장바구니에 동일한 제품이 있는지 확인
+         	    $.ajax({
+         	      url: '/joo/user/updatePcount',
+         	      type: 'POST',
+         	      data: JSON.stringify(param),
+         	      contentType: 'application/json',
+         	      success: function(response) {
+	            	    	if(confirm('상품 추가 완료. 장바구니로 이동할까요?')) {
+	            	    		window.location.href='/joo/user/myBasket';
+	            	    	} else {
+	            	    		window.location.href = window.location.href;
+	            	    	}
+         	      },
+         	      error: function(error) {
+         	        alert(error);
+         	      }
+         	    });
+         	  });
+         	});
+
+        
+         	function updatePcount() {
+         		const id = $('#userId').val();
+         	    const b_id = $('#basketId').val();
+         	    const p_id = $( '#product.id').val();
+         	    const pcount = $('#selectpcount').val();
+         	    
+         	    const param = {"b_id": b_id, "p_id": p_id, "pcount": pcount};
+         		
+         		alert('update');
+         		
+         	  $.ajax({
+         	    url: '/joo/user/updatePcount',
+         	    type: 'POST',
+         	    data: JSON.stringify(param),
+         	    contentType: 'application/json',
+         	    success: function(res) {
+         	    	
+         	    	
+         	    	
+         	    },
+         	    error: function(error) {
+         	      alert(error);
+         	    }
+         	  });
+         	}
+        </script>
 
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
             crossorigin="anonymous"></script>
-        <script src="../static/js/ProductDetail/ProductDetailPage.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script>const pid = ${ productId }</script>
+        <script src="../static/js/productPage/ProductDetailPage.js"></script>
     </div>
 </body>
 </html>
