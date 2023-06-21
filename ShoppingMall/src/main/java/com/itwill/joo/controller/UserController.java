@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.itwill.joo.dto.review.ReviewListDto;
 import com.itwill.joo.dto.user.FindLoginIdDto;
 import com.itwill.joo.dto.user.FindPasswordDto;
 import com.itwill.joo.dto.user.UserAuthenticationDto;
@@ -20,6 +21,7 @@ import com.itwill.joo.dto.user.UserCreateDto;
 import com.itwill.joo.dto.user.UserDetailDto;
 import com.itwill.joo.dto.user.UserUpdateDto;
 import com.itwill.joo.service.MailService;
+import com.itwill.joo.service.ReviewService;
 import com.itwill.joo.service.UserService;
 	
 import lombok.RequiredArgsConstructor;
@@ -31,6 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/user")
 public class UserController {
 	
+	private final ReviewService reviewService;
 	private final UserService userService;
 	
 	@GetMapping("/login")
@@ -136,6 +139,16 @@ public class UserController {
 		model.addAttribute("user", dto);
 		
 		return "user/myGrade";
+	}
+	
+	@GetMapping("/myReviews")
+	public String myReviews(Principal principal, Model model) {
+		long uid = userService.getUserInfo(principal.getName()).getId();
+		
+		List<ReviewListDto> reviews = reviewService.selectReviewsByUid(uid);
+		model.addAttribute("reviews", reviews);
+		
+		return "user/reviews";
 	}
 	
 	@PostMapping("/modify")
