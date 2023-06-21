@@ -128,12 +128,13 @@
                 
                 <!-- 반복문으로 이벤트 자동으로 만들기 -->
                 <div id="carouselExampleIndicators" class="carousel slide"
-                    data-b  s-ride="true">
+                    data-b s-ride="true">
                     <div class="carousel-indicators">
                         <button type="button"
                             data-bs-target="#carouselExampleIndicators"
                             data-bs-slide-to="0" class="active"
-                            aria-current="true" aria-label="Slide 1"></button>
+                            aria-current="true" aria-label="Slide 1"
+                            ></button>
                         <button type="button"
                             data-bs-target="#carouselExampleIndicators"
                             data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -141,20 +142,20 @@
                             data-bs-target="#carouselExampleIndicators"
                             data-bs-slide-to="2" aria-label="Slide 3"></button>
                     </div>
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
+                    <div class="carousel-inner ">
+                        <div class="carousel-item active" data-bs-interval="10000">
                         <a href="/joo/post/postDetail">
-                            <img src="./static/assets/bannerImages/001.jpg" class="d-block w-100" alt="bannerImege01">
+                            <img src="./static/assets/bannerImages/001.jpg"  width="1200" height="580" class="d-block w-100 w-auto rounded mx-auto d-block" alt="bannerImege01">
                         </a>
                         </div>
-                        <div class="carousel-item">
+                        <div class="carousel-item" data-bs-interval="10000">
                         <a href="/joo/post/postDetail">
-                            <img src="./static/assets/bannerImages/002.jpg" class="d-block w-100" alt="bannerImege02">
+                            <img src="./static/assets/bannerImages/002.jpg"  width="1200" height="580" class="d-block w-100 w-auto rounded mx-auto d-block" alt="bannerImege02">
                         </a>
                         </div>
-                        <div class="carousel-item">
+                        <div class="carousel-item" data-bs-interval="10000">
                         <a href="/joo/post/postDetail">
-                            <img src="./static/assets/bannerImages/003.jpg" class="d-block w-100" alt="bannerImege03">
+                            <img src="./static/assets/bannerImages/003.jpg"  width="1200" height="580" class="d-block w-100 w-auto rounded mx-auto d-block" alt="bannerImege03">
                         </a>
                         </div>
                     </div>
