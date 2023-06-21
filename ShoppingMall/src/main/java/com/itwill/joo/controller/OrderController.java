@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itwill.joo.dto.order.DeliveryInfoDto;
+import com.itwill.joo.dto.order.DetailOrderProductDto;
 import com.itwill.joo.dto.order.OrderByBasketDto;
 import com.itwill.joo.dto.order.OrderCancelHistoryDto;
 import com.itwill.joo.dto.order.OrderHistoryDto;
@@ -76,7 +77,7 @@ public class OrderController {
     
     @GetMapping("/deliveryCheck")
     public String deliveryCheck(@RequestParam("id") long id, Model model) {
-        log.info("deliveryCheck(id={})");
+        log.info("deliveryCheck(id={})", id);
         
         DeliveryInfoDto info = orderService.selectDeliveryInfo(id);
         
@@ -105,6 +106,16 @@ public class OrderController {
         return "order/orderPage2";
     }
     
+    @GetMapping("/orderDetail")
+    public String orderDetail(@RequestParam("id") long id, Model model) {
+        log.info("orderDetail(id={})", id);
+        
+        List<DetailOrderProductDto> infos = orderService.readDetailOrderProduct(id);
+
+        model.addAttribute("infos", infos);
+        
+        return "order/orderDetail"; 
+    }
     
     
 

@@ -31,6 +31,10 @@ public class OrderHistoryDto {
 	private int opoint; // 적립될 포인트
 	private long oid; // 주문 아이디
     private long opid; // 주문상품 아이디
+    private long dcode; // 송장 번호
+    private int oinitial_price; // 상품 총 금액(할인 제외)
+    private int palc; // 상품 도수
+    private String pregion; // 상품 원산지
 	
 	
 	

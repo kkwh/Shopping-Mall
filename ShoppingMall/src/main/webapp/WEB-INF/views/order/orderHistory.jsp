@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -110,16 +111,22 @@
             <thead>
                 <tr>
                     <th scope="col" data-column="상품정보">상품정보 <i class="fas fa-sort"></i></th>
-                    <th scope="col" data-column="수량">수량 <i class="fas fa-sort"></i></th>
-                    <th scope="col" data-column="금액">금액 <i class="fas fa-sort"></i></th>
+                    <th scope="col" data-column="수량">주문번호 <i class="fas fa-sort"></i></th>
+                    <th scope="col" data-column="금액">주문금액(수량) <i class="fas fa-sort"></i></th>
                     <th scope="col" data-column="주문일자">주문일자 <i class="fas fa-sort"></i></th>
                     <th scope="col" colspan="2" data-column="주문 상태">&nbsp;&nbsp;주문상태 <i class="fas fa-sort"></i></th>
                 </tr>
             </thead>
             
             <tbody>
-
+                
                 <c:forEach items="${ orders }" var="order">
+                
+                    <!-- 주문 날짜 가져오기 -->
+                    <fmt:formatDate value="${ order.dcreated_time }" pattern="yyyyMMdd" var="orderDate" />                 
+                    <!-- 주문번호 생성 (날짜 + 고유 아이디번호) -->
+                    <c:set var="orderNumber" value="${orderDate}${String.format('%010d', order.id)}" />
+                    
                     <c:set var="cancelComple" value="취소완료" />
                     <c:set var="payComple" value="결제완료" />
                     <c:set var="deliveryReady" value="배송준비중" />
@@ -131,16 +138,31 @@
                             <td>
                                 <div class="n-prd-row">
                                     <a href="/joo01/product/productDetail" class="img-block"> <img src="${ order.ptitle_image }" alt="전통주" width="100">
-                                    </a>${ order.pname } ${ order.id }
+                                    </a> 
+                                        <ul class="info">
+                                            <li class="brand">${ order.palc }%</li>
+                                            <li class="name">${ order.pname }</li>
+                                            <li class="option">원산지: ${ order.pregion }</li>
+                                       </ul>
                                 </div>
                             </td>
-                            <td>${ order.pcount }개</td>
                             <td>
-                                KRW <fmt:formatNumber value="${order.pprice * order.pcount}" pattern="###,###" />
+                                <c:url var="orderDetail" value="/order/orderDetail">
+                                    <c:param name="id" value="${ order.id }" />
+                                </c:url>
+                                    <a href="${ orderDetail }" target="_blank" onclick="openWindowWithPosition2(event)">
+                                        ${orderNumber}
+                                    </a>
                             </td>
                             <td>
-                                <fmt:formatDate value="${ order.dcreated_time }" pattern="yyyy.MM.dd" var="created" />
+                                <span style="color: black; font-weight: bold;">KRW <fmt:formatNumber value="${order.pprice * order.pcount}" pattern="###,###" /></span>
+                                <br>
+                                <span class="txt-default">${ order.pcount }개</span>
+                            </td>
+                            <td>
+                                <span style="color: black; font-weight: bold;"><fmt:formatDate value="${ order.dcreated_time }" pattern="yyyy.MM.dd" var="created" />
                                 ${ created }
+                                </span>
                             </td>
                             
                             <td class="txt-lighter">
@@ -148,7 +170,7 @@
                                     <c:choose>
                                         <c:when test="${order.dstatus eq payComple }"> <!-- 결제완료 -->
                                              <div style="color: black; font-weight: bold;">
-                                                &nbsp;&nbsp;${ order.dstatus }&nbsp;&nbsp;&nbsp;
+                                                &nbsp;&nbsp;&nbsp;${ order.dstatus }&nbsp;&nbsp;&nbsp;
                                              </div>
                                              <c:url var="deliveryCheck" value="/order/deliveryCheck">
                                                 <c:param name="id" value="${ order.id }" />
@@ -175,7 +197,7 @@
                                         </c:when>
                                         <c:when test="${order.dstatus eq deliveryReady }"> <!-- 배송준비중 -->
                                              <div style="color: black; font-weight: bold;">
-                                                &nbsp;&nbsp;${ order.dstatus }&nbsp;&nbsp;&nbsp;
+                                                ${ order.dstatus }&nbsp;&nbsp;&nbsp;
                                              </div> 
                                              <c:url var="deliveryCheck" value="/order/deliveryCheck">
                                                 <c:param name="id" value="${ order.id }" />
@@ -184,11 +206,11 @@
                                                     <button type="button" class="btn btn-primary btn-sm float-right ml-2" >배송조회</button>
                                                 </a>
                                                 &nbsp;&nbsp;&nbsp;
-                                             <div class="btn btn-danger btn-sm float-right">취소불가</div>
+                                             <div class="cancelBan">취소불가</div>
                                         </c:when>
                                         <c:when test="${order.dstatus eq deliverying }">  <!-- 배송중 -->
                                              <div style="color: black; font-weight: bold;">
-                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${ order.dstatus }&nbsp;&nbsp;&nbsp;
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${ order.dstatus }&nbsp;&nbsp;&nbsp;
                                              </div>
                                              <c:url var="deliveryCheck" value="/order/deliveryCheck">
                                                 <c:param name="id" value="${ order.id }" />
@@ -197,11 +219,11 @@
                                                     <button type="button" class="btn btn-primary btn-sm float-right ml-2" >배송조회</button>
                                                 </a>
                                                 &nbsp;&nbsp;&nbsp;
-                                              <div class="btn btn-danger btn-sm float-right">취소불가</div>
+                                              <div class="cancelBan">취소불가</div>
                                         </c:when>
                                         <c:when test="${order.dstatus eq deliveryComple }"> <!-- 배송완료 -->
                                              <div style="color: black; font-weight: bold;">
-                                                &nbsp;&nbsp;${ order.dstatus }&nbsp;&nbsp;&nbsp;
+                                                &nbsp;&nbsp;&nbsp;${ order.dstatus }&nbsp;&nbsp;&nbsp;
                                              </div> 
                                              <c:url var="deliveryCheck" value="/order/deliveryCheck">
                                                 <c:param name="id" value="${ order.id }" />
@@ -226,7 +248,7 @@
                                         </c:when>
                                         <c:otherwise>
                                              <div style="color: black; font-weight: bold;">
-                                                &nbsp;&nbsp;${ order.dstatus }&nbsp;&nbsp;&nbsp;
+                                                &nbsp;&nbsp;&nbsp;${ order.dstatus }&nbsp;&nbsp;&nbsp;
                                              </div> 
                                              <!-- <a href="/joo/order/deliveryCheck" target="_blank"> -->
                                              <c:url var="deliveryCheck" value="/order/deliveryCheck">
@@ -276,8 +298,8 @@
             <thead>
                 <tr>
                     <th scope="col" data-column="상품정보">상품정보 <i class="fas fa-sort"></i></th>
-                    <th scope="col" data-column="수량">수량 <i class="fas fa-sort"></i></th>
-                    <th scope="col" data-column="금액">금액 <i class="fas fa-sort"></i></th>
+                    <th scope="col" data-column="수량">주문번호 <i class="fas fa-sort"></i></th>
+                    <th scope="col" data-column="주문금액(수량)">금액 <i class="fas fa-sort"></i></th>
                     <th scope="col" data-column="취소일자">취소일자 <i class="fas fa-sort"></i></th>
                     <th scope="col" colspan="2" data-column="주문상태">&nbsp;&nbsp;주문상태 <i class="fas fa-sort"></i></th>
                 </tr>
@@ -285,27 +307,49 @@
                 
             <tbody>
                 <c:forEach items="${ orders }" var="order">
+                
+                    <!-- 주문 날짜 가져오기 -->
+                    <fmt:formatDate value="${ order.dcreated_time }" pattern="yyyyMMdd" var="orderDate" />                 
+                    <!-- 주문번호 생성 (날짜 + 고유 아이디번호) -->
+                    
+                    <c:set var="orderNumber" value="${orderDate}${String.format('%010d', order.id)}" />
+                
                     <c:if test="${order.dstatus eq cancelComple }">
                         <tr>
                             <td>
                                 <div class="n-prd-row">
                                     <a href="/joo01/product/productDetail" class="img-block"> <img src="${ order.ptitle_image }" alt="전통주" width="100">
-                                    </a>${ order.pname }
+                                    </a>
+                                    <ul class="info">
+                                            <li class="brand">${ order.palc }%</li>
+                                            <li class="name">${ order.pname }</li>
+                                            <li class="option">원산지: ${ order.pregion }</li>
+                                       </ul>
                                 </div>
                             </td>
-                            <td>${ order.pcount }개</td>
                             <td>
-                                KRW <fmt:formatNumber value="${order.pprice * order.pcount}" pattern="###,###" />
+                                <c:url var="orderDetail" value="/order/orderDetail">
+                                    <c:param name="id" value="${ order.id }" />
+                                </c:url>
+                                    <a href="${ orderDetail }" target="_blank" onclick="openWindowWithPosition2(event)">
+                                        ${orderNumber}
+                                    </a>
+                            </td>
+                            <td>
+                                <span style="color: black; font-weight: bold;">KRW <fmt:formatNumber value="${order.pprice * order.pcount}" pattern="###,###" /></span>
+                                <br>
+                                <span class="txt-default">${ order.pcount }개</span>
                             </td>
                             <td>
                                 <%-- <fmt:formatDate value="${ order.dcreated_time }" pattern="yyyy.MM.dd" var="created" />
                                 ${ created }
                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --%>
-                                <fmt:formatDate value="${order.dmodified_time}" pattern="yyyy.MM.dd" var="cancelDate" />
-                                ${cancelDate}
+                                <span style="color: black; font-weight: bold;"><fmt:formatDate value="${order.dmodified_time}" pattern="yyyy.MM.dd" var="cancelDate" />
+                                    ${cancelDate}
+                                </span>
                             </td>
-                            <td class="txt-lighter">
-                                <div class="btn-set btn-parents">&nbsp;&nbsp;${ order.dstatus }</div>
+                            <td class="txt-lighter" style="text-align: center;">
+                                <div class="btn-set btn-parents">${ order.dstatus }</div>
                             </td>
                         </tr>
                     </c:if>
@@ -372,9 +416,10 @@
               });
           });
         });
-
         </script>
-<!--         <script src="../static/js/order/pointAndStock.js"></script> -->
+    
+
+
     </div>
 </body>
 </html>

@@ -402,13 +402,10 @@ document.addEventListener('DOMContentLoaded', () => {
           buttons2[j].classList.remove('active');
         }
       });
-   
+      
+      
     
-    
-    
-    
-    
-    
+
     
    /*  // 후기 작성 버튼 클릭 요소
     //const writeReviewButtons = document.querySelectorAll('[data-pid]'); // 후기작성 버튼
@@ -470,7 +467,20 @@ document.addEventListener('DOMContentLoaded', () => {
     
       window.open(event.currentTarget.href, '_blank', options);
     }
-
+    
+    
+    // 주문번호 상세 조회 새 창 설정하는 함수
+    function openWindowWithPosition2(event) {
+      event.preventDefault(); // 기본 동작인 링크 이동을 방지
+    
+      var width = 1000; // 창의 너비
+      var height = 550; // 창의 높이
+      var left = (window.innerWidth - width) / 2; // 화면 가로 중앙에 위치
+      var top = (window.innerHeight - height) / 2; // 화면 세로 중앙에 위치
+      var options = 'width=' + width + ',height=' + height + ',left=' + left + ',top=' + top;
+    
+      window.open(event.currentTarget.href, '_blank', options);
+    }
 
     
     //------------------------ 주문 조회 테이블 정렬 기능 추가 --------------------------
