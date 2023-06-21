@@ -100,8 +100,6 @@
         <c:set var="count" value="10" />
         <div class="orderListArea ">
             <div class="title">
-                <h3 class="body1" style="letter-spacing: 0px;">상품
-                    정보 FROM 장바구니</h3>
             </div>
             <hr />
 
@@ -298,7 +296,7 @@
                       <c:set var="subtotal" value="${info.pprice * info.pcount}" />
                       <c:set var="totalPrice" value="${totalPrice + subtotal}" />
                     </c:forEach>
-                      <p>Total Price: <span>${totalPrice}</span></p>
+                     
                       
                 <br />
                 <div class="total">
@@ -364,7 +362,7 @@
                     <div>
                         <p>
                             ( <strong> 총 적립예정금액 </strong><span
-                                id="mAllMileageSum">${fn:substringBefore(productPrice * 0.05, '.')}원</span>)
+                                id="mAllMileageSum"></span>)
                         </p>
                     </div>
 
@@ -440,6 +438,20 @@
                 </c:forEach>
                 ];
             
+        </script>
+        
+        <script>
+          const mAllMileageSumElement = document.getElementById("mAllMileageSum");
+          const mAllMileageSum = productPrice * 0.05;
+          const formattedMileageSum = addCommasToNumber(mAllMileageSum);
+        
+          mAllMileageSumElement.textContent = formattedMileageSum + "원";
+        
+          function addCommasToNumber(number) {
+            var parts = number.toString().split(".");
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            return parts.join(".");
+          }
         </script>
         <script src="../static/js/orderPage/productOrder2.js"></script>
         <script src="../static/js/orderPage/searchPostCode.js"></script>

@@ -356,7 +356,7 @@
                     <div>
                         <p>
                             ( <strong> 총 적립예정금액 </strong><span
-                                id="mAllMileageSum">${fn:substringBefore(productPrice * 0.05, '.')}원</span>)
+                                id="mAllMileageSum"></span>)
                         </p>
                     </div>
 
@@ -412,6 +412,19 @@
             const price = ${ product.pprice };
             const stock = ${ product.pstock };
             const count = ${ count };
+        </script>
+        <script>
+          const mAllMileageSumElement = document.getElementById("mAllMileageSum");
+          const mAllMileageSum = productPrice * 0.05;
+          const formattedMileageSum = addCommasToNumber(mAllMileageSum);
+        
+          mAllMileageSumElement.textContent = formattedMileageSum + "원";
+        
+          function addCommasToNumber(number) {
+            var parts = number.toString().split(".");
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            return parts.join(".");
+          }
         </script>
         <script src="../static/js/orderPage/productOrder.js"></script>
         <script src="../static/js/orderPage/searchPostCode.js"></script>

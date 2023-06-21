@@ -81,13 +81,19 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     
 });
+
+    function addCommasToNumber(number) {
+      var parts = number.toString().split(".");
+      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      return parts.join(".");
+    }
     
     // 최종결제 금액의 총 할인에서 내가 사용할 포인트가 즉시 적용돼서 보이게하는 함수.
     function displayInput() {
-    var currentPoint = document.getElementById("currentPoint").value;
-    document.getElementById("output").textContent = currentPoint;
-  }
-  
+      var currentPoint = document.getElementById("currentPoint").value;
+      document.getElementById("output").textContent = addCommasToNumber(currentPoint);
+    }
+      
     // 처음 orderPage.jsp가 로드될 때부터 총 할인이 즉시 보이게 함. 
     window.onload = function () {
         var currentPoint = document.getElementById("currentPoint").value;
@@ -96,13 +102,13 @@ document.addEventListener('DOMContentLoaded', function () {
     
     // 최종결제 금액: 입력한 포인트를 계산해서 즉시 반영.
     function updateTotalPayment() {
-    const shippingFee = 3000;
-    const currentPoint = parseInt(document.getElementById("currentPoint").value);
-    const totalDiscount = currentPoint >= 10000 ? currentPoint : 0;
-    const finalPayment = productPrice + shippingFee - totalDiscount;
-
-    document.getElementById("total_order_sale_price_view").textContent = finalPayment;
-  }
+      const shippingFee = 3000;
+      const currentPoint = parseInt(document.getElementById("currentPoint").value);
+      const totalDiscount = currentPoint >= 10000 ? currentPoint : 0;
+      const finalPayment = productPrice + shippingFee - totalDiscount;
+    
+      document.getElementById("total_order_sale_price_view").textContent = addCommasToNumber(finalPayment);
+    }
    
    // 사용할 포인트 input에 숫자 이외에 문자는 받지 않음.
    function validateInput(input) {
@@ -110,3 +116,8 @@ document.addEventListener('DOMContentLoaded', function () {
    input.value = input.value.replace(/[^0-9]/g, '');
   }
   
+  window.onload = function () {
+      var currentPoint = document.getElementById("currentPoint").value;
+      document.getElementById("output").textContent = addCommasToNumber(currentPoint);
+    };
+      

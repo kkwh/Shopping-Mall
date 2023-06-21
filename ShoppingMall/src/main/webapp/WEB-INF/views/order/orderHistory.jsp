@@ -190,7 +190,8 @@
                                                     <div class="modal-content">
                                                         <span class="close">&times;</span>
                                                         <h2>주문 취소 확인</h2>
-                                                        <p>주문을 취소하시겠습니까?</p>
+                                                        <p><h5>주문을 취소하시겠습니까?</h5></p>
+                                                        <p><h6> (주문번호가 같은 상품들은 일괄 취소됩니다.)</h6></p>
                                                         <button id="confirmCancel">확인</button>
                                                     </div>
                                                 </div>
@@ -241,7 +242,8 @@
                                                 <div class="modal-content">
                                                     <span class="closeOrder">&times;</span>
                                                         <h2>구매 확정 확인</h2>
-                                                            <p>구매를 확정하시겠습니까?</p>
+                                                            <p><h5>구매를 확정하시겠습니까?</h5></p>
+                                                            <p><h6>(주문번호가 같은 상품들은 일괄 구매확정됩니다.)</h6>
                                                                 <button id="confirmOrder">확인</button>
                                                 </div>
                                               </div>
@@ -299,7 +301,7 @@
                 <tr>
                     <th scope="col" data-column="상품정보">상품정보 <i class="fas fa-sort"></i></th>
                     <th scope="col" data-column="수량">주문번호 <i class="fas fa-sort"></i></th>
-                    <th scope="col" data-column="주문금액(수량)">금액 <i class="fas fa-sort"></i></th>
+                    <th scope="col" data-column="금액">주문금액(수량) <i class="fas fa-sort"></i></th>
                     <th scope="col" data-column="취소일자">취소일자 <i class="fas fa-sort"></i></th>
                     <th scope="col" colspan="2" data-column="주문상태">&nbsp;&nbsp;주문상태 <i class="fas fa-sort"></i></th>
                 </tr>
