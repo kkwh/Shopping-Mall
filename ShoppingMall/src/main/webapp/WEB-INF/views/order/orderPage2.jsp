@@ -94,14 +94,15 @@
                     </div>
                 </nav>
             </div>
-            <h3 class="text-center">주문서 작성</h3>
         </header>
+        <h3 class="text-center">주문서 작성</h3>
         
         <c:set var="count" value="10" />
         <div class="orderListArea ">
             <div class="title">
+                <h4 class="body1" style="letter-spacing: 0px;">상품 정보</h4>
+                <hr />
             </div>
-            <hr />
 
             <div class="boardList ">
                 <table border="1" summary="">
@@ -129,8 +130,7 @@
                             </td>
                             <td class="product">
                                 <div class="prd-name">
-                                    <a
-                                        href="/joo01/product/productDetail"
+                                    <a href="/joo/product/productDetail"
                                         class="title5"><strong>${ info.pname }</strong></a>
                                     <div class="price"
                                         style="font-family: Pretendard, serif; margin-bottom: 10px;">
@@ -146,6 +146,11 @@
                             </td>
 
                         </tr>
+                        <tr>
+                            <td colspan="4">
+                                <hr class="custom-hr"> <!-- hr 요소를 추가하여 내용을 구분 -->
+                            </td>
+                        </tr>
                         </c:forEach>
                     </tbody>
                 </table>
@@ -155,7 +160,7 @@
                 <section class="card">
                     <div data-text-content="true"
                         style="font-size: 16px;" class="">
-                        <h3 class="body1" style="letter-spacing: 0px;">주문자 정보</h3>
+                        <h4 class="body1" style="letter-spacing: 0px;">주문자 정보</h4>
                     </div>
                     <form class="card-body">
                         <div class="my-2">
@@ -204,7 +209,7 @@
                 <section class="card">
                     <div data-text-content="true"
                         style="font-size: 16px;" class="">
-                        <h3 class="body1" style="letter-spacing: 0px;">배송지 정보</h3>
+                        <h4 class="body1" style="letter-spacing: 0px;">배송지 정보</h4>
                     </div>
                     <br> 
                     
@@ -298,7 +303,7 @@
                     </c:forEach>
                      
                       
-                <br />
+                <hr />
                 <div class="total">
                     <h4>
                         <strong id="current_pay_name">최종결제 금액</strong>

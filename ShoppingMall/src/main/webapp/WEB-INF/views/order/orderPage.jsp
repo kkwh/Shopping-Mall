@@ -94,15 +94,13 @@
                     </div>
                 </nav>
             </div>
-            <h3 class="text-center">주문서 작성</h3>
         </header>
-        
+        <h3 class="text-center">주문서 작성</h3>
         <div class="orderListArea ">
             <div class="title">
-                <h3 class="body1" style="letter-spacing: 0px;">상품
-                    정보</h3>
+                <h4 class="body1" style="letter-spacing: 0px;">상품 정보</h4>
+                         <hr />
             </div>
-            <hr />
 
             <div class="boardList ">
                 <table border="1" summary="">
@@ -123,7 +121,7 @@
                         <tr class="xans-record-">
                             <td class="thumb" style="width: 135px;">
                                 <a href="/joo01/product/productDetail">
-                                    <img src=${ product.pdetail_image } alt=""
+                                    <img src=${ product.ptitle_image } alt=""
                                     width="100">
                             </a>
                             </td>
@@ -149,12 +147,12 @@
                     </tbody>
                 </table>
             </div>
-
+            <hr />
             <main class="my-2">
                 <section class="card">
                     <div data-text-content="true"
                         style="font-size: 16px;" class="">
-                        <h3 class="body1" style="letter-spacing: 0px;">주문자 정보</h3>
+                        <h4 class="body1" style="letter-spacing: 0px;">주문자 정보</h4>
                     </div>
                     <form class="card-body">
                         <div class="my-2">
@@ -203,7 +201,7 @@
                 <section class="card">
                     <div data-text-content="true"
                         style="font-size: 16px;" class="">
-                        <h3 class="body1" style="letter-spacing: 0px;">배송지 정보</h3>
+                        <h4 class="body1" style="letter-spacing: 0px;">배송지 정보</h4>
                     </div>
                     <br> 
                     
@@ -290,8 +288,7 @@
                     </form>
                     
                 </section>
-
-                <br />
+                <hr />
                 <div class="total">
                     <h4>
                         <strong id="current_pay_name">최종결제 금액</strong>

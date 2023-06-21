@@ -7,7 +7,7 @@
     <!-- 주문 상세페이지 상품정보 -->
     <select id="selectOrderedProduct"
         resultType="com.itwill.joo.dto.order.OrderedProductDto">
-        select ID, PDETAIL_IMAGE, PNAME, PPRICE, PSTOCK
+        select ID, PTITLE_IMAGE, PNAME, PPRICE, PSTOCK
         from PRODUCTS
         where ID = #{id}
     </select>
