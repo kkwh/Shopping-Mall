@@ -5,6 +5,7 @@ import java.util.List;
 import com.itwill.joo.domain.Criteria;
 import com.itwill.joo.domain.Product;
 import com.itwill.joo.domain.Question;
+import com.itwill.joo.dto.question.QuestionsListDto;
 
 //application-context.xml에서 scan하는 패키지에 있기 때문에
 //인터페이스를 구현하는 클래스가 MyBatis에 의해서 자동으로 만들어짐.
@@ -30,8 +31,12 @@ public interface QuestionRepository {
   // 문의 삭제
   int deleteById(long id);
   
-  // 유저 번호를 통한 문의 조회
-  List<Question> selectByUserId(long u_id);
+  // 유저 번호를 통한 문의 조회(자기 문의 조회)
+   List<Question> selectByUserId(long u_id);
+   // 유저 번호를 통한 문의 조회(자기 문의 조회) + 페이징
+   List<Question> selectByUserIdWithPaging(long u_id, Criteria cri);
+  
+  
   
   // 상품 문의 조회 -일단 보류 
   //List<Question> selectWhereTypeProductWithPaging(long p_id, Criteria criteria);
@@ -41,11 +46,14 @@ public interface QuestionRepository {
   // QNA 문의 조회
   List<Question> selectWhereTypeQnA();
   
-  // 개별 상품 총 개수
-  int totalSelectQuestionTypeProduct();
+  // 개별 상품 총 수
+  int totalSelectQuestionTypeProduct(Criteria cri);
   
-  // 전체 QNA 조회
-  int totalSelectWhereTypeQnA();
+  // 전체 QNA 수
+  int totalSelectWhereTypeQnA(Criteria cri);
+  
+  // 전체 문의 수 
+ int totalSelectQuestions(Criteria cri);
   
   // 상품 전체 조회
   List<Product> selectAllProducts();

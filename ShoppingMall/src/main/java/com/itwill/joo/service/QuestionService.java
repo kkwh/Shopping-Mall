@@ -32,22 +32,32 @@ public class QuestionService {
     private final ProductRepository productRepository;
     
     // 상품 Service
-    
+
     // 개인 문의 조회
-   public List<QuestionsListDto> readAllByUserId(long u_id) {
-       log.info("realAllByUserId()");
-       
-       List<Question> list = questionRepository.selectByUserId(u_id);
-       List<QuestionsListDto> questions = new ArrayList<>();
-       for(Question q : list) {
-           Product product = questionRepository.selectProductById(q.getP_id());
-           QuestionsListDto dto = QuestionsListDto.fromEntity(q);
-           dto.setProduct(product);
-           questions.add(dto);
-       }
-       
-       return questions;
-   }
+    public List<QuestionsListDto> selectByUserId(long u_id) {
+        log.info("selectByUserId({})", u_id);
+        
+        List<Question> list = questionRepository.selectByUserId(u_id);
+        List<QuestionsListDto> questions = new ArrayList<>();
+        for(Question q : list) {
+            Product product = questionRepository.selectProductById(q.getP_id());
+            QuestionsListDto dto = QuestionsListDto.fromEntity(q);
+            dto.setProduct(product);
+            questions.add(dto);
+            
+            log.info("dto = {}", dto);
+        }
+        return questions;
+    }
+    // 개인 문의 조회 (페이징)
+    public List<QuestionDetailDto> selectByUserIdWithPaging(long u_id, Criteria cri) {
+        log.info("selectByUserIdWithPaging({}, {})", u_id, cri);
+        
+        List<Question> question = questionRepository.selectByUserIdWithPaging(u_id, cri);
+        log.info("selectByUserIdWithPaging(question={})", question);
+        
+        return question.stream().map(QuestionDetailDto::fromEntity).toList();
+    }
     
     
     // 상품 문의 목록
@@ -94,14 +104,19 @@ public class QuestionService {
         return dto;
     }
     
+    // 문의 총 개수
+    public int getTotalSelectQuestions(Criteria cri) {
+        return questionRepository.totalSelectQuestions(cri);
+    }
+    
     // 상품문의 총 개수
-    public int getTotalProductQuestion() {
-        return questionRepository.totalSelectQuestionTypeProduct();
+    public int getTotalProductQuestion(Criteria cri) {
+        return questionRepository.totalSelectQuestionTypeProduct(cri);
     }
     
     // 고객문의 총 개수
-    public int getTotalQnaQuestion() {
-        return questionRepository.totalSelectWhereTypeQnA();
+    public int getTotalQnaQuestion(Criteria cri) {
+        return questionRepository.totalSelectWhereTypeQnA(cri);
     }
     
     // 상품 문의 전체보기

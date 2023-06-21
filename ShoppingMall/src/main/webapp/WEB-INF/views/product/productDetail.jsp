@@ -1,3 +1,4 @@
+<%@page import="com.itwill.joo.service.QuestionService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -23,8 +24,7 @@
     rel="stylesheet"
     integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
     crossorigin="anonymous">
-<link rel="stylesheet"
-    href="../static/css/productDetailQuestionsList.css" />
+<link rel="stylesheet" href="../static/css/productDetailQuestionsList.css" />
 
 </head>
 <body>
@@ -127,16 +127,11 @@
                     <!-- 결제/상세 설명 영역 -->
                     <div class="col-6 col-md-4">
                         <p>${ products.id}</p>
-                        <h1>
 
-                            <strong>${ products.pname }</strong>
-                        </h1>
                         <div>-제품설명- 소주는 옹기숙성을 거친 감압 증류방식으로 탄생한 전통
                             증류식 소주입니다.</div>
                         <hr />
-                        <p>${ products.pvolume }</p>
-                        <p>${ products.palc }</p>
-                        <p>${ products.pvolume }</p>
+
                         <div class="dropdown-center">
 
                             <select class="form-select form-select-sm"
@@ -192,6 +187,9 @@
             </div>
 
             <!-- Q&A 상품 문의 목록 -->
+            <idiv>
+                <h2.>${login_id }</h2>
+            </idiv>
             <div class="container mt-4">
                 <h5>상품문의 (총 ${questionsList.size()}건)</h5>
 
@@ -200,8 +198,7 @@
                         <tr>
                             <th scope="col">번호</th>
                             <th scope="col">답변여부</th>
-                            <th scope="col">제목</th>
-                            <th scope="col">내용</th>
+                            <th scope="col">문의 유형</th>
                             <th scope="col">작성자 아이디</th>
                             <th scope="col">등록일자</th>
                         </tr>
@@ -214,15 +211,27 @@
                                 <td>${question.is_answered}</td>
                                 <td>
                                 
-                                <c:url var="QuestionDetailPage"
-                                        value="/questions/questionDetail">
-                                        <c:param name="pid"
-                                            value="${ question.id }" />
-                                    </c:url> <a href="${ QuestionDetailPage }">${question.qtitle}</a>
+                                <c:choose>
+                                    <c:when test="${ question.login_id eq login_id }">
+                                    <c:url var="QuestionDetailPage"
+                                            value="/questions/questionDetail">
+                                                <c:param name="pid"
+                                                value="${ question.id }" />
+                                    </c:url>
+                                        <a href="${ QuestionDetailPage }">${question.qtype}</a>
+                                    </c:when>
+                                    <c:when test="${ question.login_id ne login_id }">
+                                    ${question.qtype}
+                                    </c:when>
+                                    <c:otherwise>
+                                      ${question.qtype}
+                                 </c:otherwise>
+                                 </c:choose>
+                               
                                 </td>
-                                <td>${question.qcontent}</td>
                                 <td>${question.login_id}</td>
-                                <td><fmt:formatDate
+                                <td>
+                                    <fmt:formatDate
                                         value="${question.qcreated_time}"
                                         pattern="yyyy-MM-dd HH:MM:mm" />
                                 </td>
@@ -230,6 +239,7 @@
                         </c:forEach>
                     </tbody>
                 </table>
+                </div>
                 <div class="row pt-3">
                     <div class="col-2"></div>
 
@@ -296,9 +306,14 @@
     }
 }
 </script>
-
-
+                   <div>
+                   
+                   </div>
+                        <button type="button" id="QuestionCreateBtn"
+                            class="btn btn-sm btn-outline-secondary"
+                            onclick="location.href ='/joo/questions/questionsList?pid=${ pid }'">${product.id} 문의 목록</button>
                     <div>
+                    <br>
                         <button type="button" id="QuestionCreateBtn"
                             class="btn btn-sm btn-outline-secondary"
                             onclick="questionCreate();">문의 작성</button>

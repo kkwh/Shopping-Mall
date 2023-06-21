@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itwill.joo.dto.question.QuestionDetailDto;
 import com.itwill.joo.dto.question.QuestionUpdateDto;
+import com.itwill.joo.domain.Criteria;
 import com.itwill.joo.domain.Product;
+import com.itwill.joo.dto.page.PageDto;
 import com.itwill.joo.dto.question.QuestionCreateDto;
 import com.itwill.joo.dto.question.QuestionsListDto;
 import com.itwill.joo.service.ProductService;
@@ -35,15 +37,17 @@ public class QuestionController {
 
     //상품 디테일 페이지에서 해당 상품의 문의사항을 확인
     @GetMapping("/questionDetail")
-    public void questionDetail(@RequestParam("pid") long pid, Principal principal, Model model) {
-        log.info("detail(id={})", pid);
+    public void questionDetail(@RequestParam("id") long id, long pid, Principal principal, Model model) {
+        log.info("detail(id={})", id);
         
-        QuestionDetailDto dto = questionService.read(pid);
+        QuestionDetailDto dto = questionService.read(id);
         long userId = userService.select(principal.getName()).getId();
+        long p_id = questionService.getProduct(pid).getId();
         
         model.addAttribute("question", dto);
         model.addAttribute("userid", userId);
-        model.addAttribute("loginId", principal.getName());
+        model.addAttribute("pid", p_id);
+        model.addAttribute("login_id", principal.getName());
         
     }
 
@@ -55,9 +59,11 @@ public class QuestionController {
         
         // 컨트롤러는 서비스 계층의 메서드를 호출한 후 서비스 기능을 수행
         List<QuestionsListDto> list = questionService.readProductId(p_id);
+       // long userId = userService.select(principal.getName()).getId();
         
         // 뷰에 보여줄 데이터를 모델에 저장
         model.addAttribute("questionsList", list);
+       // model.addAttribute("userid", userId);
         //model.addAttribute("paging", new PageDto(criteria, total));
         log.info("questionsList: {}", list);
     }
@@ -125,25 +131,46 @@ public class QuestionController {
     
     
     
-    @GetMapping("/myQuestionsList")
-    public String myQuestionList( Principal principal, Model model) {
-        String loginId = principal.getName();
-        long u_id = userService.getUserInfo(loginId).getId();
-        
-        log.info("GET: MyQuestionsList()", u_id);
-
-        // 컨트롤러는 서비스 계층의 메서드를 호출한 후 서비스 기능을 수행
-        List<QuestionsListDto> list = questionService.readAllByUserId(u_id);
-        
-        // 뷰에 보여줄 데이터를 모델에 저장
-        // 모델에 설정해준 myQusestionsList 이름을 jsp 에서 불러올때 똑같이 해줘야함
-        model.addAttribute("myQuestionsList", list);
-
-        
-        log.info("myQuestionsList: {}", list);
-        
-        return "questions/questionsMyList";
-    }
+//    @GetMapping("/myQuestionsList")
+//    public String myQuestionList( Principal principal, Model model, Criteria cri) {
+//        String loginId = principal.getName();
+//        long u_id = userService.getUserInfo(loginId).getId();
+//        
+//        log.info("GET: MyQuestionsList()", u_id);
+//
+//        // 컨트롤러는 서비스 계층의 메서드를 호출한 후 서비스 기능을 수행
+//        List<QuestionsListDto> list = questionService.readAllByUserId(u_id, cri);
+//        
+//        // 뷰에 보여줄 데이터를 모델에 저장
+//        // 모델에 설정해준 myQusestionsList 이름을 jsp 에서 불러올때 똑같이 해줘야함
+//        model.addAttribute("myQuestionsList", list);
+//        model.addAttribute("pageMaker", new PageDto(cri, questionService.getTotalSelectQuestions(cri)));
+//        
+//        log.info("myQuestionsList: {}", list);
+//        
+//        return "questions/questionsMyList";
+//    }
+    
+     @GetMapping("/myQuestionsList")
+     public String myQuestionList( Principal principal, Model model, Criteria cri) {
+         
+         String loginId = principal.getName();
+         long u_id = userService.getUserInfo(loginId).getId();
+         
+         log.info("uid = {}", u_id);
+         
+         List<QuestionsListDto> myList = questionService.selectByUserId(u_id);
+        //List<QuestionDetailDto> list = questionService.selectByUserIdWithPaging(u_id, cri);
+         int total = myList.size();
+         
+         model.addAttribute("myQuestionsList", myList);
+         //model.addAttribute("pageMaker",  new PageDto(cri, total));
+         
+         //log.info("myQuestionsList: {}", list, cri, total);
+         
+         return "questions/questionsMyList";
+     }
+    
     
     @GetMapping("/questionFaqList")
     public String questionFaqList(Model model) {

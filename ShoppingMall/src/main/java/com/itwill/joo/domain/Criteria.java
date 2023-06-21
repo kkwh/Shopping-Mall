@@ -20,9 +20,7 @@ public class Criteria {
    
     
     // 기본 페이지를 1 페이지에 7개씩 보임
-    public Criteria() {
-        this(1, 7);
-    }
+    public Criteria() { this(1, 7); }
     
     // 매개변수로 들어오는 값을 이용하여 조정
     public Criteria(int pageNum, int amount) {

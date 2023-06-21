@@ -44,7 +44,7 @@
     ]]>
 </select>
 
-   <!-- 개별 상품 문의 수    -->
+   <!-- 총 상품 문의 수    -->
     <select id ="totalSelectQuestionTypeProduct">
        SELECT COUNT(*)
        FROM QUESTIONS A
@@ -60,6 +60,13 @@
         FROM QUESTIONS 
         WHERE QTYPE IN ('취소관련', '주문관련', '회원정보', '서비스', '기타') 
         ORDER BY ID DESC;
+    </select>
+    
+    <!-- 총 문의 조회 수 -->
+    <select id="totalSelectQuestions">
+        SELECT COUNT(*)
+        FROM QUESTIONS
+        ORDER BY ID DESC
     </select>
     
     <!-- 고객 문의 조회 -->
@@ -89,6 +96,30 @@
        where q.u_id = #{u_id}
        order by q.id desc
     </select>
+    
+    <!--  자신이 한 문의 조회 페이징 -->
+    <select id="selectByUserIdWithPaging" resultType="com.itwill.joo.dto.question.QuestionsListDto">
+        <![CDATA[
+        SELECT * 
+        FROM
+            ( 
+            SELECT /*+ INDEX_DESC(BOARDS PK_BOARD) */ ROWNUM RN, ID, U_ID, QTITLE, QCONTENT, QTYPE, IS_ANSWERED, QCREATED_TIME  
+            FROM
+            (
+            SELECT Q.ID, Q.U_ID, Q.QTITLE, Q.QCONTENT, Q.QTYPE, Q.IS_ANSWERED, Q.QCREATED_TIME
+            FROM QUESTIONS Q
+            JOIN 
+            USERS U
+            ON Q.U_ID = U.ID
+            WHERE Q.U_ID = #{U_ID}
+            ORDER BY Q.ID DESC
+            )
+            WHERE U_ID > 0 AND ROWNUM > 0 AND ROWNUM <= (#{cri.pageNum} * #{cri.amount})
+            )
+            where RN > (#{cri.pageNum} -1) * #{cri.amount}
+        ]]>
+    </select>
+    
     
     <!--문의 수정 -->
     <update id = "updateTitleAndContent">
