@@ -18,13 +18,13 @@
 			<div style="width: 100%; margin-top: 200px;">
 				<input type="hidden" id="loginId" name="loginId" value="${ loginId }">
 				<div id="password-panel" style="width: 100%" class="p-2">
-					<input type="password" id="upassword" class="form-control" name="upassword" placeholder="비밀번호" />
+					<input type="password" id="upassword" class="form-control" name="upassword" placeholder="PW" />
 				</div>
 				<div id="login-btn-panel" class="p-2" style="width: 100%;">
 					<button type="button" id="findIdBtn" class="btn btn-dark w-100">회원정보 수정</button>
 				</div>
 				<div id="signup-btn-panel" class="p-2" style="width: 100%;">
-					<a href="/joo" class="btn btn-outline-dark w-100">취소</a>
+					<a href="/joo" class="btn btn-outline-dark w-100">메인으로 이동</a>
 				</div>
 			</div>
 		</form>

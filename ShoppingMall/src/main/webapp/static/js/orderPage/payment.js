@@ -65,20 +65,20 @@
               const selectedMethod = $('input[name=paymentMethod]:checked', '#recipientInfo').val();
               
               if(selectedMethod === 'card') {
-				  requestCardPay();
-			  } else {
-				  requestKakaoPay();
-			  }
+                requestCardPay();
+              } else {
+                requestKakaoPay();
+              }
             } 
-        } else { 
-        const selectedMethod = $('input[name=paymentMethod]:checked', '#recipientInfo').val();
-              
-              if(selectedMethod === 'card') {
-				  requestCardPay();
-			  } else {
-				  requestKakaoPay();
-			  }
-	   }      
+        }
+        else {
+        	const selectedMethod = $('input[name=paymentMethod]:checked', '#recipientInfo').val();
+          if(selectedMethod === 'card') {
+				    requestCardPay();
+			    } else {
+				    requestKakaoPay();
+			    } 
+			  }      
   });
 });
 

@@ -13,24 +13,21 @@
 		crossorigin="anonymous">
 </head>
 <body>
-	
-	<div id="container" style="margin: 0 auto; width: 50%;">
-	<div id="">
-	</div>
-		<h4>회원 탈퇴 시 유의사항</h4>
-		<div id="warning-message" class="py-3" style="background-color: grey;">
+	<div style="width: 60%; margin: 0 auto;">
+		<div id="title-area" style="margin: 0 auto; padding: 30px 5px;">
+			<h4 style="text-align: center;">회원 탈퇴 시 유의사항</h4>
+		</div>
+		<div id="warning-message" style="background-color: lightgrey; padding: 16px 8px;">
 			<ul>
 				<li>탈퇴하시면 현재 보유하고 계신 쿠폰과 적립 포인트는 즉시 자동 소멸하며, 다시 복구되지 않습니다.</li>
 				<li>회원 탈퇴를 하시면 해당 아이디는 즉시 탈퇴 처리되며, 해당 아이디에 대한 회원 정보 및 서비스 정보는 모두 삭제됩니다.</li>
 				<li>현재 배송이 완료되지 않은 주문 상품이 있는 경우에는 회원 탈퇴할 수 없습니다.</li>
 			</ul>
 		</div>
-		
-		<div id="agreement-section" class="form-check py-2">
+		<div id="agreement-section" class="form-check py-3">
 	  		<input class="form-check-input" type="checkbox" id="checkAgree">
 	  		<label class="form-check-label" for="checkAgree">동의</label>
 		</div>
-		
 		<div id="btn-section">
 			<button id="proceedBtn" type="button" class="btn btn-dark">탈퇴</button>
 			<a href="/joo" class="btn btn-outline-dark">취소</a>
