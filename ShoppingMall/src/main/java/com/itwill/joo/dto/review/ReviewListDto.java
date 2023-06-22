@@ -35,6 +35,7 @@ public class ReviewListDto {
 				.p_id(review.getP_id())
 				.u_id(review.getU_id())
 				.o_id(review.getO_id())
+				.review_reply(review.getRreview_reply())
 				.rcontent(review.getRcontent())
 				.rratings(review.getRratings())
 				.rcreated_time(review.getRcreated_time())
