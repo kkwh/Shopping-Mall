@@ -115,7 +115,7 @@
      btnBasket.addEventListener('click', goBasketPage);
      
    
-	    
+        
      // ---------------------------- 스크롤 처리 --------------------------------
     window.addEventListener('scroll', function() {
     

@@ -18,91 +18,17 @@
 <link rel="stylesheet" href="../static/css/orderPage.css">
 </head>
 <body style="background-color: black; color: white;">
+    <header>
+            <jsp:include page="../common/header.jsp"></jsp:include>
+     </header>
     <div>
-        <header class="my-1 p-3 text-bg-dark">
-            <div>
-                <nav class="navbar navbar-expand-lg bg-secondary">
-                    <div class="container-fluid">
-                        <!-- 홈과 로고클릭시 메인페이지로 이동 -->
-                        <a class="navbar-brand" href="/joo01/">로고</a>
-                        <button class="navbar-toggler" type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#navbarSupportedContent"
-                            aria-controls="navbarSupportedContent"
-                            aria-expanded="false"
-                            aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-
-                        <div class="collapse navbar-collapse"
-                            id="navbarSupportedContent">
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li class="nav-item"><a
-                                    class="nav-link active"
-                                    aria-current="page" href="/joo01/">Home</a></li>
-
-                                <!-- TODO : 로그인 회원가입 링크로 이동(로그인상태일때 비가시화) -->
-                                <li class="nav-item"><a
-                                    class="nav-link"
-                                    href="/joo01/user/sign">로그인/회원가입</a></li>
-
-                                <li class="nav-item dropdown"><a
-                                    class="nav-link dropdown-toggle"
-                                    href="#" role="button"
-                                    data-bs-toggle="dropdown"
-                                    aria-expanded="false"> 마이페이지 </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a
-                                            class="dropdown-item"
-                                            href="/joo01/user/myPrivate">개인정보
-                                                수정</a></li>
-                                        <li><a
-                                            class="dropdown-item"
-                                            href="/joo01/user/myGrade">적립금
-                                                확인</a></li>
-                                        <li><a
-                                            class="dropdown-item"
-                                            href="/joo01/user/myOrder">주문
-                                                내역</a></li>
-                                        <li><a
-                                            class="dropdown-item"
-                                            href="/joo01/user/myQuseries">문의
-                                                내역</a></li>
-                                        <li><hr
-                                                class="dropdown-divider"></li>
-                                        <li><a
-                                            class="dropdown-item"
-                                            href="/joo01/user/myBasket">장바구니</a></li>
-
-                                    </ul></li>
-                                <!-- 최근본 상품은 모달로 처리 -->
-                                <li class="nav-item"><a
-                                    class="nav-link" href="">최근본상품</a></li>
-                                <li class="nav-item"><a
-                                    class="nav-link" href="">문의하기</a></li>
-                            </ul>
-                            <!-- 검색 페이지 -->
-                            <form class="d-flex" role="search"
-                                action="/joo01/product/productsList">
-                                <input class="form-control me-2"
-                                    type="search" placeholder="제품 검색"
-                                    aria-label="Search" id="searchText">
-                                <button class="btn btn-outline-success"
-                                    type="submit">search</button>
-                            </form>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-            <h3 class="text-center">주문서 작성</h3>
-        </header>
         
+        <h3 class="text-center">주문서 작성</h3>
         <div class="orderListArea ">
             <div class="title">
-                <h3 class="body1" style="letter-spacing: 0px;">상품
-                    정보</h3>
+                <h4 class="body1" style="letter-spacing: 0px;">상품 정보</h4>
+                         <hr />
             </div>
-            <hr />
 
             <div class="boardList ">
                 <table border="1" summary="">
@@ -122,15 +48,15 @@
                         class="xans-element- xans-order xans-order-normallist">
                         <tr class="xans-record-">
                             <td class="thumb" style="width: 135px;">
-                                <a href="/joo01/product/productDetail">
-                                    <img src=${ product.pdetail_image } alt=""
+                                <a href="/joo/product/productDetail?pid=${ product.id }">
+                                    <img src=${ product.ptitle_image } alt=""
                                     width="100">
                             </a>
                             </td>
                             <td class="product">
                                 <div class="prd-name">
                                     <a
-                                        href="/joo01/product/productDetail"
+                                        href="/joo/product/productDetail?pid=${ product.id }"
                                         class="title5"><strong>${ product.pname }</strong></a>
                                     <div class="price"
                                         style="font-family: Pretendard, serif; margin-bottom: 10px;">
@@ -149,12 +75,12 @@
                     </tbody>
                 </table>
             </div>
-
+            <hr />
             <main class="my-2">
                 <section class="card">
                     <div data-text-content="true"
                         style="font-size: 16px;" class="">
-                        <h3 class="body1" style="letter-spacing: 0px;">주문자 정보</h3>
+                        <h4 class="body1" style="letter-spacing: 0px;">주문자 정보</h4>
                     </div>
                     <form class="card-body">
                         <div class="my-2">
@@ -203,7 +129,7 @@
                 <section class="card">
                     <div data-text-content="true"
                         style="font-size: 16px;" class="">
-                        <h3 class="body1" style="letter-spacing: 0px;">배송지 정보</h3>
+                        <h4 class="body1" style="letter-spacing: 0px;">배송지 정보</h4>
                     </div>
                     <br> 
                     
@@ -290,8 +216,7 @@
                     </form>
                     
                 </section>
-
-                <br />
+                <hr />
                 <div class="total">
                     <h4>
                         <strong id="current_pay_name">최종결제 금액</strong>
@@ -385,13 +310,7 @@
                     </div>
                 </div>
         </main>
-
-        <footer class="my-1 p-3 text-bg-dark">
-            <!-- 기업정보, 홈 인스타, 페이스북, 등등 필한거 -->
-            <h1 class="text-center">풋터</h1>
-
-            <a href="">home</a>
-        </footer>
+        <br>
         
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
@@ -433,3 +352,4 @@
     </div>
 </body>
 </html>
+<jsp:include page="../common/footer.jsp"></jsp:include>

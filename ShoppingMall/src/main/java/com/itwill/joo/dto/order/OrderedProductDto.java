@@ -15,7 +15,7 @@ public class OrderedProductDto {
 	
 	private long id;	
 	
-	private String pdetail_image; // 상품 이미지
+	private String ptitle_image; // 상품 이미지
 	private String pname; // 상품 이름
 	private int pprice; // 상품 가격
 	private int pstock; // 상품 수량

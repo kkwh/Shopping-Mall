@@ -77,7 +77,7 @@
                                     </sec:authorize></a></li>
                                 <li class="nav-item dropdown"><a
                                     class="nav-link dropdown-toggle"
-                                    href="#" role="button"
+                                    href="/joo/user/myBasket" role="button"
                                     data-bs-toggle="dropdown"
                                     aria-expanded="false">🙈 마이페이지 </a>
                                     <ul

@@ -577,7 +577,7 @@
             answered = '<img src="../static/assets/question/answered/yes.png" alt="YesImage" width="40" height="40">';
             answeredStr = `
                 <td>
-                    <button id="btnAnswer" data-id="${ review.login_id }" class="btn btn-outline-warning">답변 변경</button>
+                    <button id="btnAnswer" data-id="${ review.r_id }" class="btn btn-outline-warning">답변 변경</button>
                 </td>
             `;
         }

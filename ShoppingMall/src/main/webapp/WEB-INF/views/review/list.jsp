@@ -15,8 +15,8 @@
 	<title>Review List page</title>
 </head>
 	<body>
-	<header class="bg-warning p-2 text-dark bg-opacity-50">
-		<h1>리뷰 페이지</h1>
+	<header class="my-1 p-3 text-bg-dark">
+		<h1>후기 페이지</h1>
 	</header>	
 <hr>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -33,30 +33,31 @@
 </nav>
 <hr>
 <main class="my-2">
-            <div class="card">
-                <table class="card-body table table-success">
-                    <thead>
-                        <tr>
-                            <th>번호</th>
-                            <th>후기 내용</th>
-                            <th>작성자 ID</th>
-                            <th>작성시간</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    	<c:forEach items="${list}" var="review">
-                    		<tr>
-                    			<td>${review.id}</td>
-                    			<td>
-                    				 <c:url var="reviewDetailPage" value="/review/detail">
-                                        <c:param name="id" value="${ review.id }" />
-                                    </c:url>
-                                    <a href="${ reviewDetailPage }">${ review.rcontent}</a>
-                                </td>
-                                <td>${ review.u_id }</td>
-						</td>
-                            </tr>    
-					  	</c:forEach>
+<div id="reviews" class="container mt-4">  
+<%-- <h5>< ${product.pname} > 상품리뷰 (총 ${reviewList.size()}건)</h5> --%>                      
+                        <table class="table table-dark text-center">
+						  <thead>
+						    <tr>
+						      <th scope="col">#</th>
+						      <th scope="col">유저 id</th>
+						      <th scope="col">리뷰 내용</th>
+						      <th scope="col">별점</th>
+						      <th scope="col">작성일자</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						    <c:forEach items="${ reviewList }" var="review">
+	                        	<tr>
+	                        		<td>${ review.id }</td>
+		                        	<td>${ review.u_id }</td>
+		                        	<td>${ review.rcontent }</td>
+		                        	<td>${ review.rratings }</td>
+		                        	<td>${ review.rcreated_time }</td>
+	                        	</tr>
+	                        </c:forEach>
+						  </tbody>
+						</table>
+                    </div>
 
 
  	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" 
