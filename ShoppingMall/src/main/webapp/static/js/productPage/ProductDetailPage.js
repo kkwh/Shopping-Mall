@@ -66,13 +66,12 @@
   
      
      
-     // 수량은 count로 상품아이디는 쿼리스트링 p_id로 가져가시면 됩니다.
-     // 페이지 이동
+    // 수량은 count로 상품아이디는 쿼리스트링 p_id로 가져가시면 됩니다.
      const btnOrder = document.querySelector('button#btnOrder');
-     const btnBasket = document.querySelector('button#btnOrder');
+     const btnBasket = document.querySelector('button#btnBasket');
      
-     function goOrderPage (){} 
-     function goBasketPage (){} 
+    function goOrderPage (){} 
+    function goBasketPage (){} 
      
      // 주문 페이지로 pid와 count 넘겨줌
      btnOrder.addEventListener('click', function() {
@@ -99,7 +98,8 @@
             
      btnBasket.addEventListener('click', goBasketPage);
      
-     
+   
+	    
      // ---------------------------- 스크롤 처리 --------------------------------
     window.addEventListener('scroll', function() {
     

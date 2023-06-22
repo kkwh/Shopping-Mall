@@ -35,8 +35,12 @@ public class ProductService {
 	 * @return List<ProductListPageDto>
 	 */
 	public List<ProductListPageDto> showAllProductsList(){
-		List<Product> list = productRepository.selectByNew();		
-		return list.stream().map(ProductListPageDto::fromEntity).toList();
+		List<Product> list = productRepository.selectByNew();
+		List<ProductListPageDto> result = new ArrayList<>();
+		for (Product p: list) {
+			result.add(ProductListPageDto.fromEntity(p));
+		}
+		return result;
 	}
 	/**
 	 * (모든상품/관리자)상품리스트 페이지 보여주기 위한 리스트 입니다.
@@ -138,25 +142,36 @@ public class ProductService {
 	 */
 	public List<ProductListPageDto> adminReadProductBySearch(String search){
 		 List<Product> list = productRepository.selectBySearch(search);
-		 return list.stream().map(ProductListPageDto::fromEntity).toList();
-	}
+			List<ProductListPageDto> result = new ArrayList<>();
+			for (Product p: list) {
+				result.add(ProductListPageDto.fromEntity(p));
+			}
+			return result;
+		}
 	/**
 	 * 제고수가 없는 상품들을 검색
 	 * @return List<ProductListPageDto>
 	 */
 	public List<ProductListPageDto> showNoPstockProductsList() {
 		 List<Product> list = productRepository.selectThatNoPstock();
-		return list.stream().map(ProductListPageDto::fromEntity).toList();
-	}
-	
+			List<ProductListPageDto> result = new ArrayList<>();
+			for (Product p: list) {
+				result.add(ProductListPageDto.fromEntity(p));
+			}
+			return result;
+		}
 	//------------------------- [유저] 상품 리스트 보여주기 --------------------------
 	/**
 	 * 신 상품 보여주기
 	 * @return List<ProductListPageDto>
 	 */
 	public List<ProductListPageDto> showNewList() {
-		List<Product> list = productRepository.selectByNew();		
-		return list.stream().map(ProductListPageDto::fromEntity).toList();
+		List<Product> list = productRepository.selectByNew();
+		List<ProductListPageDto> result = new ArrayList<>();
+		for (Product p: list) {
+			result.add(ProductListPageDto.fromEntity(p));
+		}
+		return result;
 	}
 	
 	/**
@@ -164,8 +179,12 @@ public class ProductService {
 	 * @return List<ProductListPageDto>
 	 */
 	public List<ProductListPageDto> showHotList() {
-		List<Product> list = productRepository.selectByHot();		
-		return list.stream().map(ProductListPageDto::fromEntity).toList();
+		List<Product> list = productRepository.selectByHot();
+		List<ProductListPageDto> result = new ArrayList<>();
+		for (Product p: list) {
+			result.add(ProductListPageDto.fromEntity(p));
+		}
+		return result;
 	}
 	
 	/**
@@ -173,8 +192,12 @@ public class ProductService {
 	 * @return List<ProductListPageDto>
 	 */
 	public List<ProductListPageDto> showOldList() {
-		List<Product> list = productRepository.selectByOld();		
-		return list.stream().map(ProductListPageDto::fromEntity).toList();
+		List<Product> list = productRepository.selectByOld();
+		List<ProductListPageDto> result = new ArrayList<>();
+		for (Product p: list) {
+			result.add(ProductListPageDto.fromEntity(p));
+		}
+		return result;
 	}
 	
 	/**
@@ -182,8 +205,12 @@ public class ProductService {
 	 * @return List<ProductListPageDto>
 	 */
 	public List<ProductListPageDto> showSojuList() {
-		List<Product> list = productRepository.selectBySoju();		
-		return list.stream().map(ProductListPageDto::fromEntity).toList();
+		List<Product> list = productRepository.selectBySoju();
+		List<ProductListPageDto> result = new ArrayList<>();
+		for (Product p: list) {
+			result.add(ProductListPageDto.fromEntity(p));
+		}
+		return result;
 	}
 	
 	/**
@@ -191,8 +218,25 @@ public class ProductService {
 	 * @return List<ProductListPageDto>
 	 */
 	public List<ProductListPageDto> showBearList() {
-		List<Product> list = productRepository.selectByBear();		
-		return list.stream().map(ProductListPageDto::fromEntity).toList();
+		List<Product> list = productRepository.selectByBear();
+		List<ProductListPageDto> result = new ArrayList<>();
+		for (Product p: list) {
+			result.add(ProductListPageDto.fromEntity(p));
+		}
+		return result;
+	}
+	
+	/**
+	 * 와인 상품 보여주기
+	 * @return List<ProductListPageDto>
+	 */
+	public List<ProductListPageDto> showWineList() {
+		List<Product> list = productRepository.selectByWine();
+		List<ProductListPageDto> result = new ArrayList<>();
+		for (Product p: list) {
+			result.add(ProductListPageDto.fromEntity(p));
+		}
+		return result;
 	}
 	
 	/**
@@ -200,8 +244,12 @@ public class ProductService {
 	 * @return List<ProductListPageDto>
 	 */
 	public List<ProductListPageDto> showAnotherList() {
-		List<Product> list = productRepository.selectByAnother();		
-		return list.stream().map(ProductListPageDto::fromEntity).toList();
+		List<Product> list = productRepository.selectByAnother();
+		List<ProductListPageDto> result = new ArrayList<>();
+		for (Product p: list) {
+			result.add(ProductListPageDto.fromEntity(p));
+		}
+		return result;
 	}
 	/**
 	 * 검색 상품 보여주기
@@ -210,7 +258,11 @@ public class ProductService {
 	 */
 	public List<ProductListPageDto> ReadProductBySearchDto(ProductSearchDto dto) {
 		List<Product> list = productRepository.selectByUserSearch(dto);
-		return list.stream().map(ProductListPageDto::fromEntity).toList();
+		List<ProductListPageDto> result = new ArrayList<>();
+		for (Product p: list) {
+			result.add(ProductListPageDto.fromEntity(p));
+		}
+		return result;
 	}
 	
 }

@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,87 +16,15 @@
     rel="stylesheet"
     integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
     crossorigin="anonymous">
+<link rel="stylesheet" href="../static/css/productDetailQuestionsList.css" />
+ 
 </head>
 <body>
     <div>
-        <header class="my-1 p-3 text-bg-dark">
-            <div>
-                <nav class="navbar navbar-expand-lg bg-secondary">
-                    <div class="container-fluid">
-                        <!-- 홈과 로고클릭시 메인페이지로 이동 -->
-                        <a class="navbar-brand" href="/joo/">로고</a>
-                        <button class="navbar-toggler" type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#navbarSupportedContent"
-                            aria-controls="navbarSupportedContent"
-                            aria-expanded="false"
-                            aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-
-                        <div class="collapse navbar-collapse"
-                            id="navbarSupportedContent">
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li class="nav-item"><a
-                                    class="nav-link active"
-                                    aria-current="page" href="/joo/">Home</a>
-                                </li>
-
-                                <!-- TODO : 로그인 회원가입 링크로 이동(로그인상태일때 비가시화) -->
-                                <li class="nav-item"><a
-                                    class="nav-link"
-                                    href="/joo/user/sign">로그인/회원가입</a></li>
-
-                                <li class="nav-item dropdown"><a
-                                    class="nav-link dropdown-toggle"
-                                    href="#" role="button"
-                                    data-bs-toggle="dropdown"
-                                    aria-expanded="false"> 마이페이지 </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a
-                                            class="dropdown-item"
-                                            href="/joo/user/myPrivate">개인정보
-                                                수정</a></li>
-                                        <li><a
-                                            class="dropdown-item"
-                                            href="/joo/user/myGrade">적립금
-                                                확인</a></li>
-                                        <li><a
-                                            class="dropdown-item"
-                                            href="/joo/user/myOrder">주문
-                                                내역</a></li>
-                                        <li><a
-                                            class="dropdown-item"
-                                            href="/joo/user/myQuseries">문의
-                                                내역</a></li>
-                                        <li><hr
-                                                class="dropdown-divider"></li>
-                                        <li><a
-                                            class="dropdown-item"
-                                            href="/joo/user/myBasket">장바구니</a></li>
-
-                                    </ul></li>
-                                <!-- 최근본 상품은 모달로 처리 -->
-                                <li class="nav-item"><a
-                                    class="nav-link" href="">최근본상품</a></li>
-                                <li class="nav-item"><a
-                                    class="nav-link" href="">문의하기</a></li>
-                            </ul>
-                            <!-- 검색 페이지 -->
-                            <form class="d-flex" role="search"
-                                action="/joo/product/productsList">
-                                <input class="form-control me-2"
-                                    type="search" placeholder="제품 검색"
-                                    aria-label="Search" id="searchText">
-                                <button class="btn btn-outline-success"
-                                    type="submit">search</button>
-                            </form>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-            <h3 class="text-center">제품 상세보기</h3>
-        </header>
+             <header>
+           <jsp:include page="../common/header.jsp"></jsp:include>
+             </header>
+        
 
         <main class="text-bg-dark p-3 my-2">
 
@@ -132,7 +63,8 @@
                                             ${ product.pvolume }
                                             ---------- ${ product.pprice }원</option>
                                     </select>
-
+                       
+                             
                                     <div>
                                         <!-- 옵션 클릭시 제품이 추가되는 부분 -->
 
@@ -180,11 +112,13 @@
 
                                     </div>
                                     <br />
+                                    <input type="hidden" id="basketId" value="${ basketId }"/>
+                                    <input type="hidden" value="${ product.id }" id="productId"/>
                                     <div class="d-grid gap-2 d-md-block">
                                         <button class="btn btn-primary"
                                             id="btnOrder" type="button">주문하기</button>
                                         <button class="btn btn-primary"
-                                            type="button">장바구니</button>
+                                            type="button" id="btnAddToBasket">장바구니</button>
                                     </div>
                                 </div>
                             </c:when>
@@ -230,7 +164,7 @@
                 </div>
                 
                     <!-- 리뷰 -->
-                    <div id="reviews">                        
+                    <div id="reviews" class="container mt-4">                        
                         <table class="table table-dark text-center">
 						  <thead>
 						    <tr>
@@ -256,34 +190,198 @@
                     </div>
     
                     <!-- 문의 -->
-                    <div id="question">
-                        문의 <br /> <br /> <br /> <br /> <br /> <br /> <br />
-                        <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
-                        <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
-                        <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
-                        <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
-                        <br /> <br /> ----
-                    </div>
-                </div>
-                
+                    <div id="question" class="container mt-4">
+<h5>< ${product.pname} > 상품문의 (총 ${questionsList.size()}건)</h5>
 
-            </div>
+                    <table class="table" id="QuestionsList">
+                        <thead>
+                            <tr>
+                                <th scope="col">번호</th>
+                                <th scope="col">답변여부</th>
+                                <th scope="col">문의 유형</th>
+                                <th scope="col">작성자 아이디</th>
+                                <th scope="col">등록일자</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${questionsList}"
+                                var="question">
+                                <tr>
+                                    <td>${question.id}</td>
+                                    <td>${question.is_answered}</td>
+                                    <td><c:choose>
+                                            <c:when
+                                                test="${ question.login_id eq login_id }">
+                                                <c:url
+                                                    var="QuestionDetailPage"
+                                                    value="/questions/questionDetail">
+                                                    <c:param name="pid"
+                                                        value="${ question.id }" />
+                                                </c:url>
+                                                <a
+                                                    href="${ QuestionDetailPage }">${question.qtype}</a>
+                                            </c:when>
+                                            <c:when
+                                                test="${ question.login_id ne login_id }">
+                                                                ${question.qtype}
+                                                                </c:when>
+                                                                        <c:otherwise>
+                                                                  ${question.qtype}
+                                                             </c:otherwise>
+                                                                    </c:choose></td>
+                                                                <td>${question.login_id}</td>
+                                                                <td><fmt:formatDate
+                                                                        value="${question.qcreated_time}"
+                                                                        pattern="yyyy-MM-dd HH:MM:mm" />
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row pt-3">
+                    <div class="col-2"></div>
+                    <div>
+                        <button type="button" id="QuestionCreateBtn"
+                            class="btn btn-sm btn-outline-secondary" style="text-align: center"
+                            onclick="questionCreate();"> < ${product.pname} >문의 작성</button>
+                    </div>
+
+
+                    <!-- 페이징 -->
+                    <div class="big-width" style="text-align: center">
+                        <nav>
+                            <ul class="custom-pagination">
+                                <li
+                                    class="page-item ${paging.prev ? '' : 'disabled'}">
+                                    <a class="page-link"
+                                    href="${paging.startPage - 1}"
+                                    tabindex="-1">&laquo;</a>
+                                </li>
+                                <c:forEach begin="${paging.startPage}"
+                                    end="${paging.endPage}" var="num">
+                                    <li
+                                        class="page-item ${paging.criteria.pageNum == num ? 'active' : ''}">
+                                        <a class="page-link"
+                                        href="${num}">${num}</a>
+                                    </li>
+                                </c:forEach>
+                                <li
+                                    class="page-item ${paging.next ? '' : 'disabled'}">
+                                    <a class="page-link"
+                                    href="${paging.endPage + 1}"
+                                    tabindex="-1">&raquo;</a>
+                                </li>
+                            </ul>
+                        </nav>
+                        <form id="actionForm"
+                            action="joo/question/questionsList"
+                            method="get">
+                            <input type="hidden" name="pageNum"
+                                value="${paging.criteria.pageNum}" /> <input
+                                type="hidden" name="amount"
+                                value="${paging.criteria.amount}" />
+                        </form>
+                    </div>
+                    <!-- 페이징 -->
+
+                </div>
+                <div class="text-center">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            <!-- TODO : 페이지 번호 생성  JavaScript 코드 삽입  -->
+                        </ul>
+                    </nav>
+                </div>
+                <div class="text-end">
+
+
+
+                    <script> 
+    function questionCreate() {
+    var principal = '<%=request.getUserPrincipal()%>';
+    if (!principal || principal === 'null') {
+    var con = confirm("로그인을 하셔야 문의를 남길 수 있습니다");
+        if (con) {
+            location.href = "/joo/user/login"
+            }
+                } else {
+        location.href = "/joo/questions/questionCreate?pid=${productId}";
+            }
+        }
+</script>
+
         </main>
 
-        <footer class="my-1 p-3 text-bg-dark">
-            <!-- 기업정보, 홈 인스타, 페이스북, 등등 필한거 -->
-            <h1 class="text-center">풋터</h1>
 
-            <a href="#">home</a>
-        </footer>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+         $(function() {
+       
+         	  $('#btnAddToBasket').click(function() {
+         	    const b_id = $('#basketId').val();
+         	    const p_id = $('#productId').val();
+         	    const pcount = $('#productCount').text().match(/\d+/);
+         	    const count = parseInt(pcount, 10);
+         	    //alert(b_id + " " + p_id + " " + count);
+         	    
+         	    const param = {"b_id": b_id, "p_id": p_id, "pcount": count};
+         	   
+         	    // AJAX 요청 전에 장바구니에 동일한 제품이 있는지 확인
+         	    $.ajax({
+         	      url: '/joo/user/updatePcount',
+         	      type: 'POST',
+         	      data: JSON.stringify(param),
+         	      contentType: 'application/json',
+         	      success: function(response) {
+	            	    	if(confirm('상품 추가 완료. 장바구니로 이동할까요?')) {
+	            	    		window.location.href='/joo/user/myBasket';
+	            	    	} else {
+	            	    		window.location.href = window.location.href;
+	            	    	}
+         	      },
+         	      error: function(error) {
+         	        alert(error);
+         	      }
+         	    });
+         	  });
+         	});
 
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-            crossorigin="anonymous"></script>
+        
+         	function updatePcount() {
+         		const id = $('#userId').val();
+         	    const b_id = $('#basketId').val();
+         	    const p_id = $( '#product.id').val();
+         	    const pcount = $('#selectpcount').val();
+         	    
+         	    const param = {"b_id": b_id, "p_id": p_id, "pcount": pcount};
+         		
+         		alert('update');
+         		
+         	  $.ajax({
+         	    url: '/joo/user/updatePcount',
+         	    type: 'POST',
+         	    data: JSON.stringify(param),
+         	    contentType: 'application/json',
+         	    success: function(res) {
+         	    	
+         	    	
+         	    	
+         	    },
+         	    error: function(error) {
+         	      alert(error);
+         	    }
+         	  });
+         	}
+        </script>
+
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script>const pid = ${ productId }</script>
         <script src="../static/js/productPage/ProductDetailPage.js"></script>
     </div>
 </body>
 </html>
+
+        <footer class="my-1 p-3 text-bg-dark">
+            <jsp:include page="../common/footer.jsp"></jsp:include>
+        </footer>

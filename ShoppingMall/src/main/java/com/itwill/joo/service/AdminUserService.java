@@ -1,5 +1,6 @@
 package com.itwill.joo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -24,7 +25,11 @@ public class AdminUserService {
 	public List<AdminReadAllUserListDto> readAllUsers() {
 		List<User> list = adminUserRepository.readAllUserOrderByCreatedTime();
 		log.info("전체 유저목록 = {}", list);
-		return list.stream().map(AdminReadAllUserListDto::fromEntity).toList();
+		List<AdminReadAllUserListDto> result = new ArrayList<>();
+		for(User l : list) {
+			result.add(AdminReadAllUserListDto.fromEntity(l));
+		}
+		return result;
 	}
 	
 	// 유저 ban 하기
@@ -32,9 +37,14 @@ public class AdminUserService {
 		return userService.deleteUser(id);
 	}
 
+	// 검색한 유저 전체보기(관리자 페이지)
 	public List<AdminReadAllUserListDto> adminSearchUser(String search) {
 		List<User> list = adminUserRepository.readAllUserBySearch(search);
-		return list.stream().map(AdminReadAllUserListDto::fromEntity).toList();
+		List<AdminReadAllUserListDto> result = new ArrayList<>();
+		for(User l : list) {
+			result.add(AdminReadAllUserListDto.fromEntity(l));
+		}
+		return result;
 	}
 	
 	
