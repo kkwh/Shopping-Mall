@@ -14,6 +14,58 @@ pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
             rel="stylesheet"
             integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
             crossorigin="anonymous">
+            
+       <style>
+    .pagination-container {
+        display: flex;
+        justify-content: center;
+        background-color: #f4f4f4;
+        padding: 10px;
+    }
+    
+    .pagination {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center; /* 페이지 번호를 가운데 정렬합니다. */
+        align-items: center; /* 페이지 번호를 수직 가운데 정렬합니다. */
+    }
+    
+    .pagination li {
+        display: inline-block;
+        margin-right: 0; /* 간격 없이 붙어있도록 오른쪽 마진을 제거합니다. */
+    }
+    
+    .pagination li a {
+        display: inline-block;
+        padding: 8px 12px;
+        background-color: #fff;
+        color: #333;
+        border: 1px solid #ccc;
+        text-decoration: none;
+        border-radius: 3px;
+    }
+    
+    .pagination li a:hover {
+        background-color: #eaeaea;
+    }
+    
+    .pagination li.active a,
+    .pagination li a:active {
+        background-color: #ccc;
+        color: #fff;
+        border-color: #ccc;
+        cursor: default;
+    }
+    
+    .pagination li a:focus {
+        outline: none; /* 기본 포커스 효과를 제거합니다. */
+    }
+</style>     
+            
+            
+            
     </head>
     <body>
         <div>
@@ -73,9 +125,11 @@ pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
                             </c:forEach>
                         </tbody>
                     </table>
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <a href="/joo/admin/postCreate" class="btn btn-outline-secondary me-md-2">등록</a>
-                    </div>
+                    <c:if test="${ loginId eq 'admin' }">
+	                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+	                        <a href="/joo/admin/postCreate" class="btn btn-outline-secondary me-md-2">등록</a>
+	                    </div>
+                    </c:if>
                     <%-- <h3>${ pageMaker }</h3> --%>
                     <h3></h3>
                     <form id="searchForm" action="/joo/post/postNotice" method="get">

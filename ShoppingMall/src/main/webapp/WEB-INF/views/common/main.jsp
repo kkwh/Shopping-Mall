@@ -49,8 +49,6 @@
         </ul> 
 
     <main class="my-1 p-5 text-bg-dark">
-        <!-- 공지글 상세보기 -->
-        <h1 class="text-center">바디(메인베너)</h1>
 
         <!-- 반복문으로 이벤트 자동으로 만들기 -->
         <div id="carouselExampleIndicators" class="carousel slide"
