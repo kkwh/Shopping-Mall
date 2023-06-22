@@ -1,6 +1,8 @@
-<%@ page language="java" contentType="text/html;charset=UTF-8" 
-	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec"
+    uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +16,7 @@ crossorigin="anonymous">
 </head>
 <body>
 	<div class="container-fluid">
-		<header class="bg-warning p-2 text-dark bg-opacity-50">
+		<header class="my-2 p-5 text-center text-primary">
 			<h1>후기 작성</h1>
 			
 			<c:set var="pid" value="${ data.pid }"></c:set>
@@ -26,16 +28,28 @@ crossorigin="anonymous">
 			<input type="hidden" id="uid" value="${ data.uid }" />
 		</header>
 		<hr>
+		<nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <c:url var="mainPage" value="/" /> 
+                        <a class="nav-link" href="${ mainPage }">메인 페이지</a>
+                    </li>
+                    <li class="nav-item">
+                    	<c:url var="orderPage" value="/order/orderHistory" /> 
+                    	<a class="nav-link" href="${ orderPage }">주문 내역</a>
+                    </li>
+        		</ul>
+        </nav>		
 		<table width="100%" cellpadding='0' cellspacing='0'>
 			<tr>
 				<td align="left"><font size="2"> 
-				<b>상품 이미지</b> 
-				<img src="../static/images/a1.JPG" width="150" height="100" alt="a1"> 
+				<!-- <b>상품 이미지</b> 
+				<img src="../static/images/a1.JPG" width="150" height="100" alt="a1">  -->
 				<br /> 
 				<br />
 					<form name="rratings" id="myform" method="post" action="./create">
 						<fieldset>
-							<legend>별점</legend>
+							<legend>별점 체크하기</legend>
 					        <label for="rate1">⭐</label><input type="radio" name="rratings" value="5" id="rate1">
 					        <label for="rate2">⭐</label><input type="radio" name="rratings" value="4" id="rate2">
 					        <label for="rate3">⭐</label><input type="radio" name="rratings" value="3" id="rate3">
@@ -47,20 +61,20 @@ crossorigin="anonymous">
 			</tr>
 		</table>
 
-		<hr>
+		<hr/>
 		<br />
 		<main class="my-2">
 			<div class="card">
 				<div class="card-body">
 					<div class="my-2">
-						<label class="form-label" for="rcontent">내용</label>
-						<textarea class="form-control" id="rcontent" 
-						name="rcontent" required placeholder="내용을 입력해주세요.">
-                        </textarea>
+					    <label class="form-label" for="rcontent">후기 내용</label>
+					    <textarea class="form-control" id="rcontent" 
+					    name="rcontent" rows="5" required></textarea>
 					</div>
+
 				</div>
 				<div class="d-flex justify-content-center">
-					<a class="mx-1 btn btn-outline-danger" id="btnCancel" href="/joo">취소</a>
+					<a class="mx-1 btn btn-outline-danger" id="btnCancel" href="javascript:history.go(-1)">취소</a>
 					<button type="button" class="mx-1 btn btn-outline-success" id="btnRegister">등록</button>
 				</div>
 			</div>
@@ -79,6 +93,18 @@ crossorigin="anonymous">
         			const data = {"p_id": pid, "u_id": uid, "o_id": oid, "rratings": rratings, "rcontent": rcontent};
         			
         			alert(pid + " " + uid + " " + oid);
+        			
+        			// 선택된 별점이 없다면 경고 메시지를 출력.
+    		        if (!rratings) {
+    		            alert("별점을 선택해주세요.");
+    		            return;
+    		        }
+        			
+    		     	// 내용이 없다면 경고 메시지를 출력.
+    		        if (!rcontent) {
+    		            alert("내용을 입력해주세요.");
+    		            return;
+    		        }
         			
         			$.ajax({
         				url: '/joo/review/create',
@@ -102,7 +128,6 @@ crossorigin="anonymous">
 		</script>
 </body>
 </html>
-
 
 
 
