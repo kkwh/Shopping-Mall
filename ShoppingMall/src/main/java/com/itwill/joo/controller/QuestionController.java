@@ -37,17 +37,17 @@ public class QuestionController {
 
     //상품 디테일 페이지에서 해당 상품의 문의사항을 확인
     @GetMapping("/questionDetail")
-    public void questionDetail(@RequestParam("id") long q_id, Principal principal, Model model) {
-        log.info("detail(id={})", q_id);
+    public void questionDetail(@RequestParam("p_id") Long pid, Principal principal, Model model) {
+        log.info("detail(id={})", pid);
         
-        QuestionDetailDto dto = questionService.read(q_id);
+        QuestionDetailDto dto = questionService.read(pid);
         long userId = userService.select(principal.getName()).getId();
-        long p_id = questionService.getProduct(q_id).getId();
+//        long p_id = questionService.getProduct(q_id).getId();
         
         model.addAttribute("question", dto);
         model.addAttribute("userid", userId);
-        model.addAttribute("pid", p_id);
-        model.addAttribute("login_id", principal.getName());
+//        model.addAttribute("pid", p_id);
+        model.addAttribute("loginId", principal.getName());
         
     }
 
@@ -94,12 +94,12 @@ public class QuestionController {
     
      //GET매핑으로 수정하기
     @GetMapping("/questionModify")
-    public void modify(long qid, Model model, Principal principal) {
-        log.info("questionModify(qid={}", qid);
+    public void modify(Long id, Model model, Principal principal) {
+        log.info("questionModify(id={}", id);
         
         long userId = userService.select(principal.getName()).getId();
         
-        QuestionDetailDto dto = questionService.read(qid);
+        QuestionDetailDto dto = questionService.read(id);
         model.addAttribute("question", dto);
         model.addAttribute("userid", userId);
         model.addAttribute("login_id", principal.getName());
@@ -119,10 +119,10 @@ public class QuestionController {
     }
     
     @PostMapping("/questionUpdate")
-    public String update(QuestionUpdateDto dto, Long p_id) {
+    public String update(QuestionUpdateDto dto, Long p_id, Long id) {
         log.info("questionUpdate(dto={}", dto);
         
-        int result = questionService.update(dto);
+        int result = questionService.update(dto, id);
         log.info("업데이트 결과={}", result);
         
         return "redirect:/questions/questionsList?p_id=" + p_id;
@@ -152,20 +152,18 @@ public class QuestionController {
 //    }
     
      @GetMapping("/myQuestionsList")
-     public String myQuestionList( Principal principal, Model model, Criteria cri) {
+     public String myQuestionList( Principal principal, Model model) {
          
          String loginId = principal.getName();
          long u_id = userService.getUserInfo(loginId).getId();
-         
-         log.info("uid = {}", u_id);
-         
-         List<QuestionsListDto> myList = questionService.selectByUserId(u_id);
+         log.info("GET: MyQuestionsList = {}", u_id);
+        
+         List<QuestionsListDto> list = questionService.selectByUserId(u_id);
         //List<QuestionDetailDto> list = questionService.selectByUserIdWithPaging(u_id, cri);
-         int total = myList.size();
          
-         model.addAttribute("myQuestionsList", myList);
+         model.addAttribute("myQuestionsList", list);
          //model.addAttribute("pageMaker",  new PageDto(cri, total));
-         
+         log.info("myQuestionsList: {}", list);
          //log.info("myQuestionsList: {}", list, cri, total);
          
          return "questions/questionsMyList";
@@ -238,11 +236,11 @@ public class QuestionController {
     
 //    // QNA GET매핑으로 수정하기
     @GetMapping("/questionQnaModify")
-    public void modifyQna(long qnid, Model model, Principal principal) {
-        log.info("questionModify(qnid={}", qnid);
+    public void modifyQna(Long id, Model model, Principal principal) {
+        log.info("questionModify(id={}", id);
         
         long userId = userService.select(principal.getName()).getId();
-        QuestionDetailDto dto = questionService.readQna(qnid);
+        QuestionDetailDto dto = questionService.readQna(id);
         
         model.addAttribute("question", dto);
         model.addAttribute("userid", userId);

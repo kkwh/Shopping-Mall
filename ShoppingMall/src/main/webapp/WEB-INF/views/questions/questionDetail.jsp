@@ -9,26 +9,26 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>문의 상세보기</title>
-            <link
-                href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
-                rel="stylesheet"
-                integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
-                crossorigin="anonymous">
+            <link href="${pageContext.request.contextPath}/static/css/questions/questionQna.css" rel="stylesheet"> 
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  
     </head>
     <body>
-    <div>
-        <header>
-            <h1>상품문의 상세보기</h1>
-        </header>
+        <jsp:include page="../common/header.jsp"></jsp:include>    
+    
+    <div class="container-fluid">
+        <div class="my-2 p-1 text-center">
+            <h2 style="color: #343A40;"><${ question.qtitle }> 상세보기</h2>
+        </div>
         
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <ul class="navbar-nav bg-light">
+        <nav class="navbar navbar-expand-lg">
+            <ul class="navbar-nav">
                 <li class="nav-item">
                     <c:url var="mainPage" value="/" />
                     <a class="nav-link" href="${ mainPage }">메인 페이지</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="/joo/questions/questionQnaList">문의하기</a>
+                  <a class="nav-link" href="/joo/questions/questionCreate?pid=${question.p_id }"><${ question.qtitle }> 문의하기</a>
                     </li>
             </ul>
         </nav>
@@ -84,13 +84,14 @@
     <sec:authentication property="principal" var="pinfo" />
     <sec:authorize access="isAuthenticated()" >
     <c:if test="${ loginId eq question.login_id }">
-        <a class="btn btn-outline-primary form-control" href="${ questionModifyPage }">수정하기</a>
+        <a class="btn btn-outline-secondary form-control" href="${ questionModifyPage }">수정하기</a>
       </c:if>
      </sec:authorize>
 </div>
                 
             </div>
         </main>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script
                 src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
@@ -98,3 +99,4 @@
     </div>
     </body>
 </html>
+<jsp:include page="../common/footer.jsp"></jsp:include>
