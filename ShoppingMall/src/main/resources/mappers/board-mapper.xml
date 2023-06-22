@@ -36,13 +36,14 @@
 		select * 
 		from 
 			( 
-			select /*+ INDEX_DESC(BOARDS PK_BOARD) */ rownum rn, t.* 
+			select rownum rn, t.* 
     		from BOARDS t
     		where 
     		]]>
     		<include refid="criteria"></include>
 			<![CDATA[
     		id > 0 and rownum > 0 and rownum <= (#{pageNum} * #{amount})
+            ORDER BY id
     		)
 			where rn > (#{pageNum} -1) * #{amount}
 		]]>
@@ -53,13 +54,14 @@
 		select * 
 		from 
 			( 
-			select /*+ INDEX_DESC(BOARDS PK_BOARD) */ rownum rn, t.*
+			select rownum rn, t.*
     		from BOARDS t
     		where 
     		]]>
     		<include refid="criteria"></include>
 			<![CDATA[
     		id > 0 and rownum > 0 and rownum <= (#{pageNum} * #{amount}) and btype = #{btype}
+            ORDER BY id
     		)
 			where rn > (#{pageNum} -1) * #{amount}
 		]]>
@@ -78,8 +80,8 @@
 	</select>
 	
 	<insert id="insert">
-		insert into BOARDS (BTYPE, BTITLE, BCONTENT, bcreated_time, bmodified_time, u_id)
-		values (#{btype}, #{btitle}, #{bcontent}, systimestamp, #{bmodified_time}, #{u_id})
+		insert into BOARDS (BTYPE, BTITLE, BCONTENT, bcreated_time, bmodified_time)
+		values (#{btype}, #{btitle}, #{bcontent}, systimestamp, #{bmodified_time})
 	</insert>
 	
 	<update id="updateData">

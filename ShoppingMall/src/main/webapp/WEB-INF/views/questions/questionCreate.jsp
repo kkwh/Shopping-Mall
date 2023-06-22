@@ -5,49 +5,33 @@
  <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>문의사항</title>
-            <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
-    crossorigin="anonymous">
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <style>
-        body {
-            padding: 20px;
-        }
-        .navbar {
-            margin-bottom: 20px;
-        }
-        .card {
-            margin-top: 20px;
-        }
-        .form-control {
-            margin-bottom: 10px;
-        }
-    </style>
-    
-    </head>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>상품 문의</title>
+    <link href="${pageContext.request.contextPath}/static/css/questions/questionQna.css" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  
+</head>
     
     <body>
+            <jsp:include page="../common/header.jsp"></jsp:include>
+    
         <div class="container-fluid">
-            <header class="my-2 p-5 text-center text-primary">
-                <h1>문의사항 작성</h1>
-            </header>
+            <div class="my-2 p-1 text-center">
+                <h2 style="color: #343A40;">< ${product.pname } > 문의 작성</h2>
+             </div>
 
-            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <nav class="navbar navbar-expand-lg">
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <c:url var="mainPage" value="/" /> 
                         <a class="nav-link" href="${ mainPage }">메인 페이지</a>
                     </li>
                     <li class="nav-item">
-                            <a class="nav-link" href="/joo/questions/questionsList?p_id=${product.id}" >${product.pname } 문의목록</a>
+                            <a class="nav-link" 
+                            href="/joo/questions/questionsList?p_id=${product.id}" >${product.pname } 문의목록</a>
                     </li>
-
                 </ul>
             </nav>
     
@@ -98,17 +82,18 @@
                          </div>
                     
                         <div class="card-footer my-2">
-                        <input class="form-control btn btn-outline-primary"
-                            type="submit" value="문의 작성" />
+                        <input class="form-control btn btn-secondary" type="submit" value="문의 작성" />
                     </div> 
                 </form>
             </div>
         </main>
 
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+                <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
     </div>
 </body>
 </html>
+<jsp:include page="../common/footer.jsp"></jsp:include>

@@ -9,23 +9,21 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Qna 상세보기</title>
-            <link href="${pageContext.request.contextPath}/static/css/questions/questionQnaDetail.css" rel="stylesheet">    
-            <link
-                href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
-                rel="stylesheet"
-                integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
-                crossorigin="anonymous">
-                
+            <link href="${pageContext.request.contextPath}/static/css/questions/questionQna.css" rel="stylesheet"> 
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  
             
     </head>
     <body>
-    <div>
-        <header>
-            <h1>고객문의 상세보기</h1>
-        </header>
+            <jsp:include page="../common/header.jsp"></jsp:include>
+    
+    <div class="container-fluid">
+        <div class="my-2 p-1 text-center">
+            <h2 style="color: #343A40;">QnA 상세보기</h2>
+        </div>
         
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <ul class="navbar-nav bg-light">
+       <nav class="navbar navbar-expand-lg">
+            <ul class="navbar-nav">
                 <li class="nav-item">
                     <c:url var="mainPage" value="/" />
                     <a class="nav-link" href="${ mainPage }">메인 페이지</a>
@@ -40,14 +38,6 @@
         <main class="my-2">
             <div class="card">
                 <form class="card-body">
-                  <%--   <div class="my-2">
-                        <label class="form-label" for="id">번호</label>
-                        <input class="form-control" id="id" value="${question.id }" readonly />
-                    </div>
-                    <div class="my-2">
-                        <label class="form-label" for="p_id">상품번호</label>
-                        <input class="form-control" id="p_id" value="${question.p_id }" readonly />
-                    </div> --%>
                     <div class="my-2">
                         <label class="form-label" for="qtype">문의 유형</label>
                         <input class="form-control" id="qtype" value="${ question.qtype }" readonly />
@@ -59,11 +49,6 @@
                     <div class="my-2">
                         <label class="form-label" for="qcontent">문의 내용</label>
                         <textarea class="form-control" id="qcontent" readonly >${ question.qcontent }</textarea>
-                    </div>
-                    <%-- <div class="my-2">
-                        <label class="form-label" for="login_id">작성자 아이디</label>
-                        <input class="form-control" id="login_id" value="${ login_id }" readonly />
-                    </div> --%>
                     <div class="my-2">
                         <label class="form-label" for="qcreated_time">작성시간</label>
                         <fmt:formatDate value="${ question.qcreated_time }"
@@ -78,7 +63,7 @@
                     </div>
                 </form>
                 
-                <div class="card-footer">
+                <div class="card-footer my-2">
                     <c:url var="questionQnaModifyPage" value="/questions/questionQnaModify">
                         <c:param name="qnid" value="${ question.id }"></c:param>
                     </c:url>
@@ -86,16 +71,18 @@
                    <sec:authentication property="principal" var="pinfo" />
                    <sec:authorize access="isAuthenticated()" >
                    <c:if test="${ loginId eq question.login_id }">
-                    <a class="btn btn-outline-primary form-control" href="${ questionQnaModifyPage }" >수정하기</a>
+                    <a class="btn btn-outline-secondary form-control" href="${ questionQnaModifyPage }" >수정하기</a>
                    </c:if>
                    </sec:authorize>     
                 </div>
             </div>
         </main>
-        <script
-                src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-                integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-                crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+            <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
     </div>
     </body>
 </html>
+<jsp:include page="../common/footer.jsp"></jsp:include>
