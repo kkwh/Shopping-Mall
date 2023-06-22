@@ -9,5 +9,9 @@
 		insert into PAYMENTS (O_ID, PCREATED_TIME, PAY_METHOD, IMP_UID, MERCHANT_UID, AMOUNT)
 		values(#{o_id}, systimestamp, #{pay_method}, #{imp_uid}, #{merchant_uid}, #{amount})
 	</insert>
+	
+	<select id="selectPaymentByOrderId" resultType="com.itwill.joo.domain.PaymentInfo">
+		select * from PAYMENTS where O_ID = #{o_id}
+	</select>
 
 </mapper>

@@ -69,7 +69,7 @@
             <!-- justify-content: center; align-items: center; -->
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <a href="/joo/post/postDetail?id=1"> <img
+                    <a href="/joo/user/join"> <img
                         src="./static/assets/bannerImages/001.jpg"
                         class="d-block w-100" alt="bannerImege01">
                     </a>

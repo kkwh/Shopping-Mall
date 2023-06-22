@@ -6,14 +6,12 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>회원가입 페이지</title>
-	<link
-		href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-		rel="stylesheet"
-		integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
-		crossorigin="anonymous">
 </head>
 <body>
-	<div style="width: 50%; margin: 0 auto;">
+	<header>
+		<jsp:include page="../common/header.jsp"></jsp:include>
+    </header>
+	<div style="width: 50%; margin: 0 auto;" class="py-3">
 		<div id="title-area" style="margin: 0 auto; padding: 20px 5px;">
 			<h2 style="text-align: center;">회원가입</h2>
 			<hr />
@@ -30,6 +28,26 @@
 					<td>
 						<input type="button" id="id-validate-btn" class="btn btn-outline-primary w-100" value="중복 확인">
 		    			<input type="hidden" id="is-id-validated" value="no" />
+					</td>
+				</tr>
+				<tr>
+					<th class="table-secondary w-25">
+						<label for="password" class="form-label">비밀번호</label>
+					</th>
+					<td class="w-75">
+						<input type="password" class="form-control" id="password" name="password">
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<th class="table-secondary w-25">
+						<label for="passwordConfirm" class="form-label">비밀번호 확인</label>
+					</th>
+					<td class="w-75">
+						<input type="password" class="form-control" id="passwordConfirm">
+					</td>
+					<td>
 					</td>
 				</tr>
 				<tr>
@@ -77,26 +95,6 @@
 					</td>
 				</tr>
 				<tr>
-					<th class="table-secondary w-25">
-						<label for="password" class="form-label">비밀번호</label>
-					</th>
-					<td class="w-75">
-						<input type="password" class="form-control" id="password" name="password">
-					</td>
-					<td>
-					</td>
-				</tr>
-				<tr>
-					<th class="table-secondary w-25">
-						<label for="passwordConfirm" class="form-label">비밀번호 확인</label>
-					</th>
-					<td class="w-75">
-						<input type="password" class="form-control" id="passwordConfirm">
-					</td>
-					<td>
-					</td>
-				</tr>
-				<tr>
 					<th class="table-secondary w-25" rowspan="3">
 						<span id="guide" style="color:#999;display:none"></span>
 						<label for="postcode" class="form-label">주소</label>
@@ -124,10 +122,18 @@
 					</td>
 				</tr>
 			</table>
-		  <button type="submit" id="joinBtn" class="btn btn-outline-success">가입</button>
-		  <a href="/joo" class="btn btn-outline-danger">취소</a>
+			<div class="w-100">
+				<button type="submit" id="joinBtn" class="btn btn-dark w-100 my-1">가입</button>
+			</div>
+			<div class="w-100">
+				<a href="/joo" class="btn btn-outline-dark w-100 my-1">취소</a>
+			</div>
 		</form>	
 	</div>
+	
+	<footer>
+       <jsp:include page="../common/footer.jsp"></jsp:include>
+    </footer>
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<script>
@@ -171,6 +177,18 @@
 				alert('아이디 중복 확인을 해주세요.');
 				return false;
 			}
+			if(!password.match(pwdformat)) {
+				alert('비밀번호는 문자, 숫자, 특수문자를 포함하여 8~15자리로 입력해주세요.');
+				return false;
+			}
+			if(passwordConfirm === '') {
+				alert('비밀번호 확인을 입력해주세요.');
+				return false;
+			}
+			if(password !== passwordConfirm) {
+				alert('비밀번호가 일치하지 않습니다.');
+				return false;
+			}
 			if(name === '') {
 				alert('이름을 입력해주세요.');
 				return false;
@@ -189,19 +207,6 @@
 			}
 			if(isEmailValidated === 'no') {
 				alert('이메일 인증을 완료해주세요.');
-				return false;
-			}
-			if(!password.match(pwdformat)) {
-				alert('비밀번호는 문자, 숫자, 특수문자를 포함하여 8~15자리로 입력해주세요.');
-				$('#email').val('');
-				return false;
-			}
-			if(passwordConfirm === '') {
-				alert('비밀번호 확인을 입력해주세요.');
-				return false;
-			}
-			if(password !== passwordConfirm) {
-				alert('비밀번호가 일치하지 않습니다.');
 				return false;
 			}
 			if(street === '') {
@@ -379,9 +384,5 @@
 	        }).open();
 	    }
 	</script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-		crossorigin="anonymous"></script>
 </body>
 </html>

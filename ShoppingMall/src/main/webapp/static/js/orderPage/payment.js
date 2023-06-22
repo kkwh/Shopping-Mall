@@ -118,7 +118,7 @@
 	    	if(rsp.success) {
 				$.ajax({
 					  method: 'POST',
-					  url: '/joo/payment/verify/' + rsp.imp_uid,
+					  url: '/joo/api/payment/verify/' + rsp.imp_uid,
 				  }).done(function(data) {
 					  if(rsp.paid_amount === data.response.amount) {
 						 alert('결제 성공: ' + rsp.paid_amount);
@@ -168,12 +168,14 @@
 	    	if(rsp.success) {
 				$.ajax({
 					  method: 'POST',
-					  url: '/joo/payment/verify/' + rsp.imp_uid,
+					  url: '/joo/api/payment/verify/' + rsp.imp_uid,
 				  }).done(function(data) {
 					  if(rsp.paid_amount === data.response.amount) {
 						 alert('결제 성공: ' + rsp.paid_amount);
 						 
 						 // 결제 성공한 경우에만 주문 정보 저장
+						 
+						 //cancelOrder();
 						 submitOrder();
 		             } else {
 						 alert('결제에 실패하였습니다. 에러 내용: ' + rsp.error_msg);
@@ -194,9 +196,7 @@
 				"merchant_uid": data['merchant_uid'],
 		        "cancel_request_amount": data['amount'],
 		        "reason": "테스트 결제 환불",
-		        "refund_holder": "서원준", 
-		        "refund_bank": "90", 
-		        "refund_account": "account_no" 
+		        "refund_holder": "서원준"
 			}),
 			"dataType": 'json',
 			success: function(res) {
