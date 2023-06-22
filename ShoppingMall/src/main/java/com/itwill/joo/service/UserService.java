@@ -67,9 +67,11 @@ public class UserService {
 	}
 	
 	public int selectByLoginIdAndPassword(UserAuthenticationDto dto) {
+		log.info("selectByLoginIdAndPassword({})", dto);
 		User user = userRepository.selectUserByLoginId(dto.getLoginId());
 		
 		boolean result = passwordEncoder.matches(dto.getPassword(), user.getUpassword());
+		log.info("result = {}", result);
 		if(result) {
 			return 1;
 		}

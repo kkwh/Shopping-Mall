@@ -58,7 +58,7 @@
                             <td>${ question.qtype }</td>
                             <td> 
                                 <c:url var ="QuestionDetailPage" value="/questions/questionDetail">
-                                    <c:param name="pid" value="${ question.id }" />
+                                    <c:param name="q_id" value="${ question.id }" />
                                 </c:url>
                                 <a href="${ QuestionDetailPage }">${ question.qtitle }</a>
                             </td>

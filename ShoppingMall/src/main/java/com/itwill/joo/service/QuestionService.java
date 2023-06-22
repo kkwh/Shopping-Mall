@@ -120,8 +120,8 @@ public class QuestionService {
 		log.info("readAll() ");
 		List<Question> list = questionRepository.selectOrderByDesc();
 		List<QuestionsListDto> result = new ArrayList<>();
-		for(Question l : list) {
-			result.add(QuestionsListDto.fromEntity(l));
+		for(Question q: list) {
+			result.add(QuestionsListDto.fromEntity(q));
 		}
 		return result;
 	}

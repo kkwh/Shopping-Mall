@@ -1,7 +1,6 @@
 package com.itwill.joo.controller;
 
 import java.security.Principal;
-import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itwill.joo.dto.review.ReviewListDto;
 import com.itwill.joo.dto.user.FindLoginIdDto;
@@ -23,7 +23,7 @@ import com.itwill.joo.dto.user.UserUpdateDto;
 import com.itwill.joo.service.MailService;
 import com.itwill.joo.service.ReviewService;
 import com.itwill.joo.service.UserService;
-	
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -116,9 +116,9 @@ public class UserController {
 	
 	@PostMapping("/passwordAuthentication")
 	@ResponseBody
-	public int passwordAuthentication(@RequestBody UserAuthenticationDto dto) {
+	public int passwordAuthentication(@RequestBody UserAuthenticationDto dto, RedirectAttributes rttr) {
 		log.info("passwordAuthentication({})", dto);
-		
+
 		int result = userService.selectByLoginIdAndPassword(dto);
 		log.info("result = {}", result);
 		
