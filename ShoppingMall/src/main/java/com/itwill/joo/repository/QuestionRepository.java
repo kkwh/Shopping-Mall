@@ -5,8 +5,8 @@ import java.util.List;
 import com.itwill.joo.domain.Criteria;
 import com.itwill.joo.domain.Product;
 import com.itwill.joo.domain.Question;
-import com.itwill.joo.dto.question.QuestionsListDto;
 import com.itwill.joo.dto.question.QuestionAdminListDto;
+import com.itwill.joo.dto.question.QuestionsListDto;
 
 //application-context.xml에서 scan하는 패키지에 있기 때문에
 //인터페이스를 구현하는 클래스가 MyBatis에 의해서 자동으로 만들어짐.

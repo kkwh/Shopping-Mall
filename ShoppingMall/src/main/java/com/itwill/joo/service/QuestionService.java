@@ -104,21 +104,16 @@ public class QuestionService {
 
 		return dto;
 	}
-	
-//    // 문의 총 개수
-//    public int getTotalSelectQuestions(Criteria cri) {
-//        return questionRepository.totalSelectQuestions(cri);
-//    }
 
-//	// 상품문의 총 개수
-//	public int getTotalProductQuestion() {
-//		return questionRepository.totalSelectQuestionTypeProduct();
-//	}
-//
-//	// 고객문의 총 개수
-//	public int getTotalQnaQuestion() {
-//		return questionRepository.totalSelectWhereTypeQnA();
-//	}
+	// 상품문의 총 개수
+	public int getTotalProductQuestion(Criteria cri) {
+		return questionRepository.totalSelectQuestionTypeProduct(cri);
+	}
+
+	// 고객문의 총 개수
+	public int getTotalQnaQuestion(Criteria cri) {
+		return questionRepository.totalSelectWhereTypeQnA(cri);
+	}
 
 	// 상품 문의 전체보기
 	public List<QuestionsListDto> readAll() {
