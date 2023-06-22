@@ -218,7 +218,9 @@
                                                     <td style="color: #b69ccc; font-weight: bold;">${question.id}</td>
                                                     <td style="color: #b69ccc; font-weight: bold;">${question.is_answered}</td>
                                                     <td style="color: #b69ccc; font-weight: bold;">
+                                                    <sec:authorize access="isAuthenticated()">
                                                         <sec:authentication property="principal.username" var="login_id" />
+                                                    </sec:authorize>
                                                         <c:set value="${question.login_id}" var="qlogin_id" />
                                                         <c:url var="QuestionDetailPage" value="/questions/questionDetail">
                                                             <c:param name="p_id" value="${question.id}" />
@@ -305,15 +307,17 @@
         <script>
          $(function() {
        
-         	  $('#btnAddToBasket').click(function() {
-         		  const selected = $('#selctProductOption').find(":selected").val();
-         		  alert(selected);
-         		  
+         	  $('#btnAddToBasket').click(function() {         		  
          	    const b_id = $('#basketId').val();
          	    const p_id = $('#productId').val();
          	    const pcount = $('#productCount').text().match(/\d+/);
          	    const count = parseInt(pcount, 10);
          	    //alert(b_id + " " + p_id + " " + count);
+         	    
+         	    if(count === 0) {
+         	    	alert('선택된 상품이 없습니다.');
+         	    	return;
+         	    }
          	    
          	    const param = {"b_id": b_id, "p_id": p_id, "pcount": count};
          	   
