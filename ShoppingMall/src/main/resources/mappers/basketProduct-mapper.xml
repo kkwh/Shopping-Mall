@@ -12,7 +12,7 @@
 		</insert>
 		
 		<select id="selectOrderByBasketProductIdDesc" resultType="com.itwill.joo.dto.basket.BasketProductListDto">
-			select bp.*, p.pname, p.pprice
+			select bp.*, p.pname, p.pprice, p.ptitle_image
 			from BASKET b, BASKET_PRODUCTS bp, PRODUCTS p
 			where b.id = bp.b_id
 			and bp.p_id = p.id
