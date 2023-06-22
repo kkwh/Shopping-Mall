@@ -50,6 +50,7 @@ public class UserDetailDto {
 				.uemail(user.getUemail())
 				.uphone(user.getUphone())
 				.ugrade(user.getUgrade())
+				.ucurrent_point(user.getUcurrent_point())
 				.utotal_point(user.getUtotal_point())
 				.ustreet(user.getUstreet())
 				.udetail_address(user.getUdetail_address())

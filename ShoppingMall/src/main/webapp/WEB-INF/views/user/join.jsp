@@ -47,7 +47,7 @@
 						<label for="phone" class="form-label">전화번호</label>
 					</th>
 					<td class="w-75">
-						<input type="text" class="form-control" id="phone" name="phone" maxlength="13" oninput="autoHyphen2(this)">
+						<input type="text" class="form-control" id="phone" name="phone" maxlength="13" oninput="autoHyphen2(this)" placeholder="ex) 010-1234-5678">
 					</td>
 					<td>
 					</td>
@@ -57,7 +57,7 @@
 						<label for="email" class="form-label">이메일</label>
 					</th>
 					<td class="w-75">
-						<input type="email" class="form-control" id="email" name="email">
+						<input type="text" class="form-control" id="email" name="email">
 					</td>
 					<td>
 						<input type="button" id="generate-num-btn" class="btn btn-outline-primary w-100" value="인증번호 받기">
@@ -129,6 +129,7 @@
 		</form>	
 	</div>
 	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<script>
 		const autoHyphen2 = (target) => {
  			target.value = target.value
@@ -138,6 +139,7 @@
 	</script>
 	<script type="text/javascript">
 		function formCheck() {
+			const idformat = /^[A-Za-z0-9+]*$/;
 			const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 			const phoneformat = /^\d{3}-\d{3,4}-\d{4}$/;
 			const pwdformat = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
@@ -161,6 +163,10 @@
 				alert('아이디를 입력해주세요.');
 				return false;
 			}
+			if(!loginId.match(idformat)) {
+				alert('아이디는 숫자와 영문으로만 작성해주세요.')
+				return false;
+			}
 			if(isIdValidated === 'no') {
 				alert('아이디 중복 확인을 해주세요.');
 				return false;
@@ -169,8 +175,8 @@
 				alert('이름을 입력해주세요.');
 				return false;
 			}
-			if(phone === '') {
-				alert('전화번호를 입력해주세요.');
+			if(!phone.match(phoneformat)) {
+				alert('전화번호를 형식에 맞게 입력해주세요.');
 				return false;
 			}
 			if(!email.match(mailformat)) {
@@ -214,7 +220,6 @@
 			return true;
 		}
 	</script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<script>
 		$(document).ready(function() {
 			const emailConfirm = $('#emailConfirm');
@@ -224,11 +229,16 @@
 	<script>
 		$(function() {
 			$('#id-validate-btn').click(function() {
+				const idformat = /^[A-Za-z0-9+]*$/;
 				const loginId = $('#loginId').val();
 				const isIdValidated = $('#is-id-validated');
-				if(loginId.trim().length === 0) {
+				if(loginId === '') {
 					alert('아이디를 입력해주세요.');
-					return;
+					return false;
+				}
+				if(!loginId.match(idformat)) {
+					alert('아이디는 숫자와 영문으로만 작성해주세요.')
+					return false;
 				}
 				
 				$.ajax({
