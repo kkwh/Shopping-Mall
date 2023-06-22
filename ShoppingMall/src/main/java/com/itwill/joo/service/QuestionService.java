@@ -106,13 +106,13 @@ public class QuestionService {
 	}
 
 	// 상품문의 총 개수
-	public int getTotalProductQuestion() {
-		return questionRepository.totalSelectQuestionTypeProduct();
+	public int getTotalProductQuestion(Criteria cri) {
+		return questionRepository.totalSelectQuestionTypeProduct(cri);
 	}
 
 	// 고객문의 총 개수
-	public int getTotalQnaQuestion() {
-		return questionRepository.totalSelectWhereTypeQnA();
+	public int getTotalQnaQuestion(Criteria cri) {
+		return questionRepository.totalSelectWhereTypeQnA(cri);
 	}
 
 	// 상품 문의 전체보기
