@@ -17,6 +17,7 @@ public class DetailOrderProductDto {
 	
 	private long id;	
 	
+	private long pid; // 상품 아이디	
 	private String ptitle_image; // 상품 타이틀 이미지
 	private String pname; // 상품 이름
 	private String pcount; // 주문 상품 갯수

@@ -7,7 +7,7 @@
     <!-- 주문 상세페이지 상품정보 -->
     <select id="selectOrderedProduct"
         resultType="com.itwill.joo.dto.order.OrderedProductDto">
-        select ID, PDETAIL_IMAGE, PNAME, PPRICE, PSTOCK
+        select ID, PTITLE_IMAGE, PNAME, PPRICE, PSTOCK
         from PRODUCTS
         where ID = #{id}
     </select>
@@ -172,7 +172,7 @@
     <!-- 주문조회에서 주문번호 눌렀을 시 상품 상세페이지 정보 -->
     <select id="selectDetailOrderProduct"
         resultType="com.itwill.joo.dto.order.DetailOrderProductDto">
-        SELECT P.PTITLE_IMAGE, P.PNAME, OP.PCOUNT, OP.PPRICE, D.ID, D.dcreated_time
+        SELECT P.PTITLE_IMAGE, P.PNAME, OP.PCOUNT, OP.PPRICE, D.ID, D.dcreated_time, P.ID as "pid"
         FROM PRODUCTS P, ORDER_PRODUCTS OP, ORDERS O, DELIVERIES D
         WHERE P.ID = OP.P_ID
         AND OP.O_ID = O.ID
