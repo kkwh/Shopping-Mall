@@ -192,16 +192,16 @@
                     </div>
     
                     <!-- 문의 -->
-                    <div id="question" class="container-fluid">
-                                <div class="card my-2 p-1 text-left" style="background-color: #343A40;">
+                    <div id="question" class="container-fluid d-flex align-items-center justify-content-center">
+                            <div class="card my-2 p-1 text-left" style="background-color: #343A40; width: 80%;">
                                     <h2 class="text-center" style="color: #fff;">&lt;${product.pname}&gt; 상품문의 (총 ${questionsList.size()}건)</h2>
                                 
                                     <table class="card-body table"style="background-color: #343A40;" id="QuestionsList">
                                         <thead>
                                             <tr>
                                                 <th scope="col">번호</th>
-                                                <th scope="col">답변여부</th>
                                                 <th scope="col">문의 유형</th>
+                                                <th scope="col">답변여부</th>
                                                 <th scope="col">작성자 아이디</th>
                                                 <th scope="col">등록일자</th>
                                             </tr>
@@ -210,7 +210,6 @@
                                             <c:forEach items="${questionsList}" var="question" >
                                                 <tr style= font-weight: bold;">
                                                     <td style="color: #b69ccc; font-weight: bold;">${question.id}</td>
-                                                    <td style="color: #b69ccc; font-weight: bold;">${question.is_answered}</td>
                                                     <td style="color: #b69ccc; font-weight: bold;">
                                                         <sec:authentication property="principal.username" var="login_id" />
                                                         <c:set value="${question.login_id}" var="qlogin_id" />
@@ -225,7 +224,8 @@
                                                                 ${question.qtype}
                                                             </c:otherwise>
                                                         </c:choose>
-                                                    </td>
+                                                     </td>
+                                                     <td style="color: #b69ccc; font-weight: bold;">${question.is_answered}</td>
                                                     <td style="color: #b69ccc; font-weight: bold;">${question.login_id}</td>
                                                     <td style="color: #b69ccc; font-weight: bold;"><fmt:formatDate value="${question.qcreated_time}" pattern="yyyy-MM-dd HH:MM:mm" /></td>
                                                 </tr>
