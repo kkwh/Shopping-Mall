@@ -36,8 +36,8 @@
                         <tr>
                             <td>
                                 <div class="n-prd-row">
-                                    <a href="/joo01/product/productDetail" class="img-block"> <img src="${ info.ptitle_image }" alt="전통주" width="100">
-                                    </a>${ info.pname }
+                                    <img src="${ info.ptitle_image }" alt="전통주" width="100">
+                                    ${ info.pname }
                                 </div>
                             </td>
                             <td>${ info.pcount }개</td>

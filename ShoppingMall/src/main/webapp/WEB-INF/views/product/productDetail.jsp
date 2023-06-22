@@ -142,7 +142,7 @@
                 <hr />
                 <nav class="nav nav-pills nav-justified bg-dark navbar sticky-top"  id="productNav">
                     <a id="viewProductDetail"  href="#productDetail" class="nav-link" >상품 상세보기</a> 
-                    <a id="viewProductReiview" href="#review" class="nav-link">리뷰보기</a>
+                    <a id="viewProductReiview" href="#reviews" class="nav-link">리뷰보기</a>
                     <a id="viewProductQuestion" href="#question" class="nav-link">문의보기</a>
                 </nav>
                 <!-- main foot : 약관및 기타 정보(배송비및 교환환불)사항 -->

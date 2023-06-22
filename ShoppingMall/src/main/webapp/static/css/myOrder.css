@@ -188,7 +188,7 @@ body {
     color: #777777;
 }
 
-.btn-primary {
+#del1, #del2, #del3, #del4, #del5 {
   background-color: white; /* 배경색을 흰색으로 설정 */
   color: black; /* 글자색을 검정으로 설정 */
   border-color: rgba(0, 0, 0, 0.4); /* 테두리 색상을 흐린 검정으로 설정 */
