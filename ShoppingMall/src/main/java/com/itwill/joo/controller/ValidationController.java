@@ -1,5 +1,6 @@
 package com.itwill.joo.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,24 +22,24 @@ public class ValidationController {
 	
 	private final UserService userService;
 	
-	@GetMapping("/loginId")
+	@PostMapping("/loginId")
 	@ResponseBody
-	public int loginIdValidate(@RequestParam("loginId") String loginId) {
+	public ResponseEntity<Integer> loginIdValidate(@RequestParam("loginId") String loginId) {
 		log.info("loginIdValidate({})", loginId);
 		
 		int result = userService.validateLoginId(loginId);
 		
-		return result;
+		return ResponseEntity.ok(result);
 	}
 	
-	@GetMapping("/emailCheck")
+	@PostMapping("/emailCheck")
 	@ResponseBody
-	public int checkEmail(@RequestParam("email") String email) {
+	public ResponseEntity<Integer> checkEmail(@RequestParam("email") String email) {
 		log.info("checkEmail({})", email);
 		
 		int result = userService.checkEmail(email);
 		
-		return result;
+		return ResponseEntity.ok(result);
 	}
 	
 	@PostMapping("/sendCode")

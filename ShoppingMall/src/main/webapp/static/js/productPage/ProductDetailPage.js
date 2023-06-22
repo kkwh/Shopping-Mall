@@ -79,6 +79,22 @@
         console.log('주문하기');
         console.log("pid: " + pid + ", count: " + count);
         
+        // 로그인 안 한 상태에서 주문하기 클릭 시 로그인 화면으로 이동 시킴
+        const b_id = document.querySelector('input#basketId').value;
+        if(b_id == 0 || b_id == 'null' || b_id == null) {
+			if(confirm('로그인 후 이용 가능합니다.')) {
+ 	    		window.location.href='/joo/user/login';
+     	    	return;
+ 	    	} else {
+ 	    		return;
+ 	    	}
+		}
+		
+		if(count === 0) {
+			alert('선택된 상품이 없습니다.');
+			return false;
+		}
+        
         const reqUrl = `/joo/api/order/toOrder`;
         const data = { pid, count };
         axios.post(reqUrl, data)

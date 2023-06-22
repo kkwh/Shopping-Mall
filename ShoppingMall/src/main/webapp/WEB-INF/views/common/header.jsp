@@ -71,7 +71,10 @@
                                 <li class="nav-item"><a
                                     class="nav-link active"
                                     aria-current="page"
-                                    href="/joo/user/myBasket">🛍 장바구니</a></li>
+                                    href="/joo/user/myBasket">🛍 장바구니 
+                                    <sec:authorize access="isAuthenticated()">
+                                    	[${ basketCount }]
+                                    </sec:authorize></a></li>
                                 <li class="nav-item dropdown"><a
                                     class="nav-link dropdown-toggle"
                                     href="/joo/user/myBasket" role="button"
@@ -81,7 +84,7 @@
                                         class="dropdown-menu dropdown-menu-dark">
                                         <li><a
                                             class="dropdown-item"
-                                            href="/joo/user/passwordAuthentication">✍ 개인정보
+                                            href="/joo/user/myDetails">✍ 개인정보
                                                 수정</a></li>
                                         <li><a
                                             class="dropdown-item"
@@ -92,6 +95,9 @@
                                         <li><a
                                             class="dropdown-item"
                                             href="/joo/questions/myQuestionsList">💬 내 문의내역</a></li>
+                                        <li><a
+                                            class="dropdown-item"
+                                            href="/joo/user/myReviews">💬 내 리뷰내역</a></li>
                             </sec:authorize>
                             <sec:authorize access="isAuthenticated()">
                         </ul>

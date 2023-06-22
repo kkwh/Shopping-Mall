@@ -57,8 +57,11 @@ public class ProductController {
     public void list(@RequestParam("pid") long pid, Principal principal, Model model) {
         log.info("GET: productQuestionsList()");
         
-        long userId = userService.select(principal.getName()).getId();
-        long basketId = basketService.selectByUserId(userId).getId();
+        if(principal != null) {
+        	long userId = userService.select(principal.getName()).getId();
+            long basketId = basketService.selectByUserId(userId).getId();
+            model.addAttribute("basketId", basketId);
+        }
         
        
         // 컨트롤러는 서비스 계층의 메서드를 호출한 후 서비스 기능을 수행
@@ -70,13 +73,12 @@ public class ProductController {
 		// 상품 리뷰 리스트
 		List<ReviewListDto> reviewList = reviewService.selectReviewsByPid(pid);
 		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("reviewSize", reviewList.size());
 		
         // 뷰에 보여줄 데이터를 모델에 저장
 		
         model.addAttribute("questionsList", list);
         model.addAttribute("productId", pid);
-        model.addAttribute("basketId", basketId);
-        
 
        // model.addAttribute("u_id", u_id);
         //model.addAttribute("selectRecommendProductByPid", selectRecommendProductByPid);
