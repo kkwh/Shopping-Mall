@@ -91,7 +91,7 @@
                                             href="/joo/user/myGrade">😎 적립금 확인</a></li>
                                         <li><a
                                             class="dropdown-item"
-                                            href="/joo/user/myOrder">🎵 주문내역</a></li>
+                                            href="/joo/order/orderHistory">🎵 주문내역</a></li>
                                         <li><a
                                             class="dropdown-item"
                                             href="/joo/questions/myQuestionsList">💬 내 문의내역</a></li>
