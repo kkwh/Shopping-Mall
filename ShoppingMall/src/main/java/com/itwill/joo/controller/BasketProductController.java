@@ -3,6 +3,7 @@ package com.itwill.joo.controller;
 import java.security.Principal;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.ResponseEntity;
@@ -61,19 +62,25 @@ public class BasketProductController {
 	
 	//장바구니 개별 삭제
 	@PostMapping("/deleteProduct")
-	public String delete(long id) {
+	public String delete(HttpServletRequest request, long id, Principal principal) {
 		log.info("delete(id={})", id);
+		
+		long u_id = userService.select(principal.getName()).getId();
 		
 		int result = basketProductService.delete(id);
 		log.info("delete(id={})", result);
-				return "redirect:/user/myBasket";
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("basketCount", basketProductService.read(u_id).size());
+		
+		return "redirect:/user/myBasket";
 	}
 	
 	
 	//장바구니 전체 삭제
 	@PostMapping("/deleteAll")
 	@ResponseBody
-	public ResponseEntity<String> deleteAll(Principal principal) {
+	public ResponseEntity<String> deleteAll(HttpServletRequest request, Principal principal) {
 	    log.info("deleteAll()");
 	    
 	    long userId = userService.select(principal.getName()).getId();
@@ -81,6 +88,9 @@ public class BasketProductController {
 	    // 장바구니 전체 삭제 서비스 메소드 호출
 	    int result = basketProductService.deleteAll(userId);
 	    log.info("result = {}", result);
+	    
+	    HttpSession session = request.getSession();
+		session.setAttribute("basketCount", basketProductService.read(userId).size());
 	    
 	    // 장바구니 리스트 페이지로 리다이렉트
 	    return ResponseEntity.ok("success");
@@ -92,7 +102,7 @@ public class BasketProductController {
 	//장바구니에 넣을때 사용 .장바구니에 있을 경우 pcount 업데이트. 
 	@PostMapping("/updatePcount")
 	@ResponseBody
-	public ResponseEntity<Integer> updatePcount(@RequestBody BasketProductDto dto, Principal principal){
+	public ResponseEntity<Integer> updatePcount(HttpServletRequest request, @RequestBody BasketProductDto dto, Principal principal){
 	    log.info("updatePcount(dto={}", dto);
 	    
 	    long u_id = userService.select(principal.getName()).getId();
@@ -105,6 +115,10 @@ public class BasketProductController {
 	    } else {
 	        rsp = basketProductService.updatePcount(dto);
 	    }
+	    
+	    HttpSession session = request.getSession();
+		session.setAttribute("basketCount", basketProductService.read(u_id).size());
+		
 	    
 	    return ResponseEntity.ok(rsp);
 	    

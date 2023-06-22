@@ -9,11 +9,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import com.itwill.joo.service.BasketProductService;
+import com.itwill.joo.service.UserService;
+
 public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
+	
+	@Autowired
+	private BasketProductService basketProductService;
+	
+	@Autowired
+	private UserService userService;
 
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
@@ -25,6 +35,12 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 		authentication.getAuthorities().forEach(authority -> {
 			roleNames.add(authority.getAuthority());
 		});
+		
+		HttpSession session = request.getSession();
+		String login_id = request.getParameter("login_id");
+		long userId = userService.getUserInfo(login_id).getId();
+		session.setAttribute("login_id", login_id);
+		session.setAttribute("basketCount", basketProductService.read(userId).size());
 		
 		if(roleNames.contains("ROLE_USER")) {
 			response.sendRedirect("/joo");

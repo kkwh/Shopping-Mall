@@ -18,7 +18,7 @@
 			<h2 style="text-align: center;">회원가입</h2>
 			<hr />
 		</div>
-		<form id="join-form" >
+		<form id="join-form" action="/joo/user/join" method="post" onsubmit="return formCheck()">
 			<table class="table">
 				<tr>
 					<th class="table-secondary w-25">
@@ -47,7 +47,7 @@
 						<label for="phone" class="form-label">전화번호</label>
 					</th>
 					<td class="w-75">
-						<input type="text" class="form-control" id="phone" name="phone" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+						<input type="text" class="form-control" id="phone" name="phone" maxlength="13" oninput="autoHyphen2(this)">
 					</td>
 					<td>
 					</td>
@@ -129,7 +129,91 @@
 		</form>	
 	</div>
 	
-	<script src="../static/js/userPage/user-create.js"></script>
+	<script>
+		const autoHyphen2 = (target) => {
+ 			target.value = target.value
+			.replace(/[^0-9]/g, '')
+	  		.replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, "");
+		}
+	</script>
+	<script type="text/javascript">
+		function formCheck() {
+			const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+			const phoneformat = /^\d{3}-\d{3,4}-\d{4}$/;
+			const pwdformat = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+			
+			const loginId = document.querySelector('input#loginId').value;
+			const name = document.querySelector('input#name').value;
+			const phone = document.querySelector('input#phone').value;
+			const email = document.querySelector('input#email').value;
+			const emailConfirm = document.querySelector('input#emailConfirm').value;
+			const password = document.querySelector('input#password').value;
+			const passwordConfirm = document.querySelector('input#passwordConfirm').value;
+			const street = document.querySelector('input#street').value;
+			const detailAddress = document.querySelector('input#detailAddress').value;
+			const postcode = document.querySelector('input#postcode').value;
+			
+			// validation check
+			const isIdValidated = document.querySelector('input#is-id-validated').value; // 아이디 중복 확인 여부 체크
+			const isEmailValidated = document.querySelector('input#is-email-validated').value; // 이메일 인증 여부 체크
+					
+			if(loginId === '') {
+				alert('아이디를 입력해주세요.');
+				return false;
+			}
+			if(isIdValidated === 'no') {
+				alert('아이디 중복 확인을 해주세요.');
+				return false;
+			}
+			if(name === '') {
+				alert('이름을 입력해주세요.');
+				return false;
+			}
+			if(phone === '') {
+				alert('전화번호를 입력해주세요.');
+				return false;
+			}
+			if(!email.match(mailformat)) {
+				alert('이메일 형식에 맞게 입력해주세요.');
+				return false;
+			}
+			if(emailConfirm === '') {
+				alert('이메일 인증번호를 입력해주세요.');
+				return false;
+			}
+			if(isEmailValidated === 'no') {
+				alert('이메일 인증을 완료해주세요.');
+				return false;
+			}
+			if(!password.match(pwdformat)) {
+				alert('비밀번호는 문자, 숫자, 특수문자를 포함하여 8~15자리로 입력해주세요.');
+				$('#email').val('');
+				return false;
+			}
+			if(passwordConfirm === '') {
+				alert('비밀번호 확인을 입력해주세요.');
+				return false;
+			}
+			if(password !== passwordConfirm) {
+				alert('비밀번호가 일치하지 않습니다.');
+				return false;
+			}
+			if(street === '') {
+				alert('도로명 주소를 입력해주세요.');
+				return false;
+			}
+			if(detailAddress === '') {
+				alert('상세 주소를 입력해주세요.');
+				return false;
+			}
+			if(postcode === '') {
+				alert('우편번호를 입력해주세요.');
+				return false;
+			}
+			
+			return true;
+		}
+	</script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<script>
 		$(document).ready(function() {
@@ -148,7 +232,7 @@
 				}
 				
 				$.ajax({
-					type: 'GET',
+					type: 'POST',
 					url: "/joo/api/validate/loginId",
 					data: {"loginId": loginId},
 					success: function(res) {
@@ -186,7 +270,7 @@
 			}
 			
 			$.ajax({
-				type: 'GET',
+				type: 'POST',
 				url: '/joo/api/validate/emailCheck',
 				data: {
 					'email': email
