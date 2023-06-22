@@ -65,7 +65,7 @@
                 
                 <div class="card-footer my-2">
                     <c:url var="questionQnaModifyPage" value="/questions/questionQnaModify">
-                        <c:param name="qnid" value="${ question.id }"></c:param>
+                        <c:param name="id" value="${ question.id }"></c:param>
                     </c:url>
                     
                    <sec:authentication property="principal" var="pinfo" />

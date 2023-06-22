@@ -36,14 +36,14 @@
         <main class="my-2">
             <div class="card">
                 <form class="card-body">
-                    <%-- <div class="my-2">
+                     <div class="my-2">
                         <label class="form-label" for="id">번호</label>
                         <input class="form-control" id="id" value="${question.id }" readonly />
                     </div>
                     <div class="my-2">
                         <label class="form-label" for="p_id">상품번호</label>
                         <input class="form-control" id="p_id" value="${question.p_id }" readonly />
-                    </div> --%>
+                    </div> 
                     <div class="my-2">
                         <label class="form-label" for="qtype">문의 유형</label>
                         <input class="form-control" id="qtype" value="${ question.qtype }" readonly />
@@ -78,7 +78,7 @@
 
 <div class="card-footer">
     <c:url var="questionModifyPage" value="/questions/questionModify">
-        <c:param name="qid" value="${ question.id }"></c:param>
+        <c:param name="id" value="${ question.id }"></c:param>
     </c:url>
     
     <sec:authentication property="principal" var="pinfo" />

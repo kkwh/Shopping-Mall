@@ -13,6 +13,7 @@
 			crossorigin="anonymous">
 	</head>
 	<body>
+                  <jsp:include page="../common/adminHeader.jsp"></jsp:include>   
 		<div class="container text-center">
 
             
