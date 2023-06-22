@@ -57,7 +57,7 @@
                                         class="form-select form-select-sm"
                                         aria-label=".form-select-sm example"
                                         id="selctProductOption">
-                                        <option value="0" selected>[필수]옵션을
+                                        <option selected>[필수]옵션을
                                             선택해 주세요</option>
                                         <option value="1">기본 :
                                             ${ product.pvolume }
@@ -142,7 +142,7 @@
                 <hr />
                 <nav class="nav nav-pills nav-justified bg-dark navbar sticky-top"  id="productNav">
                     <a id="viewProductDetail"  href="#productDetail" class="nav-link" >상품 상세보기</a> 
-                    <a id="viewProductReiview" href="#review" class="nav-link">리뷰보기</a>
+                    <a id="viewProductReiview" href="#reviews" class="nav-link">후기보기</a>
                     <a id="viewProductQuestion" href="#question" class="nav-link">문의보기</a>
                 </nav>
                 <!-- main foot : 약관및 기타 정보(배송비및 교환환불)사항 -->
@@ -315,10 +315,14 @@
 
 
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script>
          $(function() {
        
          	  $('#btnAddToBasket').click(function() {
+         		  const selected = $('#selctProductOption').find(":selected").val();
+         		  alert(selected);
+         		  
          	    const b_id = $('#basketId').val();
          	    const p_id = $('#productId').val();
          	    const pcount = $('#productCount').text().match(/\d+/);
