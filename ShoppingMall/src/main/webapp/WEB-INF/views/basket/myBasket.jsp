@@ -131,9 +131,12 @@
                         <c:set var="totalPrice" value="0" />
 						<c:forEach items="${basketproducts }" var="basketproduct">	
                         			
-								<tr>
+								<tr class="text-center align-middle">
                                     <input type="hidden" value="${ basketproduct.p_id }" class="p_id" data-id="${ basketproduct.p_id }" />  
-               						<td>사진</td>			
+               						<td class="thumb" style="width: 135px;">
+                                       <img src=${ basketproduct.ptitle_image  } alt=""
+                                    width="100">
+                                   </td>			
 									<td>${ basketproduct.pname }</td>
 									<td>
                                        <fmt:formatNumber value="${ basketproduct.pprice }" pattern="###,###" />원
