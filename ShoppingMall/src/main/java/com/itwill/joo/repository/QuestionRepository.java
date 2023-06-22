@@ -2,6 +2,8 @@ package com.itwill.joo.repository;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.PathVariable;
+
 import com.itwill.joo.domain.Criteria;
 import com.itwill.joo.domain.Product;
 import com.itwill.joo.domain.Question;

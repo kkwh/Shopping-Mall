@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+
 
 <!DOCTYPE html>
 <html>
@@ -9,20 +11,24 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>상품문의</title>
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
-        crossorigin="anonymous">
-    </head>
+    <link href="${pageContext.request.contextPath}/static/css/questions/questionQna.css" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+     
+     
+     </head>
         <body>
-            <div class="container-fluid">
-            <header class="my-2 p-5 text-center text-bg-dark">
-                <h1> 상품문의 (총 ${questionsList.size()}건)</h1>
+            <header>
+                <jsp:include page="../common/header.jsp"></jsp:include>
             </header>
+        
+        
+            <div class="container-fluid">
+            <div class="my-2 p-1 text-center">
+                <h2>${ product.pname }  문의 (총 ${questionsList.size()}건)</h2>
+            </div>
 
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <ul class="navbar-nav bg-light">
+        <nav class="navbar navbar-expand-lg">
+            <ul class="navbar-nav">
                 <li class="nav-item">
                     <c:url var="mainPage" value="/" /> 
                     <a class="nav-link" href="${ mainPage }">메인 페이지</a>
@@ -30,15 +36,13 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/joo/product/productsList">뒤로 가기</a>
                 </li>
-                <%-- <li class="nav-item">
-                    <c:url var="questionCreatePage" value="/questions/questionCreate" /> 
-                    <a class="nav-link" href="${ questionCreatePage }">${product.pname} 문의사항 작성</a>
-                </li> --%>
          </ul>
     </nav>
 
     <main class="my-2">
         <div class="card">
+        <form>
+            <div class="card-body">
             <table class ="card-body table table-hover">
                 <thead>
                   
@@ -46,10 +50,9 @@
                         <th>번호</th>
                         <th>문의 유형</th>
                         <th>답변여부</th>
-                        <th>제목</th>
+                        <th>제품명</th>
                         <th>작성자 아이디</th>
                         <th>작성시간</th>
-                        <th>제품 이름</th>
                     </tr>
                
                 </thead>
@@ -62,7 +65,7 @@
                             <td>${ question.is_answered }</td>
                             <td> 
                                 <c:url var ="QuestionDetailPage" value="/questions/questionDetail">
-                                    <c:param name="pid" value="${ question.id }" />
+                                    <c:param name="p_id" value="${ question.id }" />
                                 </c:url>
                                 <a href="${ QuestionDetailPage }">${ question.qtitle }</a>
                             </td>
@@ -74,17 +77,21 @@
                                         value="${ question.qcreated_time }"
                                         pattern="yyyy-MM-dd HH:MM:mm" />
                             </td>
-                            <td>${ question.product.pname }</td>
                         </tr>
                     </c:forEach>
                 </tbody>
             </table>
-    
-                        <script
-                            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-                            integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-                            crossorigin="anonymous"></script>
+               </div>
+            </form>
            </div>
        </main>
+       
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+               <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+       </div>
 </body>
-</html> 
+</html>
+<jsp:include page="../common/footer.jsp"></jsp:include>

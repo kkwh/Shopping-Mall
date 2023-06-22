@@ -134,8 +134,8 @@ public class QuestionService {
 	}
 
 	// 상품 문의 수정
-	public int update(QuestionUpdateDto dto) {
-		log.info("update(question)", dto);
+	public int update(QuestionUpdateDto dto, Long id) {
+		log.info("update(question)", dto, id);
 
 		return questionRepository.updateTitleAndContent(dto.toEntity());
 	}
@@ -213,7 +213,7 @@ public class QuestionService {
 		return questionRepository.selectAllProducts();
 	}
 
-	public Product getProduct(long id) {
+	public Product getProduct(Long id) {
 		log.info("getProduct({})", id);
 		return questionRepository.selectProductById(id);
 	}

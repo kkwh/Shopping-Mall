@@ -48,10 +48,10 @@
       <div class="col-lg-4">
         <h4 class="footer-heading">Follow</h4>
         <ul class="footer-social-icons">
-          <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-          <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-          <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-          <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+          <li><a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a></li>
+          <li><a href="https://twitter.com/?lang=ko"><i class="fab fa-twitter"></i></a></li>
+          <li><a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a></li>
+          <li><a href="https://www.youtube.com/"><i class="fab fa-youtube"></i></a></li>
         </ul>
       </div>
     </div>
