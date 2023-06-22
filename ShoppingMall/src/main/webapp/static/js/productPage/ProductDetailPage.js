@@ -73,11 +73,33 @@
     function goOrderPage (){} 
     function goBasketPage (){} 
      
-     btnOrder.addEventListener('click', goOrderPage);
+     // 주문 페이지로 pid와 count 넘겨줌
+     btnOrder.addEventListener('click', function() {
+          
+        console.log('주문하기');
+        console.log("pid: " + pid + ", count: " + count);
+        
+        const reqUrl = `/joo/api/order/toOrder`;
+        const data = { pid, count };
+        axios.post(reqUrl, data)
+            .then((response) => {
+                console.log(response);
+                console.log('상품번호 ' + pid + " 주문페이지로 이동");
+                window.location.href = `/joo/order/orderPage`;
+                
+            })
+            .catch((error) => {
+                console.log('주문페이지로 이동 중 에러');
+                console.log(error);
+            });
+         });
+            
+            
+            
      btnBasket.addEventListener('click', goBasketPage);
      
    
-	    
+        
      // ---------------------------- 스크롤 처리 --------------------------------
     window.addEventListener('scroll', function() {
     

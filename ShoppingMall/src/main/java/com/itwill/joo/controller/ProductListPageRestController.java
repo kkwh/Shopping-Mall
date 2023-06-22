@@ -59,6 +59,13 @@ public class ProductListPageRestController {
 		List<ProductListPageDto> list = productService.showBearList();
 		return ResponseEntity.ok(list);
 	}
+	// 와인 리스트
+	@GetMapping("/showWineList")
+	public ResponseEntity<List<ProductListPageDto>> readWine() {
+		log.info("와인 상품 리스트 페이지 메서드");
+		List<ProductListPageDto> list = productService.showWineList();
+		return ResponseEntity.ok(list);
+	}
 	// 기타 리스트
 	@GetMapping("/showAnotherList")
 	public ResponseEntity<List<ProductListPageDto>> readOther() {

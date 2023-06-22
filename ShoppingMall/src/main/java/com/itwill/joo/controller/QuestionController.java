@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itwill.joo.dto.question.QuestionDetailDto;
 import com.itwill.joo.dto.question.QuestionUpdateDto;
+import com.itwill.joo.domain.Criteria;
 import com.itwill.joo.domain.Product;
+import com.itwill.joo.dto.page.PageDto;
 import com.itwill.joo.dto.question.QuestionCreateDto;
 import com.itwill.joo.dto.question.QuestionsListDto;
 import com.itwill.joo.service.ProductService;
@@ -35,29 +37,33 @@ public class QuestionController {
 
     //상품 디테일 페이지에서 해당 상품의 문의사항을 확인
     @GetMapping("/questionDetail")
-    public void questionDetail(@RequestParam("pid") long pid, Principal principal, Model model) {
+    public void questionDetail(@RequestParam("p_id") Long pid, Principal principal, Model model) {
         log.info("detail(id={})", pid);
         
         QuestionDetailDto dto = questionService.read(pid);
         long userId = userService.select(principal.getName()).getId();
+//        long p_id = questionService.getProduct(q_id).getId();
         
         model.addAttribute("question", dto);
         model.addAttribute("userid", userId);
+//        model.addAttribute("pid", p_id);
         model.addAttribute("loginId", principal.getName());
         
     }
 
     
     @GetMapping("/questionsList")
-    public void list( Model model, long p_id) {
+    public void list( Model model, @RequestParam("p_id") long p_id) {
         log.info("GET: productQuestionsList()");
 
         
         // 컨트롤러는 서비스 계층의 메서드를 호출한 후 서비스 기능을 수행
         List<QuestionsListDto> list = questionService.readProductId(p_id);
+       // long userId = userService.select(principal.getName()).getId();
         
         // 뷰에 보여줄 데이터를 모델에 저장
         model.addAttribute("questionsList", list);
+       // model.addAttribute("userid", userId);
         //model.addAttribute("paging", new PageDto(criteria, total));
         log.info("questionsList: {}", list);
     }
@@ -88,12 +94,12 @@ public class QuestionController {
     
      //GET매핑으로 수정하기
     @GetMapping("/questionModify")
-    public void modify(long qid, Model model, Principal principal) {
-        log.info("questionModify(qid={}", qid);
+    public void modify(Long id, Model model, Principal principal) {
+        log.info("questionModify(id={}", id);
         
         long userId = userService.select(principal.getName()).getId();
         
-        QuestionDetailDto dto = questionService.read(qid);
+        QuestionDetailDto dto = questionService.read(id);
         model.addAttribute("question", dto);
         model.addAttribute("userid", userId);
         model.addAttribute("login_id", principal.getName());
@@ -113,10 +119,10 @@ public class QuestionController {
     }
     
     @PostMapping("/questionUpdate")
-    public String update(QuestionUpdateDto dto, Long p_id) {
+    public String update(QuestionUpdateDto dto, Long p_id, Long id) {
         log.info("questionUpdate(dto={}", dto);
         
-        int result = questionService.update(dto);
+        int result = questionService.update(dto, id);
         log.info("업데이트 결과={}", result);
         
         return "redirect:/questions/questionsList?p_id=" + p_id;
@@ -125,25 +131,44 @@ public class QuestionController {
     
     
     
-    @GetMapping("/myQuestionsList")
-    public String myQuestionList( Principal principal, Model model) {
-        String loginId = principal.getName();
-        long u_id = userService.getUserInfo(loginId).getId();
+//    @GetMapping("/myQuestionsList")
+//    public String myQuestionList( Principal principal, Model model, Criteria cri) {
+//        String loginId = principal.getName();
+//        long u_id = userService.getUserInfo(loginId).getId();
+//        
+//        log.info("GET: MyQuestionsList()", u_id);
+//
+//        // 컨트롤러는 서비스 계층의 메서드를 호출한 후 서비스 기능을 수행
+//        List<QuestionsListDto> list = questionService.readAllByUserId(u_id, cri);
+//        
+//        // 뷰에 보여줄 데이터를 모델에 저장
+//        // 모델에 설정해준 myQusestionsList 이름을 jsp 에서 불러올때 똑같이 해줘야함
+//        model.addAttribute("myQuestionsList", list);
+//        model.addAttribute("pageMaker", new PageDto(cri, questionService.getTotalSelectQuestions(cri)));
+//        
+//        log.info("myQuestionsList: {}", list);
+//        
+//        return "questions/questionsMyList";
+//    }
+    
+     @GetMapping("/myQuestionsList")
+     public String myQuestionList( Principal principal, Model model) {
+         
+         String loginId = principal.getName();
+         long u_id = userService.getUserInfo(loginId).getId();
+         log.info("GET: MyQuestionsList = {}", u_id);
         
-        log.info("GET: MyQuestionsList()", u_id);
-
-        // 컨트롤러는 서비스 계층의 메서드를 호출한 후 서비스 기능을 수행
-        List<QuestionsListDto> list = questionService.readAllByUserId(u_id);
-        
-        // 뷰에 보여줄 데이터를 모델에 저장
-        // 모델에 설정해준 myQusestionsList 이름을 jsp 에서 불러올때 똑같이 해줘야함
-        model.addAttribute("myQuestionsList", list);
-
-        
-        log.info("myQuestionsList: {}", list);
-        
-        return "questions/questionsMyList";
-    }
+         List<QuestionsListDto> list = questionService.selectByUserId(u_id);
+        //List<QuestionDetailDto> list = questionService.selectByUserIdWithPaging(u_id, cri);
+         
+         model.addAttribute("myQuestionsList", list);
+         //model.addAttribute("pageMaker",  new PageDto(cri, total));
+         log.info("myQuestionsList: {}", list);
+         //log.info("myQuestionsList: {}", list, cri, total);
+         
+         return "questions/questionsMyList";
+     }
+    
     
     @GetMapping("/questionFaqList")
     public String questionFaqList(Model model) {
@@ -211,11 +236,11 @@ public class QuestionController {
     
 //    // QNA GET매핑으로 수정하기
     @GetMapping("/questionQnaModify")
-    public void modifyQna(long qnid, Model model, Principal principal) {
-        log.info("questionModify(qnid={}", qnid);
+    public void modifyQna(Long id, Model model, Principal principal) {
+        log.info("questionModify(id={}", id);
         
         long userId = userService.select(principal.getName()).getId();
-        QuestionDetailDto dto = questionService.readQna(qnid);
+        QuestionDetailDto dto = questionService.readQna(id);
         
         model.addAttribute("question", dto);
         model.addAttribute("userid", userId);

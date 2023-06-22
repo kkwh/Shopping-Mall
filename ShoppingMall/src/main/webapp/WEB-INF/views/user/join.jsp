@@ -149,7 +149,7 @@
 				
 				$.ajax({
 					type: 'GET',
-					url: "/joo/validate/loginId",
+					url: "/joo/api/validate/loginId",
 					data: {"loginId": loginId},
 					success: function(res) {
 						if(res === 1) {
@@ -187,7 +187,7 @@
 			
 			$.ajax({
 				type: 'GET',
-				url: '/joo/validate/emailCheck',
+				url: '/joo/api/validate/emailCheck',
 				data: {
 					'email': email
 				}, success: function(res) {
@@ -197,7 +197,7 @@
 					} else {
 						$.ajax({
 							type: 'POST',
-							url: '/joo/validate/sendCode',
+							url: '/joo/api/validate/sendCode',
 							data: {
 								'email': email
 							}, success: function(res) {

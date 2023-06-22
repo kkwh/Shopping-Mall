@@ -45,7 +45,7 @@ public class ProductListPageDto {
 	
 	public static ProductListPageDto fromEntity(Product entity) {
 		
-		return ProductListPageDto.builder().p_id(entity.getId())
+		return ProductListPageDto.builder().p_id(entity.getId()).pdiscount(entity.getPdiscount())
 				.pname(entity.getPname()).ptitle_image(entity.getPtitle_image())
 				.pprice(entity.getPprice()).pstock(entity.getPstock()).pvoluem(entity.getPvolume())
 				.pregion(entity.getPregion()).pcategory(entity.getPcategory())

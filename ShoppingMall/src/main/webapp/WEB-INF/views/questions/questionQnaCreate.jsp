@@ -7,31 +7,22 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Qna Create</title>
+    <title>QnA</title>
+    <link href="${pageContext.request.contextPath}/static/css/questions/questionQna.css" rel="stylesheet"> 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <style>
-        body {
-            padding: 20px;
-        }
-        .navbar {
-            margin-bottom: 20px;
-        }
-        .card {
-            margin-top: 20px;
-        }
-        .form-control {
-            margin-bottom: 10px;
-        }
-    </style>
+  
 </head>
 
 <body>
+        <jsp:include page="../common/header.jsp"></jsp:include>
+       
+        
     <div class="container-fluid">
-        <header class="my-2 p-5 text-center text-primary">
-            <h1>QnA 작성</h1>
-        </header>
+        <div class="my-2 p-1 text-center">
+            <h2 style="color: #343A40;">QnA 작성</h2>
+        </div>
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg">
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <c:url var="mainPage" value="/" /> 
@@ -67,21 +58,26 @@
                         </div>
                         <div class="my-2">
                             <label class="form-label" for="questionContent">문의 내용</label>
-                            <textarea class="form-control" id="questionContent" name="qcontent" rows="5" required></textarea>
+                            <textarea class="form-control" value="#563d7c" id="questionContent" name="qcontent" rows="5" required></textarea>
                         </div>
                         <div class="my-2">
-                            <label class="form-label" for="login_id">작성자 아이디</label>
+                            <label class="form-label" style="color: #343A40;" for="login_id">작성자 아이디</label>
                             <input class="form-control" type="text" id="login_id" name="login_id" value="${login_id}" required readonly />
                         </div> 
                     </div>
                     <div class="card-footer my-2">
-                        <input class="form-control btn btn-primary" type="submit" value="문의 작성" />
+                        <input class="form-control btn btn-secondary" type="submit" value="문의 작성" />
                     </div>
                 </form>
             </div>
         </main>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+                <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
     </div>
 </body>
 </html>
+<jsp:include page="../common/footer.jsp"></jsp:include>

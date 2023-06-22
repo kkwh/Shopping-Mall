@@ -18,13 +18,13 @@
 			<div style="width: 100%; margin-top: 200px;">
 				<input type="hidden" id="loginId" name="loginId" value="${ loginId }">
 				<div id="password-panel" style="width: 100%" class="p-2">
-					<input type="password" id="upassword" class="form-control" name="upassword" placeholder="비밀번호" />
+					<input type="password" id="upassword" class="form-control" name="upassword" placeholder="PW" />
 				</div>
-				<div id="login-btn-panel" class="p-2" style="width: 100%;">
+				<div id="find-btn-panel" class="p-2" style="width: 100%;">
 					<button type="button" id="findIdBtn" class="btn btn-dark w-100">회원정보 수정</button>
 				</div>
-				<div id="signup-btn-panel" class="p-2" style="width: 100%;">
-					<a href="/joo" class="btn btn-outline-dark w-100">취소</a>
+				<div id="main-btn-panel" class="p-2" style="width: 100%;">
+					<a href="/joo" class="btn btn-outline-dark w-100">메인으로 이동</a>
 				</div>
 			</div>
 		</form>
@@ -36,6 +36,7 @@
 			$('#findIdBtn').click(function() {				
 				const loginId = $('#loginId').val(); 
 				const password = $('#upassword').val();
+				alert(loginId + " " + password);
 				
 				if(password === '') {
 					alert('비밀번호를 입력해주세요.');
@@ -48,7 +49,8 @@
 					data: JSON.stringify(
 							{"loginId": loginId, "password": password}
 					),
-					contentType: 'application/json',
+					dataType: 'json',
+//					contentType: 'application/json',
 					success: function(res) {
 						if(res === 1) {
 							alert('비밀번호 인증 성공');

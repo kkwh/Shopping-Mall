@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () =>{
         // 제목과 내용이 입력되어 있는지 체크.
         const qtitle = document.querySelector('input#qtitle').value;
         const qcontent = document.querySelector('textarea#qcontent').value;
+        const q_id = document.querySelector('input#id').value;
         
         if(qtitle === '' || qcontent === '') {
             alert('제목과 내용은 반드시 입력하세요.');
