@@ -64,14 +64,24 @@
                             <td>${ question.qtype }</td>
                             <td>${ question.is_answered }</td>
                             <td> 
-                                <c:url var ="QuestionDetailPage" value="/questions/questionDetail">
-                                    <c:param name="p_id" value="${ question.id }" />
-                                </c:url>
-                                <a href="${ QuestionDetailPage }">${ question.qtitle }</a>
-                            </td>
-                            <td>
-                            ${ question.login_id}
-                            </td>
+                                <sec:authorize access="isAuthenticated()">
+                                                        <sec:authentication property="principal.username" var="login_id" />
+                                                    </sec:authorize>
+                                                        <c:set value="${question.login_id}" var="qlogin_id" />
+                                                        <c:url var="QuestionDetailPage" value="/questions/questionDetail">
+                                                            <c:param name="p_id" value="${question.id}" />
+                                                        </c:url>
+                                                        <c:choose>
+                                                            <c:when test="${login_id == qlogin_id}">
+                                                                <a href="${QuestionDetailPage}" style="color: #a43c0c; font-weight: bold;">${question.qtitle}</a>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                ${question.qtitle}
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                     </td>
+                                <td>${question.login_id}
+                                </td>
                             <td>
                                     <fmt:formatDate
                                         value="${ question.qcreated_time }"

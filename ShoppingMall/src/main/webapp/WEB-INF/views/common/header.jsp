@@ -86,7 +86,7 @@
                                                 수정</a></li>
                                         <li><a
                                             class="dropdown-item"
-                                            href="/joo/user/myGrade">😎 적립금 확인</a></li>
+                                            href="/joo/user/myGrade">😎 포인트/등급 확인</a></li>
                                         <li><a
                                             class="dropdown-item"
                                             href="/joo/order/orderHistory">🎵 주문내역</a></li>
@@ -110,7 +110,17 @@
                     </div>
                 </div>
             </div>
+ <ul class="nav nav-tabs" style="border-bottom: none;">
+    <li class="nav-item">
+        <a class="nav-link" style="color: #f5f5dc;" href="/joo/product/productsList">제품보기</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" style="color: #f5f5dc;" href="/joo/post/postList">공지사항/이벤트</a>
+    </li>
+</ul>
         </header>
+        
+        
                     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
