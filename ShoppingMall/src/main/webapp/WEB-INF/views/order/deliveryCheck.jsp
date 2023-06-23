@@ -24,7 +24,7 @@
             <h2>조회 결과</h2>
             <p>현재 상태: ${ info.dstatus }</p>
             <p>송장 번호: ${ info.dcode }</p>
-            <p>주문 일자: <fmt:formatDate value="${ info.ocreated_time }" pattern="yyyy-MM-dd HH:mm"/></p>
+            <p>주문 일자: <fmt:formatDate value="${ info.dcreated_time }" pattern="yyyy-MM-dd HH:mm"/></p>
             <p>예상 배송일: <fmt:formatDate value="${threeDaysLater}" pattern="yyyy-MM-dd"/></p>
             <p>받는 사람: ${ info.rname }</p>
             <p>배송 주소: ${ addr1 }&nbsp;${ addr2 }</p>
