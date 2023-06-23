@@ -1,5 +1,6 @@
 package com.itwill.joo.domain;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;

@@ -50,8 +50,7 @@
                             aria-label="Close"></button>
                     </div>
                     <div class="offcanvas-body">
-                        <ul
-                            class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                             <sec:authorize access="isAnonymous()">
                                 <li class="nav-item"><a
                                     class="nav-link active"
@@ -80,8 +79,7 @@
                                     href="/joo/user/myBasket" role="button"
                                     data-bs-toggle="dropdown"
                                     aria-expanded="false">🙈 마이페이지 </a>
-                                    <ul
-                                        class="dropdown-menu dropdown-menu-dark">
+                                    <ul class="dropdown-menu dropdown-menu-dark">
                                         <li><a
                                             class="dropdown-item"
                                             href="/joo/user/myDetails">✍ 개인정보
@@ -98,9 +96,10 @@
                                         <li><a
                                             class="dropdown-item"
                                             href="/joo/user/myReviews">💬 내 리뷰내역</a></li>
+                                    </ul>
                             </sec:authorize>
                             <sec:authorize access="isAuthenticated()">
-                        </ul>
+                        
                         <li class="nav-item"><a
                                     class="nav-link active"
                                     aria-current="page"

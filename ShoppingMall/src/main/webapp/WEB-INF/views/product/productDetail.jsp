@@ -309,6 +309,15 @@
          	    const count = parseInt(pcount, 10);
          	    //alert(b_id + " " + p_id + " " + count);
          	    
+         	    if(b_id == 0 || b_id == null || b_id == 'null') {
+         	    	if(confirm('로그인 후 이용 가능합니다.')) {
+         	    		window.location.href='/joo/user/login';
+         	    		return;
+         	    	} else {
+         	    		return;
+         	    	}
+         	    }
+         	    
          	    if(count === 0) {
          	    	alert('선택된 상품이 없습니다.');
          	    	return;

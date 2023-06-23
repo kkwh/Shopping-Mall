@@ -223,7 +223,6 @@
      	.post('/joo/user/updateQuantity', {b_id, p_id, pcount})
      	.then(resp => {
      		console.log(resp.data);
-     		alert('success');
      		location.reload();
      	})
      	.catch(e => {
@@ -256,7 +255,6 @@
 	     	.post('/joo/user/updateQuantity', {b_id, p_id, pcount})
 	     	.then(resp => {
 	     		console.log(resp.data);
-	     		alert('success');
 	     		location.reload();
 	     	})
 	     	.catch(e => {

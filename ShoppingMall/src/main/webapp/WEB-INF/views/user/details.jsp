@@ -43,7 +43,7 @@
 						<label for="phone" class="form-label">전화번호</label>
 					</th>
 					<td class="w-75">
-						<input type="text" class="form-control" id="phone" name="phone" value="${ user.uphone }" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+						<input type="text" class="form-control" id="phone" name="phone" value="${ user.uphone }" maxlength="13" oninput="autoHyphen2(this)">
 					</td>
 					<td></td>
 				</tr>
@@ -70,7 +70,7 @@
 						<label for="passwordConfirm" class="form-label">비밀번호 확인</label>
 					</th>
 					<td class="w-75">
-						<input type="password" class="form-control" id="passwordConfirm">
+						<input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm">
 					</td>
 					<td></td>
 				</tr>
@@ -113,8 +113,18 @@
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<script>
+		const autoHyphen2 = (target) => {
+ 			target.value = target.value
+			.replace(/[^0-9]/g, '')
+	  		.replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, "");
+		}
+	</script>
+	<script>
 		$(function() {
 			$('#modifyBtn').click(function() {
+				const phoneformat = /^\d{3}-\d{3,4}-\d{4}$/;
+				const pwdformat = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+				
 				const name = $('#name').val();
 				const phone = $('#phone').val();
 				const password = $('#password').val();
@@ -123,27 +133,25 @@
 				const detailAddress = $('#detailAddress').val();
 				const postcode = $('#postcode').val();
 				
-				if(name.trim().length == 0) {
+				if(name === '') {
 					alert('이름을 입력해주세요.');
-					return;
+					return false;
 				}
-				if(phone.trim().length == 0) {
-					alert('전화번호를 입력해주세요.');
-					return;
+				if(!phone.match(phoneformat)) {
+					alert('전화번호를 형식에 맞게 입력해주세요.');
+					return false;
 				}
-				if(password.trim().length == 0) {
-					alert('비밀번호를 입력해주세요.');
-					return;
+				if(!password.match(pwdformat)) {
+					alert('비밀번호는 문자, 숫자, 특수문자를 포함하여 8~15자리로 입력해주세요.');
+					return false;
 				}
-				if(passwordConfirm.trim().length == 0) {
-					alert('비밀번호를 다시 입력해주세요.');
-					return;
+				if(passwordConfirm === '') {
+					alert('비밀번호 확인을 입력해주세요.');
+					return false;
 				}
 				if(password !== passwordConfirm) {
 					alert('비밀번호가 일치하지 않습니다.');
-					$('#password').val('');
-					$('#passwordConfirm').val('');
-					return;
+					return false;
 				}
 				if(street.trim().length == 0) {
 					alert('도로명주소를 입력해주세요.');

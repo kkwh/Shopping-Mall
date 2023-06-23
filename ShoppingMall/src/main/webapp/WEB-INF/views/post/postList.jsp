@@ -103,7 +103,7 @@ pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
                                     <td>${ board.btype }</td>
                                     <td><c:url var="postDetailPage" value="/post/postDetail">
                                             <c:param name="id" value="${ board.id }" />
-                                        </c:url> <a href="${ postDetailPage }">${ board.btitle }</a></td>
+                                        </c:url> <a class="link-secondary" href="${ postDetailPage }">${ board.btitle }</a></td>
                                     <td>${ board.bcontent }</td>
                                     <%-- <td>${ board.bcreated_time }</td> --%>
                                     
