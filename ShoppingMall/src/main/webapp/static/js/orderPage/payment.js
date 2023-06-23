@@ -242,6 +242,8 @@
           updateStockAndSold();
           updateCurrentPointWhenBuy();
           
+          window.location.href='/joo/order/orderHistory';
+          
         },
         error: function(error) {
           // 데이터 전송 중에 에러가 발생한 경우에 실행할 동작을 여기에 작성

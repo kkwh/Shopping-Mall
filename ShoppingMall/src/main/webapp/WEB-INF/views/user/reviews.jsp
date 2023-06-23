@@ -6,41 +6,50 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>JOO</title>
-	<link
-	    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
-	    rel="stylesheet"
-	    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
-	    crossorigin="anonymous">
 </head>
 <body>
-	<div id="reviews">
-		<table class="table table-dark text-center">
-			<thead>
-				<tr>
-					<th scope="col">#</th>
-					<th scope="col">유저 id</th>
-					<th scope="col">리뷰 내용</th>
-					<th scope="col">별점</th>
-					<th scope="col">작성일자</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${ reviews }" var="review">
+	<header>
+		<jsp:include page="../common/header.jsp"></jsp:include>
+    </header>
+	<div style="width: 60%; margin: 0 auto; padding: 20px 5px;">
+		<div id="title-area" style="margin: 0 auto; padding: 20px 5px;">
+			<h2 style="text-align: center;">"${ user.uname }"님의 리뷰 작성내역</h2>
+			<hr />
+		</div>
+		<div id="reviews">
+			<table class="table table-striped table-hover table-center">
+				<thead>
 					<tr>
-						<td>${ review.id }</td>
-						<td>${ review.u_id }</td>
-						<td>${ review.rcontent }</td>
-						<td>${ review.rratings }</td>
-						<td>${ review.rcreated_time }</td>
+						<th scope="col">리뷰 아이디</th>
+						<th scope="col">유저 아이디</th>
+						<th scope="col">상품 아이디</th>
+						<th scope="col">리뷰 내용</th>
+						<th scope="col">별점</th>
+						<th scope="col">작성일자</th>
 					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+				</thead>
+				<tbody>
+					<c:forEach items="${ reviews }" var="review">
+						<tr>
+							<td>${ review.id }</td>
+							<td>${ review.u_id }</td>
+							<td>${ review.p_id }</td>
+							<td>${ review.rcontent }</td>
+							<td>${ review.rratings }</td>
+							<td>${ review.rcreated_time }</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
+		<div id="btn-section" class="text-center py-3">
+			<a href="/joo" class="btn btn-outline-dark w-50 my-1">메인으로 이동</a>
+		</div>
 	</div>
 	
-	<script
-           src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-           integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-           crossorigin="anonymous"></script>
+	<footer>
+       <jsp:include page="../common/footer.jsp"></jsp:include>
+    </footer>
+
 </body>
 </html>
