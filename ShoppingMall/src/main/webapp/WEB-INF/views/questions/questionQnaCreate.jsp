@@ -25,12 +25,8 @@
         <nav class="navbar navbar-expand-lg">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <c:url var="mainPage" value="/" /> 
-                    <a class="nav-link" href="${mainPage}">메인 페이지</a>
-                </li>
-                <li class="nav-item">
                     <c:url var="questionQnaListPage" value="/questions/questionQnaList" /> 
-                    <a class="nav-link" href="${questionQnaListPage}">문의사항 목록</a>
+                    <a class="nav-link" href="${questionQnaListPage}">QNA 문의 목록</a>
                 </li>
             </ul>
         </nav>
