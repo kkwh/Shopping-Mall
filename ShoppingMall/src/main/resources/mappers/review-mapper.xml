@@ -8,11 +8,13 @@
 	<select id="selectAllReviewsByPid" resultType="com.itwill.joo.domain.Review">
 		select * from REVIEWS
 		where P_ID = #{p_id}
+		order by RCREATED_TIME desc
 	</select>
 	
 	<select id="selectAllReviewsByUid" resultType="com.itwill.joo.domain.Review">
 		select * from REVIEWS
 		where U_ID = #{u_id}
+		order by RCREATED_TIME desc
 	</select>
 	
 	<insert id="createReview">

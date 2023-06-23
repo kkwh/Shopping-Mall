@@ -94,7 +94,7 @@
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>
         
-        
+        <div class="py-3">
 <c:choose>
     <c:when test="${empty basketproducts}">
         <div style="text-align:center; margin-top: 80px" class="basketProductNull">
@@ -134,7 +134,7 @@
 								<tr class="text-center align-middle">
                                     <input type="hidden" value="${ basketproduct.p_id }" class="p_id" data-id="${ basketproduct.p_id }" />  
                						<td class="thumb" style="width: 135px;">
-                                       <img src=${ basketproduct.ptitle_image  } alt=""
+                                       <img src="${ basketproduct.ptitle_image  }" alt=""
                                     width="100">
                                    </td>			
 									<td>${ basketproduct.pname }</td>
@@ -188,7 +188,7 @@
   </main>
     </c:otherwise>
 </c:choose>
-        
+        </div>
 	
                 
 	    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

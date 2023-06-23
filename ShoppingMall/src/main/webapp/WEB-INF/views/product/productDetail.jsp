@@ -150,29 +150,21 @@
                     <img src="${ product.pdetail_Iamge }"
                         class="rounded mx-auto d-block" alt="bodyImage">
                 </div>
-                <div class="mainFoot">
                     <hr />
-                    <div>
-                        <img id="productDetail"
-                            src="../static/assets/porducts/add/1.png"
-                            class="rounded mx-auto d-block"
-                            alt="footImage">
-                    </div>
-                </div>
                 
                     <!-- 리뷰 -->
                     <div id="reviews" class="container-fluid d-flex align-items-center justify-content-center">
 					  <div class="card my-2 p-1 text-left" style="background-color: #343A40; width: 80%">
 					    <h2 class="text-center" style="color: #fff;">&lt;${product.pname}&gt; 리뷰문의 (총 ${reviewList.size()}건)</h2>
 					    <div class="d-flex justify-content-center"> <!-- 가운데로 정렬되도록 설정 -->
-					      <table class="table table-dark text-left" style="width: 80%;"> <!-- 넓이를 80%로 조정 -->
+					      <table class="table table-dark text-center" > <!-- 넓이를 80%로 조정 -->
 					        <thead>
-					          <tr>
-					            <th scope="col">번호</th>
-                                <th scope="col">별점</th>
-                                <th scope="col">답변 여부</th>
-					            <th scope="col">리뷰 내용</th>
-					            <th scope="col">등록일자</th>
+					          <tr class="text-center">
+					            <th scope="col" class="text-center">번호</th>
+                                <th scope="col" class="text-center">별점</th>
+                                <th scope="col" class="text-center">답변 여부</th>
+					            <th scope="col" class="text-center">리뷰 내용</th>
+					            <th scope="col" class="text-center">등록일자</th>
 					          </tr>
 					        </thead>
 					        <tbody>

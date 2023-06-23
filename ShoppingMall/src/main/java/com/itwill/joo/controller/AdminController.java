@@ -57,9 +57,6 @@ public class AdminController {
 			log.info("랜덤값 설정 ! = {}",randomDiscount);
 			dto.setPdiscount(randomDiscount);
 		}
-		
-		log.info("타이틀 이미지 주소 = {}", dto.getPtitle_image());
-		log.info("디테일 이미지 주소 = {}", dto.getPdetail_image());
 
 		log.info("새상품 등록");
 		// db에 상품추가(이미지들이 null값일때는, 자동으로 기본값으로 세팅)

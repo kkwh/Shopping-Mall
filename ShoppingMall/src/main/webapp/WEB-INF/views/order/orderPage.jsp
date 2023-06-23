@@ -10,11 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 부트스트랩 -->
 <title>JOO</title>
-<link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
-    crossorigin="anonymous">
+
 <link rel="stylesheet" href="../static/css/orderPage.css">
 </head>
 <body style="background-color: black; color: white;">
@@ -49,7 +45,7 @@
                         <tr class="xans-record-">
                             <td class="thumb" style="width: 135px;">
                                 <a href="/joo/product/productDetail?pid=${ product.id }">
-                                    <img src=${ product.ptitle_image } alt=""
+                                    <img src="${ product.ptitle_image }" alt=""
                                     width="100">
                             </a>
                             </td>
@@ -311,7 +307,7 @@
                 </div>
         </main>
         <br>
-        
+
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
         <script src="https://cdn.iamport.kr/v1/iamport.js"></script>

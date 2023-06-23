@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function(){
                                 OnClick="location.href ='/joo/product/productDetail?pid=${ product.p_id }'">
 
                                 <img src="${ product.ptitle_image }"
-                                    class="card-img-top" alt="oneProduct">
+                                    class="card-img-top" style="width: 100px; height: 150px;" alt="oneProduct">
     
                                 <div class="card-body">
                                     <h5 class="card-title">${ product.pname }</h5>
