@@ -1,5 +1,8 @@
 package com.itwill.joo.controller;
 
+import java.security.Principal;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.ResponseEntity;
@@ -21,7 +24,9 @@ import com.itwill.joo.dto.order.PointWhenCompleDto;
 import com.itwill.joo.dto.order.ReviewToOrderDto;
 import com.itwill.joo.dto.order.StockAndSoldWhenBuyDto;
 import com.itwill.joo.dto.order.StockWhenCancelDto;
+import com.itwill.joo.service.BasketProductService;
 import com.itwill.joo.service.OrderService;
+import com.itwill.joo.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +37,8 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/api/order")
 public class OrderRestController {
     
+	private final UserService userService;
+	private final BasketProductService basketProductService;
     private final OrderService orderService;
     
     @DeleteMapping("/{id}")
@@ -65,11 +72,16 @@ public class OrderRestController {
     
     // 결제시 주문 정보 저장
     @PostMapping("/order")
-    public ResponseEntity<Long> createOrderInfo(@RequestBody OrderCreateDto dto) {
+    public ResponseEntity<Long> createOrderInfo(HttpServletRequest request,  @RequestBody OrderCreateDto dto, Principal principal) {
         log.info("createOrderInfo(dto={})", dto);
         orderService.createOrder(dto);
         
         long id = orderService.readOrderMaxId(); // 주문아이디(oid)
+        long userId= userService.getUserInfo(principal.getName()).getId();
+        
+        HttpSession session = request.getSession();
+        basketProductService.deleteAll(userId);
+		session.setAttribute("basketCount", basketProductService.read(userId).size());
         
         return ResponseEntity.ok(id); // 주문아이디(oid) 리턴
     }

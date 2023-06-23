@@ -32,12 +32,8 @@
         <nav class="navbar navbar-expand-lg">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <c:url var="mainPage" value="/" /> 
-                    <a class="nav-link" href="${ mainPage }">메인 페이지</a>
-                </li>
-                <li class="nav-item">
                     <c:url var="questionFaqListPage" value="/questions/questionFaqList" />
-                   <a class="nav-link" href=${ questionFaqListPage }>자주묻는 질문</a>
+                   <a class="nav-link" href=${ questionFaqListPage }>자주묻는 질문 FAQ</a>
                 </li>
                 <sec:authorize access="isAuthenticated()">
                 <li class="nav-item">

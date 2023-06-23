@@ -49,12 +49,12 @@
 			
 			<div class="text-center">
 				<c:set var="current_point" value="${ user.ucurrent_point }" />
-				<p>현재 포인트: <fmt:formatNumber type="number" maxFractionDigits="3" value="${current_point}" /></p>
+				<p>누적 포인트: <fmt:formatNumber type="number" maxFractionDigits="3" value="${current_point}" /></p>
 			</div>
 			
 			<div class="text-center">
 				<c:set var="total_point" value="${ user.utotal_point }" />
-				<p>누적 포인트: <fmt:formatNumber type="number" maxFractionDigits="3" value="${total_point}" /></p>
+				<p>현재 포인트: <fmt:formatNumber type="number" maxFractionDigits="3" value="${total_point}" /></p>
 			</div>
 		</div>
 		<div id="btn-section" class="text-center py-3">
@@ -102,8 +102,8 @@
 			    <tr>
 			      <th scope="row" class="text-center align-middle">등급 조건</th>
 			      <td class="text-center">일반 가입 회원</td>
-			      <td class="text-center">5만 포인트 이상</td>
 			      <td class="text-center">10만 포인트 이상</td>
+			      <td class="text-center">20만 포인트 이상</td>
 			      <td class="text-center">50만 포인트 이상</td>
 			    </tr>
 			    <tr>

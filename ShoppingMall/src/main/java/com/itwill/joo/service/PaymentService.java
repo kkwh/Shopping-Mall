@@ -45,4 +45,12 @@ public class PaymentService {
 		return paymentRepository.insertPaymentData(dto.toEntity());
 	}
 	
+	public PaymentInfoDto selectPaymentByOrderId(long o_id) {
+		PaymentInfo payment = paymentRepository.selectPaymentByOrderId(o_id);
+		
+		log.info("payment = {}", payment);
+		
+		return PaymentInfoDto.fromEntity(payment);
+	}
+	
 }

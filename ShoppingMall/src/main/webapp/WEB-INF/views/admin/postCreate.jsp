@@ -15,6 +15,7 @@
             crossorigin="anonymous">
     </head>
     <body>
+                  <jsp:include page="../common/adminHeader.jsp"></jsp:include>   
     
 		<div class="panel" style="margin-left: 1px;">
 	        <header class="my-2 p-5 text-center text-bg-dark">

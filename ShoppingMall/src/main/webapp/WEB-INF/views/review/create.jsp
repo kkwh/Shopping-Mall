@@ -91,9 +91,7 @@ crossorigin="anonymous">
         			const rratings = $('input[name="rratings"]:checked').val(); // 선택된 별점 가져오기
         			const rcontent = $('#rcontent').val();
         			const data = {"p_id": pid, "u_id": uid, "o_id": oid, "rratings": rratings, "rcontent": rcontent};
-        			
-        			alert(pid + " " + uid + " " + oid);
-        			
+
         			// 선택된 별점이 없다면 경고 메시지를 출력.
     		        if (!rratings) {
     		            alert("별점을 선택해주세요.");
@@ -114,7 +112,7 @@ crossorigin="anonymous">
         				success: function(res) {
         					console.log(res);
         					alert('리뷰 작성 성공');
-        					window.location.href='/joo/review/list';
+        					window.location.href='/joo';
         				}, error: function(error) {
         					console.log(error);
         				}

@@ -176,11 +176,13 @@ document.addEventListener('DOMContentLoaded', () => {
     button.addEventListener('click', function() {
     cancelOrderModal.style.display = 'block';
     const id = button.getAttribute('data-orderid');
+    const oid = button.getAttribute('data-oid'); // 주문 아이디 (결제 환불에 필요)
     const uid = button.getAttribute('data-userid'); // 포인트 반환
     const odiscount_price = button.getAttribute('data-discount'); // 포인트 반환
     const pid = button.getAttribute('data-productid'); // 재고, 판매량 반환
     const pcount = button.getAttribute('data-count'); // 재고, 판매량 반환
     confirmCancel.setAttribute('data-orderid', id); // 확인 버튼에도 ID 속성 추가
+    confirmCancel.setAttribute('data-oid', oid); // 확인 버튼에도 OID 속성 추가
     confirmCancel.setAttribute('data-userid', uid); // 확인 버튼에도 UID 속성 추가
     confirmCancel.setAttribute('data-discount', odiscount_price); // 확인 버튼에도 할인액 속성 추가
     confirmCancel.setAttribute('data-productid', pid); // 확인 버튼에도 PID 속성 추가
@@ -220,6 +222,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log('주문취소 에러');
                 console.log(error);
             });
+            
+            alert(id);
+            
+            const oid = this.getAttribute('data-oid');
+        	const refundUrl = `/joo/api/payment/cancel/${oid}`;
+        	console.log(oid);
+            axios.put(refundUrl)
+            	.then((response) => {
+					alert('결제 환불 완료');
+					console.log(response);
+					console.log(id + " 결제 환불");
+				})
+				.catch((error) => {
+					console.log('결제 환불 에러');
+					console.log(error);
+				});
             
         
         // 주문 취소시 유저 현재 포인트 + 사용 포인트 (차감 포인트 반납)

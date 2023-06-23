@@ -11,13 +11,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 부트스트랩 -->
 <title>JOO</title>
-<link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
-    crossorigin="anonymous">
-<link rel="stylesheet" href="../static/css/productDetailQuestionsList.css" />
  <link href="${pageContext.request.contextPath}/static/css/questions/questionQna.css" rel="stylesheet"> 
+<link rel="stylesheet" href="../static/css/productDetailQuestionsList.css" />
  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
      
 </head>
@@ -166,29 +161,29 @@
                 </div>
                 
                     <!-- 리뷰 -->
-                    <div id="reviews" class="container-fluid">
-					  <div class="card my-2 p-1 text-left" style="background-color: #343A40;">
+                    <div id="reviews" class="container-fluid d-flex align-items-center justify-content-center">
+					  <div class="card my-2 p-1 text-left" style="background-color: #343A40; width: 80%">
 					    <h2 class="text-center" style="color: #fff;">&lt;${product.pname}&gt; 리뷰문의 (총 ${reviewList.size()}건)</h2>
 					    <div class="d-flex justify-content-center"> <!-- 가운데로 정렬되도록 설정 -->
-					      <table class="table table-dark text-center" style="width: 80%;"> <!-- 넓이를 80%로 조정 -->
+					      <table class="table table-dark text-left" style="width: 80%;"> <!-- 넓이를 80%로 조정 -->
 					        <thead>
 					          <tr>
-					            <th scope="col">#</th>
-					            <th scope="col">답변 여부</th>
+					            <th scope="col">번호</th>
+                                <th scope="col">별점</th>
+                                <th scope="col">답변 여부</th>
 					            <th scope="col">리뷰 내용</th>
-					            <th scope="col">별점</th>
-					            <th scope="col">작성일자</th>
+					            <th scope="col">등록일자</th>
 					          </tr>
 					        </thead>
 					        <tbody>
 					          <c:forEach items="${reviewList}" var="review">
 					            <tr style="font-weight: bold;">
 					              <td>${review.id}</td>
-					              <td>${review.review_reply}</td>
-					              <td>${review.rcontent}</td>
 					              <td>${review.rratings}</td>
-					              <td>${review.rcreated_time}</td>
-					            </tr>
+                                  <td>${review.review_reply}</td>
+					              <td>${review.rcontent}</td>
+					              <td> <fmt:formatDate value="${review.rcreated_time}" pattern="yyyy-MM-dd HH:MM:mm" /></td>
+                                 </tr>
 					          </c:forEach>
 					        </tbody>
 					      </table>
@@ -198,27 +193,28 @@
 
     
                     <!-- 문의 -->
-                    <div id="question" class="container-fluid">
-                                <div class="card my-2 p-1 text-left" style="background-color: #343A40;">
+                    <div id="question" class="container-fluid d-flex align-items-center justify-content-center">
+                            <div class="card my-2 p-1 text-left" style="background-color: #343A40; width: 80%;">
                                     <h2 class="text-center" style="color: #fff;">&lt;${product.pname}&gt; 상품문의 (총 ${questionsList.size()}건)</h2>
                                 
                                     <table class="card-body table"style="background-color: #343A40;" id="QuestionsList">
                                         <thead>
                                             <tr>
                                                 <th scope="col">번호</th>
-                                                <th scope="col">답변여부</th>
                                                 <th scope="col">문의 유형</th>
+                                                <th scope="col">답변여부</th>
                                                 <th scope="col">작성자 아이디</th>
                                                 <th scope="col">등록일자</th>
-                                            </tr>
+                                         </tr>
                                         </thead>
                                         <tbody>
                                             <c:forEach items="${questionsList}" var="question" >
                                                 <tr style= font-weight: bold;">
                                                     <td style="color: #b69ccc; font-weight: bold;">${question.id}</td>
-                                                    <td style="color: #b69ccc; font-weight: bold;">${question.is_answered}</td>
                                                     <td style="color: #b69ccc; font-weight: bold;">
+                                                    <sec:authorize access="isAuthenticated()">
                                                         <sec:authentication property="principal.username" var="login_id" />
+                                                    </sec:authorize>
                                                         <c:set value="${question.login_id}" var="qlogin_id" />
                                                         <c:url var="QuestionDetailPage" value="/questions/questionDetail">
                                                             <c:param name="p_id" value="${question.id}" />
@@ -231,7 +227,8 @@
                                                                 ${question.qtype}
                                                             </c:otherwise>
                                                         </c:choose>
-                                                    </td>
+                                                     </td>
+                                                     <td style="color: #b69ccc; font-weight: bold;">${question.is_answered}</td>
                                                     <td style="color: #b69ccc; font-weight: bold;">${question.login_id}</td>
                                                     <td style="color: #b69ccc; font-weight: bold;"><fmt:formatDate value="${question.qcreated_time}" pattern="yyyy-MM-dd HH:MM:mm" /></td>
                                                 </tr>
@@ -243,7 +240,7 @@
                             <div class="row pt-3">
                                 <div class="col-2"></div>
                                     <div class="text-end">
-                                        <button type="button" id="QuestionCreateBtn" class="btn btn-lg btn-outline-secondary" style="text-align: center; margin-right: 45px;" onclick="questionCreate();">< ${product.pname} >문의 작성</button>
+                                        <button type="button" id="QuestionCreateBtn" class="btn btn-lg btn-outline-secondary" style="text-align: center; margin-right: 200px;" onclick="questionCreate();">< ${product.pname} >문의 작성</button>
                                     </div>
 
                                 
@@ -305,15 +302,26 @@
         <script>
          $(function() {
        
-         	  $('#btnAddToBasket').click(function() {
-         		  const selected = $('#selctProductOption').find(":selected").val();
-         		  alert(selected);
-         		  
+         	  $('#btnAddToBasket').click(function() {         		  
          	    const b_id = $('#basketId').val();
          	    const p_id = $('#productId').val();
          	    const pcount = $('#productCount').text().match(/\d+/);
          	    const count = parseInt(pcount, 10);
          	    //alert(b_id + " " + p_id + " " + count);
+         	    
+         	    if(b_id == 0 || b_id == null || b_id == 'null') {
+         	    	if(confirm('로그인 후 이용 가능합니다.')) {
+         	    		window.location.href='/joo/user/login';
+         	    		return;
+         	    	} else {
+         	    		return;
+         	    	}
+         	    }
+         	    
+         	    if(count === 0) {
+         	    	alert('선택된 상품이 없습니다.');
+         	    	return;
+         	    }
          	    
          	    const param = {"b_id": b_id, "p_id": p_id, "pcount": count};
          	   
@@ -364,14 +372,12 @@
          	  });
          	}
         </script>
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script>const pid = ${ productId }</script>
         <script src="../static/js/productPage/ProductDetailPage.js"></script>
     </div>
 </body>
 </html>
-
-        <footer class="my-1 p-3 text-bg-dark">
             <jsp:include page="../common/footer.jsp"></jsp:include>
-        </footer>

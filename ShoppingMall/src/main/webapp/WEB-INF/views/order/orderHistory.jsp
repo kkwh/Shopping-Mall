@@ -142,7 +142,7 @@
                                                 &nbsp;&nbsp;&nbsp;
                                              <button id="cancelOrderButton" type="button" class="btn btn-danger btn-sm float-right" 
                                                      data-orderid="${order.id}" data-userid="${order.uid}" data-discount="${order.odiscount_price}"
-                                                     data-productid="${order.pid}" data-count="${order.pcount}">
+                                                     data-productid="${order.pid}" data-count="${order.pcount}" data-oid="${ order.oid }">
                                                      주문취소
                                             </button>
 

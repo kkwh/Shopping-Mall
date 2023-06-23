@@ -2,53 +2,23 @@
     pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Spring 2</title>
-		<link
-   			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
-   			rel="stylesheet"
-   			integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
-   			crossorigin="anonymous">
-	</head>
-	<body>
-	<div>
-       <ul class="nav nav-tabs">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                    카테고리
-                </a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a class="dropdown-item" href="/joo/product/productsList">모아보기</a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="/joo/product/productsList">소주</a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="/joo/product/productsList">맥주</a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="/joo/product/productsList">와인</a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="/joo/product/productsList">양주</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/joo/product/productsNewList">신상</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/joo/product/productsHotList">랭킹</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/joo/post/postList">공지사항/이벤트</a>
-            </li>
-        </ul> 
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Spring 2</title>
+            <link
+                href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+                rel="stylesheet"
+                integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+                crossorigin="anonymous">
+    </head>
+    <body>
+    <div>
+       
 
     <main class="my-1 p-5 text-bg-dark">
+        <!-- 공지글 상세보기 -->
+        <h1 class="text-center">바디(메인베너)</h1>
 
         <!-- 반복문으로 이벤트 자동으로 만들기 -->
         <div id="carouselExampleIndicators" class="carousel slide"
@@ -69,7 +39,7 @@
             <!-- justify-content: center; align-items: center; -->
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <a href="/joo/post/postDetail?id=1"> <img
+                    <a href="/joo/user/join"> <img
                         src="./static/assets/bannerImages/001.jpg"
                         class="d-block w-100" alt="bannerImege01">
                     </a>
@@ -111,11 +81,11 @@
         </div>
 
     </main>
-    <script
+                        <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>
 
-	</div>
-	</body>
+    </div>
+    </body>
 </html>

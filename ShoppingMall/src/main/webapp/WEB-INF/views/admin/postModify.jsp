@@ -15,6 +15,7 @@ pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 			crossorigin="anonymous">
 	</head>
 	<body>
+                  <jsp:include page="../common/adminHeader.jsp"></jsp:include>   
 		<div>
 			<header class="my-1 p-3 text-bg-dark">
             <div>

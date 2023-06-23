@@ -25,12 +25,8 @@
        <nav class="navbar navbar-expand-lg">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <c:url var="mainPage" value="/" />
-                    <a class="nav-link" href="${ mainPage }">메인 페이지</a>
-                </li>
-                <li class="nav-item">
                     <c:url var="questionQnaListPage" value="/questions/questionQnaList"/>
-                    <a class="nav-link" href="${ questionQnaListPage }">문의 목록</a>
+                    <a class="nav-link" href="${ questionQnaListPage }">QNA 문의 목록</a>
                 </li>
             </ul>
         </nav>
@@ -65,7 +61,7 @@
                 
                 <div class="card-footer my-2">
                     <c:url var="questionQnaModifyPage" value="/questions/questionQnaModify">
-                        <c:param name="qnid" value="${ question.id }"></c:param>
+                        <c:param name="id" value="${ question.id }"></c:param>
                     </c:url>
                     
                    <sec:authentication property="principal" var="pinfo" />

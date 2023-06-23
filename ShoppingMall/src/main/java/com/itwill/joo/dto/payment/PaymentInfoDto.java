@@ -1,5 +1,6 @@
 package com.itwill.joo.dto.payment;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 import com.itwill.joo.domain.PaymentInfo;
@@ -35,6 +36,18 @@ public class PaymentInfoDto {
 				.merchant_uid(merchant_uid)
 				.amount(amount)
 				.pcreated_time(pcreated_time)
+				.build();
+	}
+	
+	public static PaymentInfoDto fromEntity(PaymentInfo entity) {
+		return PaymentInfoDto.builder()
+				.id(entity.getId())
+				.o_id(entity.getO_id())
+				.pay_method(entity.getPay_method())
+				.imp_uid(entity.getImp_uid())
+				.merchant_uid(entity.getMerchant_uid())
+				.amount(entity.getAmount())
+				.pcreated_time(entity.getPcreated_time())
 				.build();
 	}
 	
