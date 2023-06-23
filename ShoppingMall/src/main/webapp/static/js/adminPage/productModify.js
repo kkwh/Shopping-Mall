@@ -241,7 +241,7 @@
         
         axios.delete(url)
         .then((response) => {
-            alert('상품 삭제 성공');
+            alert('유저 삭제 성공');
             // 상품리스트 초기화
             resetUserList();
         })
@@ -333,7 +333,7 @@
         
         axios.delete(url)
         .then((response) => {
-            alert('상품 삭제 성공');
+            alert('게시물 삭제 성공');
             // 상품리스트 초기화
             resetPostList();
         })

@@ -124,9 +124,6 @@
                     id="btnPrevious" value="이전" /> <input
                     class="btn btn-outline-secondary" type="button"
                     id="btnSkip" value="다음에 설정하기" />
-                    
-                    <input class="d-none" type="text" name="ptitle_image" id="ptitle_image" value=""/>
-                    <input class="d-none" type="text" name="pdetail_image" id="pdetail_image" value=""/>
             </form>
         </div>
 

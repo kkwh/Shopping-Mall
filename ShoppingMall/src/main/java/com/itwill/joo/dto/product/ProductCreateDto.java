@@ -26,16 +26,12 @@ public class ProductCreateDto {
 	private int pstock; // 제고수
 	private int pdiscount; // 할인
 	
-	// 저장경로
-	private String ptitle_image; // 섬네일
-	private String pdetail_image; // 상세보기
-	
 	private LocalDateTime pcreated_time;
 	private LocalDateTime pmodified_time;
 	
 	public Product toEntity() {
 		return Product.builder().id(id).pname(pname).pcategory(pcategory).pregion(pregion).pvolume(pvolume).pdiscount(pdiscount)
-				.pprice(pprice).palc(palc).pstock(pstock).ptitle_image(ptitle_image).pdetail_image(pdetail_image).build();
+				.pprice(pprice).palc(palc).pstock(pstock).build();
 	}
 	
 	public static ProductCreateDto fromEntity(Product p) {
@@ -43,8 +39,7 @@ public class ProductCreateDto {
 				.pcategory(p.getPcategory()).pregion(p.getPregion())
 				.pvolume(p.getPvolume()).pprice(p.getPprice())
 				.palc(p.getPalc()).pstock(p.getPstock())
-				.pdiscount(p.getPdiscount()).ptitle_image(p.getPtitle_image())
-				.pdetail_image(p.getPdetail_image()).pcreated_time(p.getPcreated_Time().toLocalDateTime())
+				.pdiscount(p.getPdiscount()).pcreated_time(p.getPcreated_Time().toLocalDateTime())
 				.pmodified_time(p.getPmodified_Time().toLocalDateTime()).build();
 	}
 	

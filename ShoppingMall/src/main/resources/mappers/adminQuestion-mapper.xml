@@ -52,7 +52,7 @@
         QCREATED_TIME
     </select>
     
-    <update id = "updateAnswere">
+    <update id = "updateAnswered">
         update QUESTIONS 
         set is_answered = #{is_answered}, QREPLYCREATED_TIME = systimestamp
         where ID = #{id}    

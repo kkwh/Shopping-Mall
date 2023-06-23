@@ -13,7 +13,7 @@
     </header>
 	<div style="width: 60%; margin: 0 auto; padding: 20px 5px;">
 		<div id="title-area" style="margin: 0 auto; padding: 20px 5px;">
-			<h2 style="text-align: center;">"${ user.uname }"님의 리뷰 작성내역</h2>
+			<h2 style="text-align: center;">리뷰 작성내역</h2>
 			<hr />
 		</div>
 		<div id="reviews">

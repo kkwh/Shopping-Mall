@@ -47,7 +47,7 @@
                         <tr class="xans-record-">
                             <td class="thumb" style="width: 135px;">
                                 <a href="/joo/product/productDetail?pid=${ info.pid }">
-                                    <img src=${ info.ptitle_image } alt=""
+                                    <img src="${ info.ptitle_image }" alt=""
                                     width="100">
                             </a>
                             </td>
