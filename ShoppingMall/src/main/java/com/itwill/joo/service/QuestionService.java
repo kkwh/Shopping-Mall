@@ -77,11 +77,12 @@ public class QuestionService {
             long productId = q.getP_id();
             User user = userRepository.selectUserById(userId);
             Product product = questionRepository.selectProductById(productId);
-            String login_id =   user. getLogin_id();
+            String login_id =  user.getLogin_id();
         
             QuestionsListDto dto = QuestionsListDto.fromEntity(q);
             dto.setLogin_id(login_id);
             dto.setProduct(product);
+            log.info("dto={}", dto);
             questions.add(dto);
             
         }

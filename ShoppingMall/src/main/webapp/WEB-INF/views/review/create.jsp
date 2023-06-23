@@ -112,7 +112,7 @@ crossorigin="anonymous">
         				success: function(res) {
         					console.log(res);
         					alert('리뷰 작성 성공');
-        					window.location.href='/joo/review/list';
+        					window.location.href='/joo';
         				}, error: function(error) {
         					console.log(error);
         				}
